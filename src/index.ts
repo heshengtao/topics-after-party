@@ -2,24 +2,25 @@
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { Hono } from 'hono'
-import apiApp from './app'
+import topicApp from './app' // 引入上面的逻辑
 
 const app = new Hono()
 
 // 1. 挂载 API
-// apiApp 内部处理 /api/topic，所以我们挂载在 /
-app.route('/', apiApp)
+// 访问 /api/topic 时，会进入 topicApp 处理
+app.route('/api', topicApp)
 
 // 2. 挂载静态网页
-// 放在 API 路由之后。如果上面的 /api/topic 没匹配到，才会往下走这里
 app.use('/*', serveStatic({ root: './public' }))
 
-// 启动服务
+// 3. 启动服务
 const port = 3000
-console.log(`Server is running on port ${port}`)
+console.log(`Starting server on port ${port}...`)
 
 serve({
   fetch: app.fetch,
-  port,
+  port: port,
   hostname: '0.0.0.0'
+}, (info) => {
+  console.log(`✅ Server running at http://${info.address}:${info.port}`)
 })

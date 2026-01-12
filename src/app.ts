@@ -3,14 +3,14 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { topics, ResponseTopic } from './data'
 
-// 修改 1: 去掉 .basePath('/api')，直接初始化 Hono
+// 创建一个纯粹的应用实例
 const app = new Hono()
 
 app.use('/*', cors())
 
-// 修改 2: 路由显式写成 '/api/topic'
-// 这样无论在哪个平台，只要请求路径匹配这个字符串，就能工作，不再依赖路径解析魔法
-app.get('/api/topic', (c) => {
+// ⚠️ 注意：这里只写 /topic，不要写 /api/topic
+// 我们会在外层把它挂载到 /api 路径下
+app.get('/topic', (c) => {
   const query = c.req.query()
   const reqLocale = query.locale === 'zh-CN' ? 'zh' : 'en' 
   const limit = parseInt(query.limit || '1')

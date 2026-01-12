@@ -1,17 +1,15 @@
 [build]
   command = "npm install"
-  publish = "public"  # 静态页面目录
+  publish = "public"
 
 [functions]
-  directory = "functions" # 函数入口目录
+  directory = "functions"
 
-# 核心路由重写规则
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api"
   status = 200
 
-# 让剩下的所有路径都去尝试匹配 index.html (SPA 支持，虽然目前没用到但留着无害)
 [[redirects]]
   from = "/*"
   to = "/index.html"
