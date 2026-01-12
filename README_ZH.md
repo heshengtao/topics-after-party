@@ -160,6 +160,23 @@ print(data['data'][0]['text'])
 
 ---
 
+## 🤖 生成新话题 (Generate New Topics)
+
+你可以使用 `generate_topics.js` 脚本生成新的话题数据，并将`new_topics.ts.txt`更新到 `src/data.ts` 文件中。
+
+```bash
+npm install
+node generate_topics.js
+```
+
+---
+
+## 📝 贡献 (Contributing)
+
+欢迎提交 Pull Request 或 Issue，共同完善这个项目。
+
+---
+
 ## 🤝 贡献 (Contributing)
 
 欢迎提交 Pull Request 或 Issue，共同完善这个项目。

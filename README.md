@@ -160,6 +160,17 @@ To deploy or modify the data yourself:
 
 ---
 
+## 🤖 Generate New Topics
+
+You can use the `generate_topics.js` script to generate new topic data and update `new_topics.ts.txt` into the `src/data.ts` file.
+
+```bash
+npm install
+node generate_topics.js
+```
+
+---
+
 ## 🤝 Contributing
 
 Pull Requests and Issues are welcome to improve this project together.

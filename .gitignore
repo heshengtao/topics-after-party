@@ -139,3 +139,4 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 .DS_Store
+generated_topics.ts.txt
