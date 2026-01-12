@@ -8,10 +8,11 @@ import app from './app' // 导入刚才拆出来的核心逻辑
 app.use('/*', serveStatic({ root: './public' }))
 
 // 2. 启动服务
-const port = 3000
+const port = Number(process.env.PORT) || 3000
+
 console.log(`Server is running on port ${port}`)
 
 serve({
   fetch: app.fetch,
-  port
+  port // 这里传入动态获取的端口
 })
