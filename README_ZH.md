@@ -171,12 +171,6 @@ node generate_topics.js
 
 ---
 
-## 📝 贡献 (Contributing)
-
-欢迎提交 Pull Request 或 Issue，共同完善这个项目。
-
----
-
 ## 🤝 贡献 (Contributing)
 
 欢迎提交 Pull Request 或 Issue，共同完善这个项目。
