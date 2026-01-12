@@ -158,3 +158,41 @@ To deploy or modify the data yourself:
     ```
     Visit `http://localhost:3000` to see the demo page.
 
+---
+
+## 🤝 Contributing
+
+Pull Requests and Issues are welcome to improve this project together.
+
+You can submit your topics in the `topics` array on the [topic data page](https://github.com/heshengtao/topics-after-party/blob/main/src/data.ts) to help enrich this API.
+
+```typescript
+export const topics: RawTopic[] = [
+  // 1. Life Planning (Curious, Depth 2)
+  {
+    id: "t-001",
+    text: {
+      en: "If you could earn an income for a year without working, how would you spend your days?",
+      zh: "如果一年不工作也有收入，你会怎样安排每一天？"
+    },
+    category: { en: "Life Planning", zh: "人生规划" },
+    tags: { en: ["FIRE", "Slow Life", "Money"], zh: ["FIRE", "慢生活", "金钱观"] },
+    mood: "curious",
+    depth: 2,
+    follow_ups: {
+      en: ["What time would you wake up?", "Would you live in a different city?"],
+      zh: ["那具体几点起床？", "你会去哪座城市长住吗？"]
+    },
+    safe_for_work: true
+  },
+  // More topics...
+];
+```
+
+---
+
+## 📝 License
+
+This project is licensed under [Apache-2.0](./LICENSE).
+
+---
