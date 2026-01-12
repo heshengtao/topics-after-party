@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topic API Playground</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; transition: all 0.3s ease; }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* 范围滑块美化 */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #0f172a;
+            cursor: pointer;
+            margin-top: -6px; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #e2e8f0;
+            border-radius: 2px;
+        }
+
+        /* 代码高亮颜色 */
+        .key { color: #e879f9; } 
+        .string { color: #34d399; } 
+        .number { color: #60a5fa; } 
+        .boolean { color: #fbbf24; }
+        .null { color: #94a3b8; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-10 px-4 sm:px-6 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]">
+
+    <!-- 语言切换浮窗 (右上角) -->
+    <div class="absolute top-6 right-6">
+        <button onclick="toggleInterfaceLanguage()" class="bg-white/80 backdrop-blur border border-slate-200 shadow-sm px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 hover:text-slate-900 transition flex items-center gap-1">
+            <span id="lang-icon">🌐</span>
+            <span id="lang-text">English</span>
+        </button>
+    </div>
+
+    <div class="w-full max-w-6xl space-y-8">
+        
+        <!-- Header -->
+        <div class="text-center space-y-2 pt-4">
+            <h1 class="text-4xl font-semibold tracking-tight text-slate-900" data-i18n="title">Topic API</h1>
+            <p class="text-slate-500 text-lg font-light" data-i18n="subtitle">Bilingual Conversation Starters for AI</p>
+        </div>
+
+        <!-- 主布局 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            
+            <!-- 左侧：配置面板 -->
+            <div class="lg:col-span-4 bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 space-y-6 sticky top-6">
+                <div class="flex items-center space-x-2 border-b border-slate-100 pb-4">
+                    <div class="w-3 h-3 rounded-full bg-slate-200"></div>
+                    <h2 class="text-sm font-semibold text-slate-900 uppercase tracking-wider" data-i18n="config_title">Configuration</h2>
+                </div>
+
+                <div class="space-y-6">
+                    
+                    <!-- Locale Selection -->
+                    <div>
+                        <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_locale">Locale (Language)</label>
+                        <div class="relative">
+                            <select id="locale" onchange="updateUI()" class="w-full appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 block p-3 transition">
+                                <option value="zh-CN" selected>zh-CN (简体中文)</option>
+                                <option value="en-US">en-US (English)</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mood Selection -->
+                    <div>
+                        <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_mood">Mood</label>
+                        <div class="relative">
+                            <select id="mood" onchange="updateUI()" class="w-full appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 block p-3 transition">
+                                <option value="" data-i18n="opt_any">Any</option>
+                                <option value="positive">Positive (🙂)</option>
+                                <option value="curious">Curious (🤔)</option>
+                                <option value="flirty">Flirty (🥰)</option>
+                                <option value="neutral">Neutral (😐)</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Depth Slider (Fixed Layout) -->
+                    <div>
+                        <div class="flex justify-between mb-2 ml-1">
+                            <label class="block text-xs font-medium text-slate-500" data-i18n="label_depth">Depth</label>
+                            <span id="depth-val" class="text-[10px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">Any</span>
+                        </div>
+                        <div class="relative px-1">
+                            <input type="range" id="depth" min="0" max="5" value="0" step="1" oninput="updateUI()" class="w-full relative z-10">
+                            <!-- Depth Labels: Flexbox for perfect alignment -->
+                            <div class="flex justify-between text-[9px] text-slate-400 mt-2 font-medium tracking-tight select-none">
+                                <span class="w-8 text-center" data-i18n="depth_0">Any</span>
+                                <span class="w-8 text-center" data-i18n="depth_1">Ice</span>
+                                <span class="w-8 text-center" data-i18n="depth_2">Light</span>
+                                <span class="w-8 text-center" data-i18n="depth_3">Deep</span>
+                                <span class="w-8 text-center" data-i18n="depth_4">Love</span>
+                                <span class="w-8 text-center" data-i18n="depth_5">Soul</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Input -->
+                    <div>
+                         <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_category">Category Filter</label>
+                         <input type="text" id="category" placeholder="e.g. Life" oninput="updateUI()" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 block p-3 transition placeholder:text-slate-300">
+                    </div>
+
+                    <!-- Send Button -->
+                    <button onclick="fetchData()" class="w-full group relative flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-slate-900 hover:bg-slate-800 active:scale-[0.98] transition-all shadow-lg hover:shadow-xl">
+                        <span class="flex items-center gap-2">
+                            <svg class="h-4 w-4 text-slate-400 group-hover:text-white transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <span data-i18n="btn_send">Send Request</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 右侧：代码展示区 -->
+            <div class="lg:col-span-8 space-y-6">
+                
+                <!-- Tab Controls -->
+                <div class="flex items-center justify-between">
+                    <div class="bg-white/60 backdrop-blur rounded-xl p-1 inline-flex border border-slate-200/60 shadow-sm">
+                        <button onclick="switchTab('response')" id="tab-response" class="px-4 py-1.5 text-xs font-semibold rounded-lg text-slate-900 bg-white shadow-sm transition-all">Preview</button>
+                        <button onclick="switchTab('js')" id="tab-js" class="px-4 py-1.5 text-xs font-medium rounded-lg text-slate-500 hover:text-slate-900 transition-all">JS</button>
+                        <button onclick="switchTab('py')" id="tab-py" class="px-4 py-1.5 text-xs font-medium rounded-lg text-slate-500 hover:text-slate-900 transition-all">Python</button>
+                        <button onclick="switchTab('curl')" id="tab-curl" class="px-4 py-1.5 text-xs font-medium rounded-lg text-slate-500 hover:text-slate-900 transition-all">cURL</button>
+                    </div>
+                </div>
+
+                <!-- Terminal Window -->
+                <div class="bg-[#1e1e1e] rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/5 min-h-[500px] flex flex-col relative group">
+                    
+                    <!-- Window Header -->
+                    <div class="bg-[#2d2d2d] px-4 py-3 flex items-center justify-between border-b border-white/5 select-none">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                            <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                            <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                            <div id="url-preview" class="ml-4 text-[10px] font-mono text-gray-500 truncate opacity-0 sm:opacity-100 transition">/api/topic</div>
+                        </div>
+                        
+                        <!-- Copy Button (Right aligned) -->
+                        <button onclick="copyCode()" class="flex items-center gap-1.5 px-2 py-1 rounded hover:bg-white/10 text-gray-400 hover:text-white transition text-xs font-medium group-hover:opacity-100 opacity-60">
+                            <svg id="copy-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            <span id="copy-text" data-i18n="btn_copy">Copy</span>
+                        </button>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-6 overflow-x-auto flex-1 relative custom-scroll">
+                        <div id="loading" class="hidden absolute inset-0 bg-[#1e1e1e]/80 flex items-center justify-center z-10 backdrop-blur-sm">
+                            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                        </div>
+
+                        <pre id="view-response" class="font-mono text-xs sm:text-sm leading-relaxed text-gray-300"></pre>
+                        <pre id="view-js" class="hidden font-mono text-xs sm:text-sm leading-relaxed text-blue-300"></pre>
+                        <pre id="view-py" class="hidden font-mono text-xs sm:text-sm leading-relaxed text-yellow-300"></pre>
+                        <pre id="view-curl" class="hidden font-mono text-xs sm:text-sm leading-relaxed text-green-300"></pre>
+                    </div>
+                </div>
+
+                <div class="text-center text-slate-400 text-[10px] uppercase tracking-widest">
+                    Powered by Hono & Zeabur
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interface Logic -->
+    <script>
+        // 1. i18n Data
+        const translations = {
+            "en": {
+                "title": "Topic API",
+                "subtitle": "Keep your AI companion's conversation topics from ever running dry",
+                "config_title": "Configuration",
+                "label_locale": "Locale (Target Language)",
+                "label_mood": "Mood",
+                "label_depth": "Depth Level",
+                "label_category": "Category Filter",
+                "opt_any": "Any / Random",
+                "depth_0": "Any", "depth_1": "Ice", "depth_2": "Light", "depth_3": "Deep", "depth_4": "Love", "depth_5": "Soul",
+                "btn_send": "Send Request",
+                "btn_copy": "Copy",
+                "lang_btn": "中文" // text to show on button when current is EN
+            },
+            "zh": {
+                "title": "话题 API",
+                "subtitle": "让你的 AI 伴侣话题不再枯竭",
+                "config_title": "参数配置",
+                "label_locale": "目标语言 (Locale)",
+                "label_mood": "情感基调 (Mood)",
+                "label_depth": "话题深度 (Depth)",
+                "label_category": "分类筛选 (Category)",
+                "opt_any": "任意 / 随机",
+                "depth_0": "任意", "depth_1": "破冰", "depth_2": "闲聊", "depth_3": "走心", "depth_4": "暧昧", "depth_5": "灵魂",
+                "btn_send": "发送请求",
+                "btn_copy": "复制",
+                "lang_btn": "English" // text to show on button when current is ZH
+            }
+        };
+
+        // State
+        let currentInterfaceLang = 'en';
+        let currentTab = 'response';
+
+        // 2. Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            detectSystemLanguage();
+            updateInterface();
+            updateUI(); 
+            fetchData();
+        });
+
+        // 3. Language Logic
+        function detectSystemLanguage() {
+            const sysLang = navigator.language || navigator.userLanguage; 
+            if (sysLang.toLowerCase().includes('zh')) {
+                currentInterfaceLang = 'zh';
+            } else {
+                currentInterfaceLang = 'en';
+            }
+        }
+
+        function toggleInterfaceLanguage() {
+            currentInterfaceLang = currentInterfaceLang === 'en' ? 'zh' : 'en';
+            updateInterface();
+        }
+
+        function updateInterface() {
+            const t = translations[currentInterfaceLang];
+            
+            // Update button text
+            document.getElementById('lang-text').innerText = t.lang_btn;
+
+            // Update all data-i18n elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) el.innerText = t[key];
+            });
+        }
+
+        // 4. Playground Logic
+        function getParams() {
+            const locale = document.getElementById('locale').value;
+            const mood = document.getElementById('mood').value;
+            const category = document.getElementById('category').value;
+            const depth = document.getElementById('depth').value;
+            
+            const params = new URLSearchParams();
+            params.append('limit', '1');
+            params.append('locale', locale);
+            if (mood) params.append('mood', mood);
+            if (category) params.append('category', category);
+            if (depth !== "0") params.append('depth', depth);
+
+            return params;
+        }
+
+        function updateUI() {
+            const params = getParams();
+            const depthVal = document.getElementById('depth').value;
+            
+            // Mapping depth numbers to text logic for the label pill
+            const t = translations[currentInterfaceLang];
+            const depthKey = `depth_${depthVal}`;
+            document.getElementById('depth-val').innerText = t[depthKey] || depthVal;
+
+            const endpoint = `/api/topic?${params.toString()}`;
+            const fullUrl = window.location.origin + endpoint;
+            document.getElementById('url-preview').innerText = "GET " + endpoint;
+
+            // Update Codes
+            document.getElementById('view-js').innerText = `// JavaScript Fetch\nfetch("${fullUrl}")\n  .then(res => res.json())\n  .then(data => console.log(data));`;
+            document.getElementById('view-py').innerText = `# Python Requests\nimport requests\n\nres = requests.get("${fullUrl}")\nprint(res.json())`;
+            document.getElementById('view-curl').innerText = `# cURL Terminal\ncurl -X GET "${fullUrl}"`;
+        }
+
+        async function fetchData() {
+            if (currentTab !== 'response') switchTab('response');
+
+            const loading = document.getElementById('loading');
+            const view = document.getElementById('view-response');
+            
+            loading.classList.remove('hidden');
+            view.innerHTML = '';
+
+            const params = getParams();
+            const url = `/api/topic?${params.toString()}`;
+
+            try {
+                const start = Date.now();
+                const res = await fetch(url);
+                const data = await res.json();
+                const ms = Date.now() - start;
+
+                const jsonStr = JSON.stringify(data, null, 2);
+                const highlighted = syntaxHighlight(jsonStr);
+                
+                view.innerHTML = highlighted + `\n\n<span class="text-gray-600">// Time: ${ms}ms</span>`;
+            } catch (e) {
+                view.innerHTML = `<span class="text-red-400">Error: ${e.message}</span>`;
+            } finally {
+                loading.classList.add('hidden');
+            }
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            ['response', 'js', 'py', 'curl'].forEach(t => {
+                document.getElementById(`view-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).className = "px-4 py-1.5 text-xs font-medium rounded-lg text-slate-500 hover:text-slate-900 transition-all";
+            });
+            document.getElementById(`view-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-${tab}`).className = "px-4 py-1.5 text-xs font-semibold rounded-lg text-slate-900 bg-white shadow-sm transition-all";
+        }
+
+        // 5. Copy Logic
+        function copyCode() {
+            let textToCopy = '';
+            // Determine which tab is active
+            if (currentTab === 'response') textToCopy = document.getElementById('view-response').innerText;
+            else textToCopy = document.getElementById(`view-${currentTab}`).innerText;
+            
+            // Remove the latency log line if copying JSON
+            textToCopy = textToCopy.replace(/\/\/ Time: \d+ms$/, '');
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const btn = document.getElementById('copy-text');
+                const originalText = btn.innerText;
+                btn.innerText = "OK!";
+                document.getElementById('copy-icon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>'; // Checkmark
+                
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    document.getElementById('copy-icon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>';
+                }, 2000);
+            });
+        }
+
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                var cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) { cls = 'key'; } else { cls = 'string'; }
+                } else if (/true|false/.test(match)) { cls = 'boolean'; } else if (/null/.test(match)) { cls = 'null'; }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+    </script>
+</body>
+</html>
