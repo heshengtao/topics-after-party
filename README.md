@@ -19,8 +19,7 @@
 
 Keep your AI chats alive with unlimited conversation inspiration.
 
-[Live Demo (Zeabur)](https://topics-after-party.zeabur.app/) | [Backup Mirror (Netlify)](https://topics-after-party.netlify.app/)
-
+[![Zeabur](https://img.shields.io/badge/Zeabur-在线演示-6332f6?logo=zeabur&logoColor=white)](https://topics-after-party.zeabur.app/)
 ![License](https://img.shields.io/badge/license-Apache--2.0-green)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![Hono](https://img.shields.io/badge/Hono-Fast-orange)

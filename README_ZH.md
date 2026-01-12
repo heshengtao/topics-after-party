@@ -19,8 +19,7 @@
 
 让你的 AI 聊天不再冷场，拥有无限的对话灵感。
 
-[在线演示 (Zeabur)](https://topics-after-party.zeabur.app/) | [备用镜像 (Netlify)](https://topics-after-party.netlify.app/)
-
+[![Zeabur](https://img.shields.io/badge/Zeabur-在线演示-6332f6?logo=zeabur&logoColor=white)](https://topics-after-party.zeabur.app/)
 ![License](https://img.shields.io/badge/license-Apache--2.0-green)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![Hono](https://img.shields.io/badge/Hono-Fast-orange)
@@ -48,8 +47,7 @@
 
 我们提供了可视化的 Playground，你可以直接在网页上调整参数并测试 API 响应：
 
-*   **主节点 (推荐，国内访问快)**: [https://topics-after-party.zeabur.app/](https://topics-after-party.zeabur.app/)
-*   **备用节点**: [https://topics-after-party.netlify.app/](https://topics-after-party.netlify.app/)
+* [https://topics-after-party.zeabur.app/](https://topics-after-party.zeabur.app/)
 
 ---
 
