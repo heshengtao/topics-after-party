@@ -1,6 +1,8 @@
-# 💬 Topics After Party
-
 <div align="center">
+
+  # 💬 Topics After Party
+
+</div>
 
 <div align="center">
   <a href="./README_ZH.md">
