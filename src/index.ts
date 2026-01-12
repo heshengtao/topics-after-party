@@ -1,18 +1,26 @@
 // src/index.ts
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
-import app from './app' // 导入刚才拆出来的核心逻辑
+import { Hono } from 'hono'
+import apiApp from './app'
 
-// 1. 专门为 Node 环境 (Zeabur) 增加静态文件托管
-// Netlify 不需要这行，因为它有自己的 CDN
+// 创建一个根 App
+const app = new Hono()
+
+// 1. 挂载 API (它自己带有 basePath '/api')
+// 当请求 /api/topic 时，会被路由到 apiApp
+app.route('/', apiApp)
+
+// 2. 挂载静态网页 (到根路径)
+// 只有在非 /api 开头时，才会去 public 找文件
 app.use('/*', serveStatic({ root: './public' }))
 
-// 2. 启动服务
+// 启动服务
 const port = Number(process.env.PORT) || 3000
-
 console.log(`Server is running on port ${port}`)
 
 serve({
   fetch: app.fetch,
-  port // 这里传入动态获取的端口
+  port,
+  hostname: '0.0.0.0'
 })

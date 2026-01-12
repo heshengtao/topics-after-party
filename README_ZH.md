@@ -2,6 +2,15 @@
 
 <div align="center">
 
+<div align="center">
+  <a href="./README_ZH.md">
+    <img src="https://img.shields.io/badge/简体中文-自述文档-00B4AB?style=for-the-badge&logo=markdown"/>
+  </a>
+  <a href="./README.md">
+    <img src="https://img.shields.io/badge/English-Readme-0057D2?style=for-the-badge&logo=markdown"/>
+  </a>
+</div>
+
 **为 AI 伴侣、虚拟女友/男友项目设计的实时随机话题生成 API**
 
 让你的 AI 聊天不再冷场，拥有无限的对话灵感。

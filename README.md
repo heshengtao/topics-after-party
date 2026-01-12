@@ -2,6 +2,15 @@
 
 <div align="center">
 
+<div align="center">
+  <a href="./README_ZH.md">
+    <img src="https://img.shields.io/badge/简体中文-自述文档-00B4AB?style=for-the-badge&logo=markdown"/>
+  </a>
+  <a href="./README.md">
+    <img src="https://img.shields.io/badge/English-Readme-0057D2?style=for-the-badge&logo=markdown"/>
+  </a>
+</div>
+
 **Real-time random topic generation API designed for AI companions, virtual girlfriend/boyfriend projects**
 
 Keep your AI chats alive with unlimited conversation inspiration.

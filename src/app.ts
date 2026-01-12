@@ -3,13 +3,14 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { topics, ResponseTopic } from './data'
 
-// 这里只负责创建 App 和定义路由，不负责启动监听
-const app = new Hono()
+// 关键修改 1: 使用 basePath('/api')，这样 Hono 会自动处理前缀
+const app = new Hono().basePath('/api')
 
 app.use('/*', cors())
 
-// API 路由逻辑 (完全复用之前的)
-app.get('/api/topic', (c) => {
+// 关键修改 2: 这里的路径只写 '/topic'，不要写 '/api/topic'
+// 因为 basePath 已经包含了 '/api'
+app.get('/topic', (c) => {
   const query = c.req.query()
   const reqLocale = query.locale === 'zh-CN' ? 'zh' : 'en' 
   const limit = parseInt(query.limit || '1')
