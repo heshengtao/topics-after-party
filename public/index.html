@@ -3,63 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 1. 保留你的图标 -->
     <link rel="icon" type="image/png" href="./icon.png">
+    
     <title>Topic API Playground</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- 2. 引入 Prism.js (代码高亮库) 的 CSS - 使用 Tomorrow Night 主题 (暗黑风) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; transition: all 0.3s ease; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
         
+        /* 终端字体 */
+        code, pre { font-family: 'JetBrains Mono', monospace !important; font-size: 13px !important; }
+
         /* 自定义滚动条 */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 
-        /* 范围滑块美化 */
-        input[type=range] {
-            -webkit-appearance: none;
-            background: transparent;
-        }
+        /* 滑块美化 */
+        input[type=range] { -webkit-appearance: none; background: transparent; }
         input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 16px;
-            width: 16px;
-            border-radius: 50%;
-            background: #0f172a;
-            cursor: pointer;
-            margin-top: -6px; 
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-            transition: transform 0.1s;
+            -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%;
+            background: #0f172a; cursor: pointer; margin-top: -6px; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2); transition: transform 0.1s;
         }
         input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
         input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: #e2e8f0;
-            border-radius: 2px;
+            width: 100%; height: 4px; cursor: pointer; background: #e2e8f0; border-radius: 2px;
         }
 
-        /* 代码高亮颜色 */
-        .key { color: #e879f9; } 
-        .string { color: #34d399; } 
-        .number { color: #60a5fa; } 
-        .boolean { color: #fbbf24; }
-        .null { color: #94a3b8; }
+        /* 修复 Prism.js 的默认背景，让它融入我们的容器 */
+        pre[class*="language-"] {
+            background: transparent !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            text-shadow: none !important;
+            box-shadow: none !important;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center py-10 px-4 sm:px-6 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]">
 
-    <!-- 语言切换浮窗 (右上角) -->
-    <div class="absolute top-6 right-6">
+    <!-- Language Switcher -->
+    <div class="absolute top-6 right-6 z-50">
         <button onclick="toggleInterfaceLanguage()" class="bg-white/80 backdrop-blur border border-slate-200 shadow-sm px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 hover:text-slate-900 transition flex items-center gap-1">
-            <span id="lang-icon">🌐</span>
+            <span>🌐</span>
             <span id="lang-text">English</span>
         </button>
     </div>
 
-    <div class="w-full max-w-6xl space-y-8">
+    <div class="w-full max-w-6xl space-y-10">
         
         <!-- Header -->
         <div class="text-center space-y-2 pt-4">
@@ -67,10 +69,10 @@
             <p class="text-slate-500 text-lg font-light" data-i18n="subtitle">Bilingual Conversation Starters for AI</p>
         </div>
 
-        <!-- 主布局 -->
+        <!-- Main Layout -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             
-            <!-- 左侧：配置面板 -->
+            <!-- Left: Config -->
             <div class="lg:col-span-4 bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 space-y-6 sticky top-6">
                 <div class="flex items-center space-x-2 border-b border-slate-100 pb-4">
                     <div class="w-3 h-3 rounded-full bg-slate-200"></div>
@@ -78,22 +80,19 @@
                 </div>
 
                 <div class="space-y-6">
-                    
-                    <!-- Locale Selection -->
+                    <!-- Locale -->
                     <div>
-                        <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_locale">Locale (Language)</label>
+                        <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_locale">Locale</label>
                         <div class="relative">
                             <select id="locale" onchange="updateUI()" class="w-full appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 block p-3 transition">
                                 <option value="zh-CN" selected>zh-CN (简体中文)</option>
                                 <option value="en-US">en-US (English)</option>
                             </select>
-                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
+                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                         </div>
                     </div>
 
-                    <!-- Mood Selection -->
+                    <!-- Mood -->
                     <div>
                         <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_mood">Mood</label>
                         <div class="relative">
@@ -104,13 +103,11 @@
                                 <option value="flirty">Flirty (🥰)</option>
                                 <option value="neutral">Neutral (😐)</option>
                             </select>
-                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
+                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                         </div>
                     </div>
 
-                    <!-- Depth Slider (Fixed Layout) -->
+                    <!-- Depth -->
                     <div>
                         <div class="flex justify-between mb-2 ml-1">
                             <label class="block text-xs font-medium text-slate-500" data-i18n="label_depth">Depth</label>
@@ -118,7 +115,6 @@
                         </div>
                         <div class="relative px-1">
                             <input type="range" id="depth" min="0" max="5" value="0" step="1" oninput="updateUI()" class="w-full relative z-10">
-                            <!-- Depth Labels: Flexbox for perfect alignment -->
                             <div class="flex justify-between text-[9px] text-slate-400 mt-2 font-medium tracking-tight select-none">
                                 <span class="w-8 text-center" data-i18n="depth_0">Any</span>
                                 <span class="w-8 text-center" data-i18n="depth_1">Ice</span>
@@ -130,13 +126,13 @@
                         </div>
                     </div>
 
-                    <!-- Category Input -->
+                    <!-- Category -->
                     <div>
-                         <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_category">Category Filter</label>
+                         <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_category">Category</label>
                          <input type="text" id="category" placeholder="e.g. Life" oninput="updateUI()" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 block p-3 transition placeholder:text-slate-300">
                     </div>
 
-                    <!-- Send Button -->
+                    <!-- Button -->
                     <button onclick="fetchData()" class="w-full group relative flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-slate-900 hover:bg-slate-800 active:scale-[0.98] transition-all shadow-lg hover:shadow-xl">
                         <span class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-slate-400 group-hover:text-white transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -146,9 +142,8 @@
                 </div>
             </div>
 
-            <!-- 右侧：代码展示区 -->
-            <div class="lg:col-span-8 space-y-6">
-                
+            <!-- Right: Code Terminal -->
+            <div class="lg:col-span-8 space-y-4">
                 <!-- Tab Controls -->
                 <div class="flex items-center justify-between">
                     <div class="bg-white/60 backdrop-blur rounded-xl p-1 inline-flex border border-slate-200/60 shadow-sm">
@@ -159,48 +154,109 @@
                     </div>
                 </div>
 
-                <!-- Terminal Window -->
-                <div class="bg-[#1e1e1e] rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/5 min-h-[500px] flex flex-col relative group">
+                <!-- 3. Terminal Window - 修复了背景色和垂直对齐 -->
+                <!-- 背景换成了更纯粹的黑灰色，min-h 固定高度，flex-col 布局 -->
+                <div class="bg-[#1d1f21] rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/5 min-h-[520px] flex flex-col relative group">
                     
-                    <!-- Window Header -->
-                    <div class="bg-[#2d2d2d] px-4 py-3 flex items-center justify-between border-b border-white/5 select-none">
+                    <!-- Window Controls -->
+                    <div class="bg-[#282a2e] px-4 py-3 flex items-center justify-between border-b border-white/5 select-none shrink-0">
                         <div class="flex items-center space-x-2">
                             <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
                             <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
                             <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
                             <div id="url-preview" class="ml-4 text-[10px] font-mono text-gray-500 truncate opacity-0 sm:opacity-100 transition">/api/topic</div>
                         </div>
-                        
-                        <!-- Copy Button (Right aligned) -->
                         <button onclick="copyCode()" class="flex items-center gap-1.5 px-2 py-1 rounded hover:bg-white/10 text-gray-400 hover:text-white transition text-xs font-medium group-hover:opacity-100 opacity-60">
                             <svg id="copy-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                             <span id="copy-text" data-i18n="btn_copy">Copy</span>
                         </button>
                     </div>
 
-                    <!-- Content -->
-                    <div class="p-6 overflow-x-auto flex-1 relative custom-scroll">
-                        <div id="loading" class="hidden absolute inset-0 bg-[#1e1e1e]/80 flex items-center justify-center z-10 backdrop-blur-sm">
-                            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                    <!-- Code Area -->
+                    <!-- 关键修改：items-start (顶部对齐), justify-start, 移除居中逻辑 -->
+                    <div class="p-6 overflow-auto flex-1 flex flex-col items-start justify-start relative w-full">
+                        
+                        <!-- Loading State -->
+                        <div id="loading" class="hidden absolute inset-0 bg-[#1d1f21]/80 flex items-center justify-center z-50 backdrop-blur-sm">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
                         </div>
 
-                        <pre id="view-response" class="font-mono text-xs sm:text-sm leading-relaxed text-gray-300"></pre>
-                        <pre id="view-js" class="hidden font-mono text-xs sm:text-sm leading-relaxed text-blue-300"></pre>
-                        <pre id="view-py" class="hidden font-mono text-xs sm:text-sm leading-relaxed text-yellow-300"></pre>
-                        <pre id="view-curl" class="hidden font-mono text-xs sm:text-sm leading-relaxed text-green-300"></pre>
-                    </div>
-                </div>
+                        <!-- 4. 使用 Prism.js 的结构: <pre><code class="language-xxx"> -->
+                        <div id="view-response" class="w-full">
+                            <pre><code class="language-json" id="code-response"></code></pre>
+                            <div id="latency-display" class="text-gray-500 text-[10px] mt-4 font-mono hidden">// Time: 0ms</div>
+                        </div>
 
-                <div class="text-center text-slate-400 text-[10px] uppercase tracking-widest">
-                    Powered by Hono & Zeabur
+                        <div id="view-js" class="hidden w-full">
+                            <pre><code class="language-javascript" id="code-js"></code></pre>
+                        </div>
+
+                        <div id="view-py" class="hidden w-full">
+                            <pre><code class="language-python" id="code-py"></code></pre>
+                        </div>
+
+                        <div id="view-curl" class="hidden w-full">
+                            <pre><code class="language-bash" id="code-curl"></code></pre>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Docs Section -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+            <h3 class="text-xl font-semibold text-slate-900 mb-6" data-i18n="doc_title">API Reference</h3>
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Request Table -->
+                <div>
+                    <h4 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4 border-b pb-2 border-slate-100" data-i18n="doc_req_title">Query Parameters (GET)</h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-xs text-slate-400">
+                                    <th class="py-2 font-medium" data-i18n="th_param">Param</th>
+                                    <th class="py-2 font-medium" data-i18n="th_type">Type</th>
+                                    <th class="py-2 font-medium" data-i18n="th_desc">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm text-slate-600 divide-y divide-slate-50" id="req-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Response Table -->
+                <div>
+                    <h4 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4 border-b pb-2 border-slate-100" data-i18n="doc_res_title">Response Fields</h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-xs text-slate-400">
+                                    <th class="py-2 font-medium" data-i18n="th_field">Field</th>
+                                    <th class="py-2 font-medium" data-i18n="th_type">Type</th>
+                                    <th class="py-2 font-medium" data-i18n="th_desc">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm text-slate-600 divide-y divide-slate-50" id="res-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center text-slate-300 text-xs pb-8">
+            Created by <a href="https://github.com/heshengtao" class="hover:text-slate-500 underline">heshengtao</a>
+        </div>
     </div>
 
-    <!-- Interface Logic -->
+    <!-- 5. 引入 Prism.js 核心库和语言包 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+
     <script>
-        // 1. i18n Data
+        // Data & i18n
         const translations = {
             "en": {
                 "title": "Topic API",
@@ -214,7 +270,22 @@
                 "depth_0": "Any", "depth_1": "Ice", "depth_2": "Light", "depth_3": "Deep", "depth_4": "Love", "depth_5": "Soul",
                 "btn_send": "Send Request",
                 "btn_copy": "Copy",
-                "lang_btn": "中文" // text to show on button when current is EN
+                "lang_btn": "中文",
+                "doc_title": "API Reference",
+                "doc_req_title": "Query Parameters (GET)",
+                "doc_res_title": "Response Object",
+                "th_param": "Param", "th_field": "Field", "th_type": "Type", "th_desc": "Description",
+                "req_limit": "Number of topics (default: 1)",
+                "req_locale": "Language: 'zh-CN' or 'en-US'",
+                "req_mood": "Filter by mood (positive, flirty...)",
+                "req_depth": "1 (Icebreaker) to 5 (Soulmate)",
+                "req_category": "Filter by category name",
+                "res_id": "Unique ID",
+                "res_text": "The conversation starter",
+                "res_tags": "Keywords for vector search",
+                "res_mood": "Emotion tag for TTS/BGM",
+                "res_depth": "Intimacy level (1-5)",
+                "res_follow": "Suggested follow-up questions"
             },
             "zh": {
                 "title": "话题 API",
@@ -228,23 +299,53 @@
                 "depth_0": "任意", "depth_1": "破冰", "depth_2": "闲聊", "depth_3": "走心", "depth_4": "暧昧", "depth_5": "灵魂",
                 "btn_send": "发送请求",
                 "btn_copy": "复制",
-                "lang_btn": "English" // text to show on button when current is ZH
+                "lang_btn": "English",
+                "doc_title": "接口文档",
+                "doc_req_title": "请求参数 (GET)",
+                "doc_res_title": "返回字段",
+                "th_param": "参数", "th_field": "字段", "th_type": "类型", "th_desc": "说明",
+                "req_limit": "返回条数 (默认 1)",
+                "req_locale": "语言: 'zh-CN' 或 'en-US'",
+                "req_mood": "情感过滤 (positive, flirty...)",
+                "req_depth": "1 (破冰) - 5 (灵魂)",
+                "req_category": "分类过滤",
+                "res_id": "唯一 ID",
+                "res_text": "话题内容文本",
+                "res_tags": "标签 (用于向量检索)",
+                "res_mood": "情感 (用于TTS/背景音)",
+                "res_depth": "亲密度等级 (1-5)",
+                "res_follow": "推荐追问列表"
             }
         };
 
-        // State
+        const docData = {
+            req: [
+                { key: "limit", type: "int", descKey: "req_limit" },
+                { key: "locale", type: "string", descKey: "req_locale" },
+                { key: "mood", type: "string", descKey: "req_mood" },
+                { key: "depth", type: "int", descKey: "req_depth" },
+                { key: "category", type: "string", descKey: "req_category" }
+            ],
+            res: [
+                { key: "id", type: "string", descKey: "res_id" },
+                { key: "text", type: "string", descKey: "res_text" },
+                { key: "tags", type: "array", descKey: "res_tags" },
+                { key: "mood", type: "string", descKey: "res_mood" },
+                { key: "depth", type: "int", descKey: "res_depth" },
+                { key: "follow_ups", type: "array", descKey: "res_follow" }
+            ]
+        };
+
         let currentInterfaceLang = 'en';
         let currentTab = 'response';
 
-        // 2. Initialization
         document.addEventListener('DOMContentLoaded', () => {
             detectSystemLanguage();
             updateInterface();
-            updateUI(); 
+            renderCode(); // Initial Render
             fetchData();
         });
 
-        // 3. Language Logic
         function detectSystemLanguage() {
             const sysLang = navigator.language || navigator.userLanguage; 
             if (sysLang.toLowerCase().includes('zh')) {
@@ -261,18 +362,31 @@
 
         function updateInterface() {
             const t = translations[currentInterfaceLang];
-            
-            // Update button text
             document.getElementById('lang-text').innerText = t.lang_btn;
-
-            // Update all data-i18n elements
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (t[key]) el.innerText = t[key];
             });
+            renderDocTables();
+            updateUI(); 
         }
 
-        // 4. Playground Logic
+        function renderDocTables() {
+            const t = translations[currentInterfaceLang];
+            const renderRows = (data, bodyId) => {
+                const html = data.map(row => `
+                    <tr class="group border-b border-slate-50 hover:bg-slate-50/50 transition">
+                        <td class="py-2 pr-2 font-mono text-xs text-violet-600 font-medium">${row.key}</td>
+                        <td class="py-2 pr-2 font-mono text-xs text-slate-400">${row.type}</td>
+                        <td class="py-2 text-xs text-slate-600">${t[row.descKey]}</td>
+                    </tr>
+                `).join('');
+                document.getElementById(bodyId).innerHTML = html;
+            };
+            renderRows(docData.req, 'req-table-body');
+            renderRows(docData.res, 'res-table-body');
+        }
+
         function getParams() {
             const locale = document.getElementById('locale').value;
             const mood = document.getElementById('mood').value;
@@ -290,32 +404,65 @@
         }
 
         function updateUI() {
-            const params = getParams();
             const depthVal = document.getElementById('depth').value;
-            
-            // Mapping depth numbers to text logic for the label pill
             const t = translations[currentInterfaceLang];
             const depthKey = `depth_${depthVal}`;
             document.getElementById('depth-val').innerText = t[depthKey] || depthVal;
 
+            const params = getParams();
             const endpoint = `/api/topic?${params.toString()}`;
-            const fullUrl = window.location.origin + endpoint;
             document.getElementById('url-preview').innerText = "GET " + endpoint;
+            
+            // 每次 UI 变动，重新生成代码文本但不请求 API
+            renderCode(); 
+        }
 
-            // Update Codes
-            document.getElementById('view-js').innerText = `// JavaScript Fetch\nfetch("${fullUrl}")\n  .then(res => res.json())\n  .then(data => console.log(data));`;
-            document.getElementById('view-py').innerText = `# Python Requests\nimport requests\n\nres = requests.get("${fullUrl}")\nprint(res.json())`;
-            document.getElementById('view-curl').innerText = `# cURL Terminal\ncurl -X GET "${fullUrl}"`;
+        // 6. 核心：生成并高亮代码的逻辑
+        function renderCode(jsonData = null) {
+            const params = getParams();
+            const fullUrl = window.location.origin + `/api/topic?${params.toString()}`;
+
+            // JS
+            const jsCode = `// JavaScript Fetch
+fetch("${fullUrl}")
+  .then(res => res.json())
+  .then(data => console.log(data));`;
+            document.getElementById('code-js').textContent = jsCode;
+
+            // Python
+            const pyCode = `# Python Requests
+import requests
+
+url = "${fullUrl}"
+res = requests.get(url)
+print(res.json())`;
+            document.getElementById('code-py').textContent = pyCode;
+
+            // cURL
+            const curlCode = `# cURL Terminal
+curl -X GET "${fullUrl}"`;
+            document.getElementById('code-curl').textContent = curlCode;
+
+            // JSON Response (if available)
+            if (jsonData) {
+                document.getElementById('code-response').textContent = JSON.stringify(jsonData, null, 2);
+            }
+
+            // 触发 Prism 高亮
+            Prism.highlightAll();
         }
 
         async function fetchData() {
             if (currentTab !== 'response') switchTab('response');
-
+            
             const loading = document.getElementById('loading');
-            const view = document.getElementById('view-response');
+            const latencyDisplay = document.getElementById('latency-display');
             
             loading.classList.remove('hidden');
-            view.innerHTML = '';
+            latencyDisplay.classList.add('hidden');
+            
+            // Clear current JSON
+            document.getElementById('code-response').textContent = '';
 
             const params = getParams();
             const url = `/api/topic?${params.toString()}`;
@@ -326,12 +473,15 @@
                 const data = await res.json();
                 const ms = Date.now() - start;
 
-                const jsonStr = JSON.stringify(data, null, 2);
-                const highlighted = syntaxHighlight(jsonStr);
+                // 渲染高亮 JSON
+                renderCode(data);
                 
-                view.innerHTML = highlighted + `\n\n<span class="text-gray-600">// Time: ${ms}ms</span>`;
+                latencyDisplay.innerText = `// Time: ${ms}ms`;
+                latencyDisplay.classList.remove('hidden');
+
             } catch (e) {
-                view.innerHTML = `<span class="text-red-400">Error: ${e.message}</span>`;
+                document.getElementById('code-response').textContent = `Error: ${e.message}`;
+                Prism.highlightAll();
             } finally {
                 loading.classList.add('hidden');
             }
@@ -347,37 +497,21 @@
             document.getElementById(`tab-${tab}`).className = "px-4 py-1.5 text-xs font-semibold rounded-lg text-slate-900 bg-white shadow-sm transition-all";
         }
 
-        // 5. Copy Logic
         function copyCode() {
             let textToCopy = '';
-            // Determine which tab is active
-            if (currentTab === 'response') textToCopy = document.getElementById('view-response').innerText;
-            else textToCopy = document.getElementById(`view-${currentTab}`).innerText;
+            // 获取当前显示的 code 标签内容
+            if (currentTab === 'response') textToCopy = document.getElementById('code-response').textContent;
+            else textToCopy = document.getElementById(`code-${currentTab}`).textContent;
             
-            // Remove the latency log line if copying JSON
-            textToCopy = textToCopy.replace(/\/\/ Time: \d+ms$/, '');
-
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const btn = document.getElementById('copy-text');
                 const originalText = btn.innerText;
                 btn.innerText = "OK!";
-                document.getElementById('copy-icon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>'; // Checkmark
-                
+                document.getElementById('copy-icon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>';
                 setTimeout(() => {
                     btn.innerText = originalText;
                     document.getElementById('copy-icon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>';
                 }, 2000);
-            });
-        }
-
-        function syntaxHighlight(json) {
-            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-                var cls = 'number';
-                if (/^"/.test(match)) {
-                    if (/:$/.test(match)) { cls = 'key'; } else { cls = 'string'; }
-                } else if (/true|false/.test(match)) { cls = 'boolean'; } else if (/null/.test(match)) { cls = 'null'; }
-                return '<span class="' + cls + '">' + match + '</span>';
             });
         }
     </script>
