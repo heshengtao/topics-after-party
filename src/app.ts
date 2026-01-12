@@ -3,14 +3,14 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { topics, ResponseTopic } from './data'
 
-// 关键修改 1: 使用 basePath('/api')，这样 Hono 会自动处理前缀
-const app = new Hono().basePath('/api')
+// 修改 1: 去掉 .basePath('/api')，直接初始化 Hono
+const app = new Hono()
 
 app.use('/*', cors())
 
-// 关键修改 2: 这里的路径只写 '/topic'，不要写 '/api/topic'
-// 因为 basePath 已经包含了 '/api'
-app.get('/topic', (c) => {
+// 修改 2: 路由显式写成 '/api/topic'
+// 这样无论在哪个平台，只要请求路径匹配这个字符串，就能工作，不再依赖路径解析魔法
+app.get('/api/topic', (c) => {
   const query = c.req.query()
   const reqLocale = query.locale === 'zh-CN' ? 'zh' : 'en' 
   const limit = parseInt(query.limit || '1')

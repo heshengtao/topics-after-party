@@ -4,15 +4,14 @@ import { serveStatic } from '@hono/node-server/serve-static'
 import { Hono } from 'hono'
 import apiApp from './app'
 
-// 创建一个根 App
 const app = new Hono()
 
-// 1. 挂载 API (它自己带有 basePath '/api')
-// 当请求 /api/topic 时，会被路由到 apiApp
+// 1. 挂载 API
+// apiApp 内部处理 /api/topic，所以我们挂载在 /
 app.route('/', apiApp)
 
-// 2. 挂载静态网页 (到根路径)
-// 只有在非 /api 开头时，才会去 public 找文件
+// 2. 挂载静态网页
+// 放在 API 路由之后。如果上面的 /api/topic 没匹配到，才会往下走这里
 app.use('/*', serveStatic({ root: './public' }))
 
 // 启动服务
