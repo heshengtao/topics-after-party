@@ -78,6 +78,19 @@ GET /api/topic
     *   `3`: Deep (走心/观点)
     *   `4`: Love (暧昧/恋爱)
     *   `5`: Soul (灵魂/哲学)
+*   **category(分类)**
+    *   `Life Planning` (人生规划)
+    *   `Career` (职场)
+    *   `Love` (爱情)
+    *   `Sci-Fi`(科幻)
+    *   `History`(历史)
+    *   `Psychology`(心理学)
+    *   `Literature`(文学)
+    *   `Flirting`(暧昧)
+    *   `Mysticism`(神秘学)
+    *   `Food`(美食)
+    *   `Travel`(旅行)
+    *   ...未完待续
 
 ### 响应示例 (Response Example)
 
@@ -155,18 +168,7 @@ print(data['data'][0]['text'])
     npm run dev
     ```
     访问 `http://localhost:3000` 即可看到演示页面。
-
----
-
-## 🤖 生成新话题 (Generate New Topics)
-
-你可以使用 `generate_topics.js` 脚本生成新的话题数据，并将`new_topics.ts.txt`更新到 `src/data.ts` 文件中。
-
-```bash
-npm install
-node generate_topics.js
-```
-
+    
 ---
 
 ## 🤝 贡献 (Contributing)

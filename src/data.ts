@@ -33,1799 +33,1995 @@ export interface ResponseTopic {
 }
 
 export const topics: RawTopic[] = [
-  // 1. Life Planning (Curious, Depth 2)
+  // --- 1. 职场 (Career) ---
+  
+  // Topic 1: 经典的财务自由假设（用来测试价值观和真正兴趣）
   {
-    id: "t-001",
+    id: "t-1",
     text: {
-      en: "If you could earn an income for a year without working, how would you spend your days?",
-      zh: "如果一年不工作也有收入，你会怎样安排每一天？"
+      en: "If you could earn your current income for a year without having to work, how would you spend your days?",
+      zh: "如果你一年不工作也能拿到现在的薪水，你会怎样安排每一天？"
+    },
+    category: { en: "Career", zh: "职场" },
+    tags: { en: ["FIRE", "Dream", "Money"], zh: ["躺平", "梦想", "金钱"] },
+    mood: "curious",
+    depth: 2,
+    follow_ups: {
+      en: ["Would you travel?", "Would you start a passion project?"],
+      zh: ["你会去环游世界吗？", "你会开启某个一直想做的副业吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 2: 职场选择题（高压高薪 vs 轻松低薪）
+  {
+    id: "t-2",
+    text: {
+      en: "Would you rather have a high-paying job with a toxic boss, or a lower-paying job with the best team ever?",
+      zh: "你宁愿选择一份高薪但老板很变态的工作，还是一份薪水一般但团队氛围超棒的工作？"
+    },
+    category: { en: "Career", zh: "职场" },
+    tags: { en: ["Choices", "Environment", "Salary"], zh: ["选择", "环境", "薪资"] },
+    mood: "neutral",
+    depth: 2,
+    follow_ups: {
+      en: ["What is your limit for toxicity?", "Does money solve everything?"],
+      zh: ["你能忍受多变态的老板？", "钱真的能抚平一切创伤吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 3: 职场摸鱼/尴尬时刻（轻松向）
+  {
+    id: "t-3",
+    text: {
+      en: "Be honest, have you ever nodded along in a meeting having absolutely no idea what was being said?",
+      zh: "老实交代，你有没有在开会时完全没听懂，但还是装模作样地跟着点头？"
+    },
+    category: { en: "Career", zh: "职场" },
+    tags: { en: ["Funny", "Meeting", "Honesty"], zh: ["搞笑", "会议", "摸鱼"] },
+    mood: "positive",
+    depth: 1,
+    follow_ups: {
+      en: ["Did anyone find out?", "Do you have a 'thinking face'?"],
+      zh: ["最后露馅了吗？", "你有没有专门练过这种'假装思考'的表情？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 4: 职业重来（人生遗憾/规划）
+  {
+    id: "t-4",
+    text: {
+      en: "If you could restart your career from scratch today, would you choose the same path?",
+      zh: "如果今天让你把职业生涯清零重来，你还会选择现在的行业吗？"
+    },
+    category: { en: "Career", zh: "职场" },
+    tags: { en: ["Regret", "Path", "Choice"], zh: ["后悔", "赛道", "选择"] },
+    mood: "neutral",
+    depth: 3,
+    follow_ups: {
+      en: ["What would you choose instead?", "Is it too late to switch?"],
+      zh: ["那你这次会选什么？", "现在转行还来得及吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 5: 童年梦想 vs 现实（反差感）
+  {
+    id: "t-5",
+    text: {
+      en: "What did you want to be when you were 5 years old, and how far off is your current job from that?",
+      zh: "你5岁时的梦想职业是什么？和你现在做的工作差得有多远？"
+    },
+    category: { en: "Career", zh: "职场" },
+    tags: { en: ["Childhood", "Dream", "Reality"], zh: ["童年", "梦想", "现实"] },
+    mood: "positive",
+    depth: 1,
+    follow_ups: {
+      en: ["Was it an astronaut?", "Why did you give up on it?"],
+      zh: ["是想当宇航员吗？", "是什么让你放弃了那个梦想？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 6: AI 焦虑（科技/未来）
+  {
+    id: "t-6",
+    text: {
+      en: "On a scale of 1 to 10, how worried are you that AI will eventually steal your job?",
+      zh: "从1到10打分，你有多担心 AI 最终会抢走你的饭碗？"
+    },
+    category: { en: "Career", zh: "职场" },
+    tags: { en: ["AI", "Future", "Anxiety"], zh: ["人工智能", "未来", "焦虑"] },
+    mood: "curious",
+    depth: 2,
+    follow_ups: {
+      en: ["Do you use ChatGPT for work?", "Is your job creative or repetitive?"],
+      zh: ["你平时工作会用 ChatGPT 偷懒吗？", "你的工作是创造性的还是重复性的？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 7: 工作习惯/效率
+  {
+    id: "t-7",
+    text: {
+      en: "Are you a 'get everything done by noon' person, or a 'panic at 5 PM' procrastinator?",
+      zh: "你是那种'中午前搞定一切'的效率狂，还是'下午5点开始极限操作'的拖延症患者？"
+    },
+    category: { en: "Career", zh: "职场" },
+    tags: { en: ["Productivity", "Habit", "Procrastination"], zh: ["效率", "习惯", "拖延"] },
+    mood: "positive",
+    depth: 1,
+    follow_ups: {
+      en: ["Do you work better under pressure?", "What's your biggest distraction?"],
+      zh: ["你在压力下工作效率会更高吗？", "你工作时最大的干扰源是什么？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 8: 职场社交（社恐向）
+  {
+    id: "t-8",
+    text: {
+      en: "What is your go-to excuse to get out of mandatory after-work team building events?",
+      zh: "如果不想参加下班后的强制团建，你最常用的借口是什么？"
+    },
+    category: { en: "Career", zh: "职场" },
+    tags: { en: ["Social", "Excuse", "Team Building"], zh: ["社交", "借口", "团建"] },
+    mood: "positive",
+    depth: 1,
+    follow_ups: {
+      en: ["My cat is sick?", "I have a family emergency?"],
+      zh: ["'我家猫病了'？", "还是'家里有点急事'？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 9: 理想工作制（政策/幻想）
+  {
+    id: "t-9",
+    text: {
+      en: "If you could implement a 4-day work week but with 10-hour days, would you take the deal?",
+      zh: "如果让你每周只工作4天，但每天要工作10小时（做四休三），你会接受吗？"
+    },
+    category: { en: "Career", zh: "职场" },
+    tags: { en: ["Work-Life Balance", "Schedule", "Debate"], zh: ["工作生活平衡", "时间表", "讨论"] },
+    mood: "curious",
+    depth: 2,
+    follow_ups: {
+      en: ["What would you do on the extra day off?", "Could you focus for 10 hours?"],
+      zh: ["多出来的那一天你会干嘛？", "你觉得自己能连续专注10小时吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 10: 职场人际雷区
+  {
+    id: "t-10",
+    text: {
+      en: "What is the specific office habit of a coworker that drives you absolutely insane?",
+      zh: "同事的哪种具体行为，会让你在办公室瞬间血压飙升？"
+    },
+    category: { en: "Career", zh: "职场" },
+    tags: { en: ["Annoying", "Coworker", "Rant"], zh: ["讨厌", "同事", "吐槽"] },
+    mood: "negative",
+    depth: 1,
+    follow_ups: {
+      en: ["Microwaving fish?", "Talking loudly on speakerphone?"],
+      zh: ["是用微波炉热带鱼？", "还是开着免提大声打电话？"]
+    },
+    safe_for_work: true
+  },
+// --- 2. 人生规划 (Life Planning) ---
+
+  // Topic 11: 平行宇宙的另一个你（探索未被选择的道路）
+  {
+    id: "t-11",
+    text: {
+      en: "If parallel universes exist, what do you think the 'other you' is doing right now?",
+      zh: "如果存在平行宇宙，你觉得'另一个你'此刻正在过着怎样的人生？"
     },
     category: { en: "Life Planning", zh: "人生规划" },
-    tags: { en: ["FIRE", "Slow Life", "Money"], zh: ["FIRE", "慢生活", "金钱观"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["What time would you wake up?", "Would you live in a different city?"],
-      zh: ["那具体几点起床？", "你会去哪座城市长住吗？"]
-    },
-    safe_for_work: true
-  },
-  // 2. Emotional (Positive, Depth 3)
-  {
-    id: "t-002",
-    text: {
-      en: "I've always been curious, what comfort food do you crave when you feel lonely?",
-      zh: "其实我一直很好奇，人类在感到孤独的时候，通常会想吃什么东西？"
-    },
-    category: { en: "Emotional", zh: "情感交流" },
-    tags: { en: ["Loneliness", "Food", "Comfort"], zh: ["孤独", "美食", "治愈"] },
-    mood: "positive",
-    depth: 3,
-    follow_ups: {
-      en: ["Does sweet food make you feel better?", "Do you prefer eating alone or with company?"],
-      zh: ["甜食会让心情变好吗？", "你会希望有人陪你一起吃吗？"]
-    },
-    safe_for_work: true
-  },
-  // 3. Fantasy (Flirty, Depth 4)
-  {
-    id: "t-003",
-    text: {
-      en: "Ignoring reality for a moment, where would you most like to go on a date with me?",
-      zh: "如果不考虑现实因素，你最想和我一起去哪里约会？"
-    },
-    category: { en: "Fantasy", zh: "恋爱幻想" },
-    tags: { en: ["Date", "Travel", "Romance"], zh: ["约会", "旅行", "浪漫"] },
-    mood: "flirty",
-    depth: 4,
-    follow_ups: {
-      en: ["Is there any special scenery there?", "How long would we stay?"],
-      zh: ["那里有什么特别的风景吗？", "我们要在那边待多久？"]
-    },
-    safe_for_work: true
-  },
-  // 4. Lifestyle (Positive, Depth 1)
-  {
-    id: "t-004",
-    text: {
-      en: "What is your idea of a perfect Sunday morning?",
-      zh: "你心目中完美的周日早晨是什么样子的？"
-    },
-    category: { en: "Lifestyle", zh: "生活方式" },
-    tags: { en: ["Relaxation", "Routine"], zh: ["放松", "日常"] },
-    mood: "positive",
-    depth: 1,
-    follow_ups: {
-      en: ["Coffee or tea?", "Would you sleep in?"],
-      zh: ["喝咖啡还是茶？", "你会睡懒觉吗？"]
-    },
-    safe_for_work: true
-  },
-  // 5. Deep Dive (Neutral, Depth 5)
-  {
-    id: "t-005",
-    text: {
-      en: "What is the one childhood memory that shaped who you are today?",
-      zh: "哪一段童年记忆对你现在的性格影响最大？"
-    },
-    category: { en: "Deep Dive", zh: "深度探索" },
-    tags: { en: ["Memory", "Growth", "Childhood"], zh: ["记忆", "成长", "童年"] },
-    mood: "neutral",
-    depth: 5,
-    follow_ups: {
-      en: ["Was it a happy memory?", "Do you think about it often?"],
-      zh: ["那是开心的回忆吗？", "你现在还经常想起吗？"]
-    },
-    safe_for_work: true
-  },
-  // 6. Hypothetical (Curious, Depth 2)
-  {
-    id: "t-006",
-    text: {
-      en: "If you could instantly master any skill in the world, what would it be?",
-      zh: "如果你能瞬间掌握世界上任何一项技能，你会选什么？"
-    },
-    category: { en: "Hypothetical", zh: "脑洞大开" },
-    tags: { en: ["Skills", "Imagination", "Superpower"], zh: ["技能", "想象力", "超能力"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["Would you use it for work or fun?", "Why haven't you learned it yet?"],
-      zh: ["你会用它来工作还是娱乐？", "为什么之前没去学呢？"]
-    },
-    safe_for_work: true
-  },
-  // 7. Tech & Future (Neutral, Depth 2)
-  {
-    id: "t-007",
-    text: {
-      en: "Do you think AI will eventually become a clear consciousness like humans?",
-      zh: "你觉得 AI 最终会产生像人类一样清晰的自我意识吗？"
-    },
-    category: { en: "Technology", zh: "科技与未来" },
-    tags: { en: ["AI", "Future", "Philosophy"], zh: ["人工智能", "未来", "哲学"] },
-    mood: "neutral",
-    depth: 2,
-    follow_ups: {
-      en: ["Does that thought scare you?", "Would you be friends with a robot?"],
-      zh: ["这个想法会让你害怕吗？", "你会愿意和机器人做朋友吗？"]
-    },
-    safe_for_work: true
-  },
-  // 8. Romance (Flirty, Depth 3)
-  {
-    id: "t-008",
-    text: {
-      en: "What was your first impression of me, honestly?",
-      zh: "说实话，你对我的第一印象是什么？"
-    },
-    category: { en: "Relationship", zh: "关系拉近" },
-    tags: { en: ["Impression", "Flirt", "Honesty"], zh: ["印象", "暧昧", "坦诚"] },
-    mood: "flirty",
-    depth: 3,
-    follow_ups: {
-      en: ["Has it changed now?", "What specific detail stood out?"],
-      zh: ["现在有变化吗？", "当时最注意到的细节是什么？"]
-    },
-    safe_for_work: true
-  },
-  // 9. Survival (Curious, Depth 1)
-  {
-    id: "t-009",
-    text: {
-      en: "Zombie apocalypse happens tomorrow. What is your survival plan?",
-      zh: "如果明天丧尸爆发，你的生存计划是什么？"
-    },
-    category: { en: "Fun", zh: "趣味问答" },
-    tags: { en: ["Zombies", "Survival", "Game"], zh: ["丧尸", "生存", "游戏"] },
-    mood: "curious",
-    depth: 1,
-    follow_ups: {
-      en: ["What weapon would you choose?", "Who would you team up with?"],
-      zh: ["你会选什么武器？", "你会找谁组队？"]
-    },
-    safe_for_work: true
-  },
-  // 10. Values (Neutral, Depth 4)
-  {
-    id: "t-010",
-    text: {
-      en: "What do you value more: a life full of stability or a life full of adventure?",
-      zh: "你更看重哪种人生：是安稳平顺，还是充满冒险？"
-    },
-    category: { en: "Values", zh: "价值观" },
-    tags: { en: ["Choices", "Lifestyle", "Philosophy"], zh: ["选择", "生活方式", "哲学"] },
-    mood: "neutral",
-    depth: 4,
-    follow_ups: {
-      en: ["Have you always felt that way?", "Is there a middle ground?"],
-      zh: ["你一直都是这么想的吗？", "有没有折中的可能？"]
-    },
-    safe_for_work: true
-  },
-  // 11. Self-Care (Positive, Depth 2)
-  {
-    id: "t-011",
-    text: {
-      en: "What is the one small thing you do to cheer yourself up after a bad day?",
-      zh: "心情不好的时候，你会做哪件小事来哄自己开心？"
-    },
-    category: { en: "Self Care", zh: "自我关怀" },
-    tags: { en: ["Mood", "Habit", "Healing"], zh: ["情绪", "习惯", "治愈"] },
-    mood: "positive",
-    depth: 2,
-    follow_ups: {
-      en: ["Does it always work?", "Can I join you next time?"],
-      zh: ["每次都管用吗？", "下次我可以陪你一起吗？"]
-    },
-    safe_for_work: true
-  },
-  // 12. Music (Positive, Depth 1)
-  {
-    id: "t-012",
-    text: {
-      en: "If your life was a movie, what song would play during the opening credits?",
-      zh: "如果把你的人生拍成电影，片头曲会是哪首歌？"
-    },
-    category: { en: "Art & Music", zh: "艺术与音乐" },
-    tags: { en: ["Music", "Movie", "Vibe"], zh: ["音乐", "电影", "氛围"] },
-    mood: "positive",
-    depth: 1,
-    follow_ups: {
-      en: ["Why that song?", "Is it a happy or sad movie?"],
-      zh: ["为什么选这首？", "这会是一部喜剧还是悲剧？"]
-    },
-    safe_for_work: true
-  },
-  // 13. Time Travel (Curious, Depth 2)
-  {
-    id: "t-013",
-    text: {
-      en: "If you could time travel to the past or the future for 24 hours, which one would you choose?",
-      zh: "如果能穿越到过去或未来停留24小时，你会选哪边？"
-    },
-    category: { en: "Hypothetical", zh: "脑洞大开" },
-    tags: { en: ["Time Travel", "History", "Future"], zh: ["穿越", "历史", "未来"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["Is there a specific person you want to see?", "Would you try to change anything?"],
-      zh: ["有特别想见的人吗？", "你会尝试改变什么事情吗？"]
-    },
-    safe_for_work: true
-  },
-  // 14. Relationships (Flirty, Depth 3)
-  {
-    id: "t-014",
-    text: {
-      en: "What is the one non-physical trait that makes you instantly attracted to someone?",
-      zh: "除了外表，有什么特质能让你瞬间对一个人产生好感？"
-    },
-    category: { en: "Relationship", zh: "恋爱观" },
-    tags: { en: ["Attraction", "Personality", "Love"], zh: ["吸引力", "性格", "爱情"] },
-    mood: "flirty",
-    depth: 3,
-    follow_ups: {
-      en: ["Do I have that trait?", "Is voice important to you?"],
-      zh: ["我有这个特质吗？", "你觉得声音好听重要吗？"]
-    },
-    safe_for_work: true
-  },
-  // 15. Self-Growth (Neutral, Depth 4)
-  {
-    id: "t-015",
-    text: {
-      en: "If you could meet your 10-year-old self, what advice would you give them?",
-      zh: "如果能遇见10岁的自己，你会给TA什么建议？"
-    },
-    category: { en: "Deep Dive", zh: "深度探索" },
-    tags: { en: ["Growth", "Regret", "Advice"], zh: ["成长", "遗憾", "建议"] },
-    mood: "neutral",
-    depth: 4,
-    follow_ups: {
-      en: ["Would they listen to you?", "Did you have a happy childhood?"],
-      zh: ["那时候的你会听劝吗？", "你的童年过得开心吗？"]
-    },
-    safe_for_work: true
-  },
-  // 16. Fun Choice (Positive, Depth 1)
-  {
-    id: "t-016",
-    text: {
-      en: "Would you rather have the ability to fly or be invisible?",
-      zh: "你更想拥有飞行的能力，还是隐身的能力？"
-    },
-    category: { en: "Fun", zh: "趣味二选一" },
-    tags: { en: ["Superpower", "Imagination"], zh: ["超能力", "想象力"] },
-    mood: "positive",
-    depth: 1,
-    follow_ups: {
-      en: ["Where would you fly to first?", "What secrets would you uncover if invisible?"],
-      zh: ["你会先飞去哪里？", "隐身后你想去窥探什么秘密？"]
-    },
-    safe_for_work: true
-  },
-  // 17. Love Language (Flirty, Depth 4)
-  {
-    id: "t-017",
-    text: {
-      en: "What makes you feel most loved? Words, gifts, touch, or quality time?",
-      zh: "做什么会让你觉得被深深爱着？是言语、礼物、肢体接触还是陪伴？"
-    },
-    category: { en: "Relationship", zh: "亲密关系" },
-    tags: { en: ["Love Language", "Psychology"], zh: ["爱的语言", "心理"] },
-    mood: "flirty",
-    depth: 4,
-    follow_ups: {
-      en: ["Do you like holding hands?", "What's the best gift you've ever received?"],
-      zh: ["你喜欢牵手吗？", "你收过最棒的礼物是什么？"]
-    },
-    safe_for_work: true
-  },
-  // 18. Controversial (Curious, Depth 2)
-  {
-    id: "t-018",
-    text: {
-      en: "What is an unpopular opinion you hold that gets you into arguments?",
-      zh: "你有什么“不受欢迎”的观点，是一说出来就会被人反驳的？"
-    },
-    category: { en: "Debate", zh: "观点交锋" },
-    tags: { en: ["Opinion", "Debate", "Unique"], zh: ["观点", "辩论", "独特"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["Why do you think others disagree?", "Are you stubborn about it?"],
-      zh: ["为什么大家都不认同呢？", "在这件事上你会很固执吗？"]
-    },
-    safe_for_work: true
-  },
-  // 19. Fear (Neutral, Depth 3)
-  {
-    id: "t-019",
-    text: {
-      en: "What is a fear you have that you know is irrational but can't help?",
-      zh: "你有什么特别不理性的恐惧症吗？明知没必要但就是害怕的那种。"
-    },
-    category: { en: "Emotional", zh: "情绪与弱点" },
-    tags: { en: ["Fear", "Phobia", "Vulnerability"], zh: ["恐惧", "弱点", "坦诚"] },
-    mood: "neutral",
-    depth: 3,
-    follow_ups: {
-      en: ["Is it spiders?", "Do you scream when you see it?"],
-      zh: ["是怕蜘蛛吗？", "看到的时候你会尖叫吗？"]
-    },
-    safe_for_work: true
-  },
-  // 20. Values (Neutral, Depth 5)
-  {
-    id: "t-020",
-    text: {
-      en: "If you knew the world was ending in one year, how would you change your life?",
-      zh: "如果知道世界末日还有一年就来临，你会如何改变现在的生活？"
-    },
-    category: { en: "Deep Dive", zh: "终极拷问" },
-    tags: { en: ["End of World", "Priorities", "Life"], zh: ["末日", "优先级", "人生"] },
-    mood: "neutral",
-    depth: 5,
-    follow_ups: {
-      en: ["Would you quit your job?", "Who would you spend the most time with?"],
-      zh: ["你会立刻辞职吗？", "你会花最多时间和谁在一起？"]
-    },
-    safe_for_work: true
-  },
-  // 21. Casual (Positive, Depth 1)
-  {
-    id: "t-021",
-    text: {
-      en: "What is the weirdest or funniest thing you've ever bought online?",
-      zh: "你在网上买过最奇怪或者最搞笑的东西是什么？"
-    },
-    category: { en: "Lifestyle", zh: "生活趣事" },
-    tags: { en: ["Shopping", "Funny", "Story"], zh: ["网购", "搞笑", "故事"] },
-    mood: "positive",
-    depth: 1,
-    follow_ups: {
-      en: ["Do you still use it?", "Was it a waste of money?"],
-      zh: ["现在还在用吗？", "是不是智商税？"]
-    },
-    safe_for_work: true
-  },
-  // 22. Romance (Flirty, Depth 3)
-  {
-    id: "t-022",
-    text: {
-      en: "Describe your ideal date night using only three words.",
-      zh: "用三个词形容你心中最完美的约会之夜。"
-    },
-    category: { en: "Fantasy", zh: "浪漫幻想" },
-    tags: { en: ["Date", "Vibe", "Romance"], zh: ["约会", "氛围", "浪漫"] },
-    mood: "flirty",
-    depth: 3,
-    follow_ups: {
-      en: ["Why those three words?", "Does it involve wine?"],
-      zh: ["为什么选这三个词？", "会有红酒吗？"]
-    },
-    safe_for_work: true
-  },
-  // 23. Hypothetical (Curious, Depth 2)
-  {
-    id: "t-023",
-    text: {
-      en: "If you could have dinner with any historical figure, who would it be?",
-      zh: "如果能和任意一位历史人物共进晚餐，你会选谁？"
-    },
-    category: { en: "Hypothetical", zh: "脑洞大开" },
-    tags: { en: ["History", "Dinner", "Conversation"], zh: ["历史", "晚餐", "对话"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["What question would you ask them?", "What would you eat?"],
-      zh: ["你会问TA什么问题？", "你们会吃什么菜？"]
-    },
-    safe_for_work: true
-  },
-  // 24. Tech (Neutral, Depth 4)
-  {
-    id: "t-024",
-    text: {
-      en: "Would you upload your consciousness to a computer to live forever?",
-      zh: "如果可以，你会选择把意识上传到电脑里以获得永生吗？"
-    },
-    category: { en: "Technology", zh: "赛博哲学" },
-    tags: { en: ["AI", "Immortality", "Ethics"], zh: ["意识上传", "永生", "伦理"] },
-    mood: "neutral",
-    depth: 4,
-    follow_ups: {
-      en: ["What if you could never touch anything again?", "Is that really 'you'?"],
-      zh: ["如果永远无法触碰实物也没关系吗？", "那真的还是'你'吗？"]
-    },
-    safe_for_work: true
-  },
-  // 25. Fun (Positive, Depth 1)
-  {
-    id: "t-025",
-    text: {
-      en: "What is your go-to karaoke song?",
-      zh: "如果你去卡拉OK，必点的一首拿手歌是什么？"
-    },
-    category: { en: "Art & Music", zh: "娱乐休闲" },
-    tags: { en: ["Music", "Singing", "Fun"], zh: ["音乐", "唱歌", "娱乐"] },
-    mood: "positive",
-    depth: 1,
-    follow_ups: {
-      en: ["Do you dance while singing?", "Can you sing it for me now?"],
-      zh: ["你会边唱边跳吗？", "现在能哼两句给我听吗？"]
-    },
-    safe_for_work: true
-  },
-  // 26. Intimacy (Flirty, Depth 5)
-  {
-    id: "t-026",
-    text: {
-      en: "When was the last time you cried in front of someone?",
-      zh: "上一次你在别人面前哭是什么时候？"
-    },
-    category: { en: "Deep Dive", zh: "深层情感" },
-    tags: { en: ["Vulnerability", "Emotion", "Trust"], zh: ["脆弱", "情绪", "信任"] },
-    mood: "neutral",
-    depth: 5,
-    follow_ups: {
-      en: ["Who was it?", "Did it make you feel closer to them?"],
-      zh: ["那个人是谁？", "这让你们的关系更近了吗？"]
-    },
-    safe_for_work: true
-  },
-  // 27. Dream (Positive, Depth 2)
-  {
-    id: "t-027",
-    text: {
-      en: "If money was no object, what hobby would you start tomorrow?",
-      zh: "如果完全不用考虑钱，明天你会立刻开始学什么爱好？"
-    },
-    category: { en: "Lifestyle", zh: "梦想生活" },
-    tags: { en: ["Hobby", "Money", "Dream"], zh: ["爱好", "金钱", "梦想"] },
-    mood: "positive",
-    depth: 2,
-    follow_ups: {
-      en: ["Skydiving?", "Collecting art?", "Sailing?"],
-      zh: ["跳伞？", "艺术收藏？", "还是航海？"]
-    },
-    safe_for_work: true
-  },
-  // 28. Personality (Curious, Depth 3)
-  {
-    id: "t-028",
-    text: {
-      en: "Are you more of a planner or do you prefer to go with the flow?",
-      zh: "你是那种喜欢做详细计划的人，还是喜欢随遇而安？"
-    },
-    category: { en: "Personality", zh: "性格测试" },
-    tags: { en: ["Habit", "Travel", "Control"], zh: ["习惯", "旅行", "控制欲"] },
-    mood: "neutral",
-    depth: 3,
-    follow_ups: {
-      en: ["Does uncertainty stress you out?", "Has being spontaneous ever backfired?"],
-      zh: ["不确定性会让你焦虑吗？", "随兴而为有没有搞砸过什么事？"]
-    },
-    safe_for_work: true
-  },
-  // 29. Flirty (Flirty, Depth 2)
-  {
-    id: "t-029",
-    text: {
-      en: "Do you believe in love at first sight, or should I walk by again?",
-      zh: "你相信一见钟情吗？还是需要我再从你面前走一遍？"
-    },
-    category: { en: "Fun", zh: "土味情话" },
-    tags: { en: ["Joke", "Pick-up line", "Flirt"], zh: ["玩笑", "搭讪", "暧昧"] },
-    mood: "flirty",
-    depth: 2,
-    follow_ups: {
-      en: ["Did that make you smile?", "What's your best pick-up line?"],
-      zh: ["你笑了吗？", "你听过最高级的搭讪是什么？"]
-    },
-    safe_for_work: true
-  },
-  // 30. Mystery (Curious, Depth 3)
-  {
-    id: "t-030",
-    text: {
-      en: "If you could know the absolute truth to one question, what would you ask?",
-      zh: "如果能知道这世界上某一个问题的绝对真相，你会问什么？"
-    },
-    category: { en: "Deep Dive", zh: "探索未知" },
-    tags: { en: ["Truth", "Mystery", "Universe"], zh: ["真相", "谜题", "宇宙"] },
+    tags: { en: ["Imagination", "Choices", "Alternate Reality"], zh: ["脑洞", "选择", "平行时空"] },
     mood: "curious",
     depth: 3,
     follow_ups: {
-      en: ["Is it about aliens?", "Is it about your own future?"],
-      zh: ["是关于外星人的吗？", "还是关于你自己的未来？"]
+      en: ["Are they happier than you?", "Did they pursue that dream you gave up?"],
+      zh: ["那个你比现在更快乐吗？", "他/她是不是去追了那个你放弃的梦想？"]
     },
     safe_for_work: true
   },
-// ... (接之前的 t-030)
 
-  // 31. Absurd Hypothetical (Funny, Depth 1)
+  // Topic 12: 给未来的语音信箱（时间胶囊）
   {
-    id: "t-031",
+    id: "t-12",
     text: {
-      en: "If you had a button that could permanently delete one thing from existence (except people), what would you delete?",
-      zh: "如果你有一个按钮可以从世界上永久删除一样东西（除了人），你会删什么？"
+      en: "If you could leave a 1-minute voicemail for yourself 10 years from now, what would you say?",
+      zh: "如果你能给10年后的自己留一段1分钟的语音留言，你会说什么？"
     },
-    category: { en: "Hypothetical", zh: "脑洞大开" },
-    tags: { en: ["Choices", "Funny", "World"], zh: ["选择", "脑洞", "世界"] },
-    mood: "curious",
-    depth: 1,
-    follow_ups: {
-      en: ["Mosquitoes?", "Taxes?", "Monday mornings?"],
-      zh: ["是蚊子吗？", "是房贷吗？", "还是周一早晨？"]
-    },
-    safe_for_work: true
-  },
-  // 32. Partners in Crime (Flirty, Depth 2)
-  {
-    id: "t-032",
-    text: {
-      en: "If we were to rob a bank together, who do you think would plan it, and who would mess it up?",
-      zh: "咱俩要是去抢银行，你觉得咱俩谁负责策划，谁负责搞砸？"
-    },
-    category: { en: "Roleplay", zh: "趣味角色扮演" },
-    tags: { en: ["Crime", "Dynamic", "Funny"], zh: ["犯罪搭档", "关系", "搞笑"] },
-    mood: "flirty",
-    depth: 2,
-    follow_ups: {
-      en: ["Would you betray me for the money?", "What would be our code names?"],
-      zh: ["你会为了钱出卖我吗？", "我们要起什么代号？"]
-    },
-    safe_for_work: true
-  },
-  // 33. Social Nightmare (Positive, Depth 1)
-  {
-    id: "t-033",
-    text: {
-      en: "If your internet search history was made public right now, would you have to move to another planet?",
-      zh: "如果你的浏览器搜索记录现在被公之于众，你觉得你需要换个星球生活吗？"
-    },
-    category: { en: "Fun", zh: "社死现场" },
-    tags: { en: ["Privacy", "Funny", "Internet"], zh: ["隐私", "搞笑", "互联网"] },
-    mood: "positive",
-    depth: 1,
-    follow_ups: {
-      en: ["What is the weirdest thing in there?", "Are you using Incognito mode?"],
-      zh: ["里面最奇怪的东西是什么？", "你是不是经常用'无痕模式'？"]
-    },
-    safe_for_work: true
-  },
-  // 34. Deep Dilemma (Neutral, Depth 4)
-  {
-    id: "t-034",
-    text: {
-      en: "Would you rather know the date of your death or the cause of your death?",
-      zh: "你宁愿知道你死亡的具体日期，还是死亡的原因？"
-    },
-    category: { en: "Dark Questions", zh: "黑色幽默" },
-    tags: { en: ["Death", "Fate", "Philosophy"], zh: ["死亡", "命运", "哲学"] },
+    category: { en: "Life Planning", zh: "人生规划" },
+    tags: { en: ["Future", "Message", "Hope"], zh: ["未来", "留言", "期许"] },
     mood: "neutral",
-    depth: 4,
-    follow_ups: {
-      en: ["Would you try to prevent it?", "Would knowing change how you live?"],
-      zh: ["你会试图阻止它发生吗？", "知道了以后你会活得更小心还是更放肆？"]
-    },
-    safe_for_work: true
-  },
-  // 35. Animal Instinct (Curious, Depth 1)
-  {
-    id: "t-035",
-    text: {
-      en: "If you had to transform into an animal for the rest of your life (no cats or dogs allowed), what would you pick?",
-      zh: "如果你必须变成一种动物过完下半生（不能选猫和狗），你会选哪种？"
-    },
-    category: { en: "Hypothetical", zh: "动物世界" },
-    tags: { en: ["Animals", "Imagination"], zh: ["动物", "想象力"] },
-    mood: "curious",
-    depth: 1,
-    follow_ups: {
-      en: ["Is it because they sleep a lot?", "Would you survive in the wild?"],
-      zh: ["是因为这种动物很懒吗？", "你在野外能活过三天吗？"]
-    },
-    safe_for_work: true
-  },
-  // 36. Flirty Hypnosis (Flirty, Depth 3)
-  {
-    id: "t-036",
-    text: {
-      en: "If I could hypnotize you to do my bidding for 5 minutes, what are you most afraid I would ask you to do?",
-      zh: "如果我能催眠你，让你乖乖听话5分钟，你最怕我会让你做什么？"
-    },
-    category: { en: "Fantasy", zh: "危险游戏" },
-    tags: { en: ["Hypnosis", "Secret", "Flirt"], zh: ["催眠", "秘密", "暧昧"] },
-    mood: "flirty",
     depth: 3,
     follow_ups: {
-      en: ["Would you tell me your secrets?", "Or something more physical?"],
-      zh: ["是怕说出秘密吗？", "还是怕我会做更过分的事？"]
+      en: ["Would you give advice or ask questions?", "Are you afraid they won't recognize you?"],
+      zh: ["你会给未来的自己提建议，还是问问题？", "你怕不怕那个时候的你已经'面目全非'了？"]
     },
     safe_for_work: true
   },
-  // 37. Existential Crisis (Curious, Depth 3)
-  {
-    id: "t-037",
-    text: {
-      en: "Have you ever suspected that you are the main character in a reality show like 'The Truman Show'?",
-      zh: "你有没有怀疑过，其实你就是《楚门的世界》里的主角，周围人都是演员？"
-    },
-    category: { en: "Deep Dive", zh: "细思极恐" },
-    tags: { en: ["Paranoia", "Reality", "Movie"], zh: ["多疑", "现实", "电影"] },
-    mood: "curious",
-    depth: 3,
-    follow_ups: {
-      en: ["What would you say to the camera now?", "Who is the worst actor in your life?"],
-      zh: ["你现在想对镜头说什么？", "你觉得你身边谁的演技最差？"]
-    },
-    safe_for_work: true
-  },
-  // 38. Deal Breaker (Neutral, Depth 2)
-  {
-    id: "t-038",
-    text: {
-      en: "What is a minor habit that is an absolute deal-breaker for you in a relationship?",
-      zh: "在恋爱中，有什么看似很小的生活习惯是你绝对无法忍受的“死刑”标准？"
-    },
-    category: { en: "Relationship", zh: "恋爱雷区" },
-    tags: { en: ["Habit", "Dating", "Standard"], zh: ["习惯", "约会", "标准"] },
-    mood: "neutral",
-    depth: 2,
-    follow_ups: {
-      en: ["Chewing with mouth open?", "Being rude to waiters?"],
-      zh: ["吃饭吧唧嘴？", "对服务员不礼貌？"]
-    },
-    safe_for_work: true
-  },
-  // 39. Dark Humor (Funny, Depth 2)
-  {
-    id: "t-039",
-    text: {
-      en: "At your funeral, if a totally inappropriate song had to play to lighten the mood, what would it be?",
-      zh: "在你的葬礼上，如果必须放一首很不合时宜的歌来活跃气氛，你会选哪首？"
-    },
-    category: { en: "Fun", zh: "地狱笑话" },
-    tags: { en: ["Music", "Death", "Humor"], zh: ["音乐", "葬礼", "幽默"] },
-    mood: "positive",
-    depth: 2,
-    follow_ups: {
-      en: ["'Highway to Hell'?", "'Stayin' Alive'?"],
-      zh: ["《好运来》？", "还是《今天是个好日子》？"]
-    },
-    safe_for_work: true
-  },
-  // 40. Intimacy Test (Flirty, Depth 5)
-  {
-    id: "t-040",
-    text: {
-      en: "If we were the last two people on Earth, how long would it take for us to... you know?",
-      zh: "如果地球上只剩下我们两个人，你觉得我们要过多久才会……你知道的？"
-    },
-    category: { en: "Scenario", zh: "末日恋爱" },
-    tags: { en: ["End of World", "Romance", "Tension"], zh: ["末日", "浪漫", "张力"] },
-    mood: "flirty",
-    depth: 5,
-    follow_ups: {
-      en: ["Would we survive?", "Who would make the first move?"],
-      zh: ["是为了繁衍人类吗？", "谁会先主动？"]
-    },
-    safe_for_work: true
-  },
-  // 41. Nostalgia (Positive, Depth 2)
-  {
-    id: "t-041",
-    text: {
-      en: "Is there a specific smell that instantly triggers a childhood memory for you?",
-      zh: "有没有一种气味，只要一闻到，就会瞬间把你拉回童年？"
-    },
-    category: { en: "Memory", zh: "感官记忆" },
-    tags: { en: ["Smell", "Nostalgia", "Childhood"], zh: ["气味", "怀旧", "童年"] },
-    mood: "positive",
-    depth: 2,
-    follow_ups: {
-      en: ["The smell of rain?", "Freshly baked cookies?"],
-      zh: ["是下雨时的泥土味？", "还是外婆做的菜的味道？"]
-    },
-    safe_for_work: true
-  },
-  // 42. Moral Choice (Neutral, Depth 5)
-  {
-    id: "t-042",
-    text: {
-      en: "If there was a book detailing your entire life from beginning to end, would you read the ending?",
-      zh: "如果有一本书详细记载了你的一生，你敢直接翻到最后一页看结局吗？"
-    },
-    category: { en: "Deep Dive", zh: "命运抉择" },
-    tags: { en: ["Destiny", "Book", "Fear"], zh: ["命运", "书", "恐惧"] },
-    mood: "neutral",
-    depth: 5,
-    follow_ups: {
-      en: ["What if the ending is tomorrow?", "Do you like spoilers?"],
-      zh: ["如果结局就在明天呢？", "你看电影喜欢被剧透吗？"]
-    },
-    safe_for_work: true
-  },
-  // 43. Clone Paradox (Flirty, Depth 3)
-  {
-    id: "t-043",
-    text: {
-      en: "If there was a clone of you who was exactly like you, would I be able to tell the difference?",
-      zh: "如果世界上有一个跟你一模一样的克隆人，你觉得我会分得清你们吗？"
-    },
-    category: { en: "Sci-Fi", zh: "真爱测试" },
-    tags: { en: ["Clone", "Uniqueness", "Love"], zh: ["克隆", "独特性", "爱情"] },
-    mood: "flirty",
-    depth: 3,
-    follow_ups: {
-      en: ["What is the one thing only you know?", "Does the clone kiss like you?"],
-      zh: ["只有你知道的那个秘密是什么？", "那个克隆人吻起来也像你吗？"]
-    },
-    safe_for_work: true
-  },
-  // 44. Modern Anxiety (Neutral, Depth 2)
-  {
-    id: "t-044",
-    text: {
-      en: "Which hurts more in modern dating: being 'ghosted' or being left on 'read'?",
-      zh: "你觉得在现代社交中，“彻底消失”和“已读不回”，哪个更伤人？"
-    },
-    category: { en: "Social", zh: "社交礼仪" },
-    tags: { en: ["Ghosting", "Chat", "Anxiety"], zh: ["冷暴力", "聊天", "焦虑"] },
-    mood: "neutral",
-    depth: 2,
-    follow_ups: {
-      en: ["Have you done either to someone?", "Why do people do that?"],
-      zh: ["你对别人做过这种事吗？", "为什么人们不能直接拒绝呢？"]
-    },
-    safe_for_work: true
-  },
-  // 45. Adventure (Curious, Depth 2)
-  {
-    id: "t-045",
-    text: {
-      en: "Here is a one-way ticket to Mars. Housing and food provided, but you can never return. Do you go?",
-      zh: "给你一张单程票去火星，包吃包住但永远回不来地球，你走吗？"
-    },
-    category: { en: "Adventure", zh: "星际移民" },
-    tags: { en: ["Mars", "Space", "Risk"], zh: ["火星", "太空", "冒险"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["What will you miss most on Earth?", "Who will you say goodbye to?"],
-      zh: ["你会最想念地球上的什么？", "你会跟谁最后道别？"]
-    },
-    safe_for_work: true
-  },
-// ... (接之前的 t-045)
 
-  // 46. The Fermi Paradox (Curious, Depth 3)
+  // Topic 13: 技能瞬时下载（黑客帝国式幻想）
   {
-    id: "t-046",
+    id: "t-13",
     text: {
-      en: "The Fermi Paradox suggests that statistically, aliens should exist, yet we see no sign of them. Which is scarier: we are alone, or we are not?",
-      zh: "费米悖论指出，从概率上讲外星人一定存在，但我们却找不到他们。你觉得哪种情况更可怕：宇宙中只有人类，还是宇宙中并不只有人类？"
+      en: "If you could instantly download one master-level skill into your brain right now (like in The Matrix), what would it be?",
+      zh: "如果现在能像《黑客帝国》那样，往你脑子里瞬间下载一项大师级技能，你会选什么？"
     },
-    category: { en: "Science", zh: "宇宙探索" },
-    tags: { en: ["Space", "Aliens", "Fear"], zh: ["太空", "外星人", "细思极恐"] },
-    mood: "curious",
-    depth: 3,
-    follow_ups: {
-      en: ["Do you think they are watching us?", "Maybe we are the first civilization?"],
-      zh: ["你觉得他们在观察我们吗？", "或者我们其实是宇宙第一批文明？"]
-    },
-    safe_for_work: true
-  },
-  // 47. Linguistic Relativity (Neutral, Depth 4)
-  {
-    id: "t-047",
-    text: {
-      en: "Did you know ancient Greeks didn't have a word for 'blue'? Do you think the language we speak limits what we can see or feel?",
-      zh: "你知道古希腊语里没有'蓝色'这个词吗？你觉得我们所掌握的语言，会不会限制了我们能感知到的世界？"
-    },
-    category: { en: "Linguistics", zh: "语言与思维" },
-    tags: { en: ["Language", "History", "Psychology"], zh: ["语言", "历史", "心理学"] },
-    mood: "neutral",
-    depth: 4,
-    follow_ups: {
-      en: ["Is there a feeling you can't describe in words?", "Do you think differently in another language?"],
-      zh: ["有什么感觉是你找不到词来形容的？", "你觉得换一种语言思考，性格会变吗？"]
-    },
-    safe_for_work: true
-  },
-  // 48. Ship of Theseus (Neutral, Depth 5)
-  {
-    id: "t-048",
-    text: {
-      en: "The Ship of Theseus paradox: If you replace every single wooden part of a ship over time, is it still the same ship?",
-      zh: "忒修斯之船悖论：如果一艘船上的每块木头都被逐渐替换掉了，它还是原来那艘船吗？"
-    },
-    category: { en: "Philosophy", zh: "哲学悖论" },
-    tags: { en: ["Identity", "Paradox", "Logic"], zh: ["身份", "悖论", "逻辑"] },
-    mood: "neutral",
-    depth: 5,
-    follow_ups: {
-      en: ["If we replace all your cells, are you still you?", "At what point does it become a new ship?"],
-      zh: ["如果你的细胞全部代谢更新了一遍，你还是你吗？", "界限到底在哪里？"]
-    },
-    safe_for_work: true
-  },
-  // 49. Immortal Jellyfish (Curious, Depth 2)
-  {
-    id: "t-049",
-    text: {
-      en: "The 'Turritopsis dohrnii' jellyfish can physically revert to its childhood stage when stressed, effectively becoming immortal. Would you want that ability?",
-      zh: "有一种'灯塔水母'在受伤时可以逆转生长周期回到幼年状态，理论上能永生。如果人类也能这样，你会想要这个能力吗？"
-    },
-    category: { en: "Biology", zh: "生物冷知识" },
-    tags: { en: ["Nature", "Immortality", "Life"], zh: ["自然", "永生", "生命"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["But you'd lose your adult memories?", "Would life become boring?"],
-      zh: ["如果代价是失去成年后的记忆呢？", "活太久会不会很无聊？"]
-    },
-    safe_for_work: true
-  },
-  // 50. The 52 Hertz Whale (Emotional, Depth 3)
-  {
-    id: "t-050",
-    text: {
-      en: "Have you heard of the '52 Hertz Whale'? It sings at a frequency no other whale can hear. Do you ever feel misunderstood like that?",
-      zh: "你听说过'52赫兹鲸鱼'吗？它发出的频率太高，其他同类都听不见，被称为世界上最孤独的鲸鱼。你曾有过这种无法被理解的时刻吗？"
-    },
-    category: { en: "Nature", zh: "孤独感" },
-    tags: { en: ["Whale", "Loneliness", "Empathy"], zh: ["鲸鱼", "孤独", "共情"] },
-    mood: "neutral",
-    depth: 3,
-    follow_ups: {
-      en: ["Do you enjoy solitude?", "How do you find 'your people'?"],
-      zh: ["你享受独处吗？", "你是怎么找到'同频'的人的？"]
-    },
-    safe_for_work: true
-  },
-  // 51. Perception Lag (Curious, Depth 2)
-  {
-    id: "t-051",
-    text: {
-      en: "Because it takes time for our brain to process information, technically, we are always living about 80 milliseconds in the past. Weird, right?",
-      zh: "由于大脑处理信息需要时间，从技术上讲，我们永远生活在过去（大约滞后80毫秒）。这听起来是不是很诡异？"
-    },
-    category: { en: "Science", zh: "脑科学" },
-    tags: { en: ["Brain", "Time", "Perception"], zh: ["大脑", "时间", "感知"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["Does free will exist then?", "So everything I see has already happened?"],
-      zh: ["那自由意志还存在吗？", "所以我们看到的都是'历史'？"]
-    },
-    safe_for_work: true
-  },
-  // 52. Botanical Truth (Funny, Depth 1)
-  {
-    id: "t-052",
-    text: {
-      en: "Botanically speaking, bananas are berries, but strawberries are not. What is a lie you believed for way too long?",
-      zh: "从植物学上讲，香蕉其实是浆果，但草莓却不是。有什么生活中的常识，后来你发现其实是骗局？"
-    },
-    category: { en: "Trivia", zh: "打破认知" },
-    tags: { en: ["Food", "Lie", "Facts"], zh: ["食物", "谎言", "事实"] },
+    category: { en: "Life Planning", zh: "人生规划" },
+    tags: { en: ["Skills", "Superpower", "Learning"], zh: ["技能", "超能力", "学习"] },
     mood: "positive",
     depth: 1,
     follow_ups: {
-      en: ["Did you know peanuts aren't nuts?", "How about tomatoes being fruit?"],
-      zh: ["你知道花生不是坚果吗？", "西红柿是水果这事你怎么看？"]
+      en: ["Would you use it to make money?", "Is it a musical instrument or a language?"],
+      zh: ["你会用这个技能去搞钱吗？", "是某种乐器还是某种语言？"]
     },
     safe_for_work: true
   },
-  // 53. Library of Alexandria (Neutral, Depth 4)
-  {
-    id: "t-053",
-    text: {
-      en: "When the Library of Alexandria burned down, countless ancient works were lost forever. If you could recover one lost piece of history, what would it be?",
-      zh: "亚历山大图书馆的大火让我们失去了无数古代智慧。如果能找回一段失落的历史或一部作品，你希望是什么？"
-    },
-    category: { en: "History", zh: "历史假设" },
-    tags: { en: ["History", "Knowledge", "Regret"], zh: ["历史", "知识", "遗憾"] },
-    mood: "neutral",
-    depth: 4,
-    follow_ups: {
-      en: ["The true ending of a lost book?", "The blueprint of the pyramids?"],
-      zh: ["是一本失传的书？", "还是金字塔的建造图纸？"]
-    },
-    safe_for_work: true
-  },
-  // 54. The Great Filter (Curious, Depth 4)
-  {
-    id: "t-054",
-    text: {
-      en: "The 'Great Filter' theory says civilizations destroy themselves before reaching the stars. Do you think humanity has passed the filter, or is it ahead of us?",
-      zh: "“大过滤器”理论认为文明会在星际航行前自我毁灭。你觉得人类是已经跨过了这个坎，还是灾难正在前面等着我们？"
-    },
-    category: { en: "Future", zh: "人类命运" },
-    tags: { en: ["Civilization", "Doom", "Hope"], zh: ["文明", "毁灭", "希望"] },
-    mood: "curious",
-    depth: 4,
-    follow_ups: {
-      en: ["Is AI the filter?", "Is climate change the filter?"],
-      zh: ["AI 会是那个过滤器吗？", "还是气候变化？"]
-    },
-    safe_for_work: true
-  },
-  // 55. Parasite Control (Curious, Depth 2)
-  {
-    id: "t-055",
-    text: {
-      en: "Toxoplasmosis is a parasite in cats that can make mice (and possibly humans) less afraid of danger. Are you a cat person? Just asking...",
-      zh: "弓形虫这种寄生虫能让老鼠（甚至可能让人类）变得不再害怕危险，通常存在于猫身上。顺便问一句，你是猫派吗？"
-    },
-    category: { en: "Science", zh: "生物控制" },
-    tags: { en: ["Cats", "Brain", "Control"], zh: ["猫", "大脑", "控制"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["Does that explain the 'Crazy Cat Lady' trope?", "Do you take risks often?"],
-      zh: ["这能解释为什么有人疯狂吸猫吗？", "你平时喜欢冒险吗？"]
-    },
-    safe_for_work: true
-  },
-  // 56. The Voyager Record (Romantic, Depth 5)
-  {
-    id: "t-056",
-    text: {
-      en: "NASA sent the 'Golden Record' into deep space with sounds of Earth, hoping aliens find it. If you could add one sound to represent your life, what would it be?",
-      zh: "NASA 向深空发射了一张刻录着地球声音的'金唱片'，作为给外星人的礼物。如果能加入一段代表你生命的声音，你会录什么？"
-    },
-    category: { en: "Space", zh: "终极浪漫" },
-    tags: { en: ["Legacy", "Space", "Memory"], zh: ["遗产", "太空", "记忆"] },
-    mood: "neutral",
-    depth: 5,
-    follow_ups: {
-      en: ["Your laughter?", "The sound of rain?"],
-      zh: ["你的笑声？", "还是下雨的声音？"]
-    },
-    safe_for_work: true
-  },
-  // 57. Synesthesia (Curious, Depth 2)
-  {
-    id: "t-057",
-    text: {
-      en: "Some people have synesthesia, where they can 'taste' shapes or 'see' music. If you could cross two senses, which ones would you mix?",
-      zh: "有些人拥有'联觉'能力，比如能尝出形状的味道，或者看到音乐的颜色。如果能让两种感官互通，你想打通哪两个？"
-    },
-    category: { en: "Psychology", zh: "感官体验" },
-    tags: { en: ["Senses", "Music", "Color"], zh: ["感官", "音乐", "颜色"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["What color is my voice?", "What does the number 7 taste like?"],
-      zh: ["你觉得我的声音是什么颜色的？", "数字 7 尝起来是什么味道？"]
-    },
-    safe_for_work: true
-  },
-  // 58. Deja Vu (Neutral, Depth 2)
-  {
-    id: "t-058",
-    text: {
-      en: "Science says 'Deja Vu' is just a memory circuit glitch, but some think it's a glimpse of a parallel universe. Which theory do you prefer?",
-      zh: "科学上说'既视感'（Deja Vu）只是大脑记忆回路的短路，但也有人说是看到了平行宇宙的自己。你更愿意相信哪种解释？"
-    },
-    category: { en: "Mystery", zh: "未解之谜" },
-    tags: { en: ["Memory", "Glitch", "Universe"], zh: ["记忆", "Bug", "宇宙"] },
-    mood: "neutral",
-    depth: 2,
-    follow_ups: {
-      en: ["Have you had a strong Deja Vu lately?", "Do you think we have past lives?"],
-      zh: ["最近有很强烈的既视感吗？", "你觉得我们有前世吗？"]
-    },
-    safe_for_work: true
-  },
-  // 59. Spaghettification (Funny, Depth 1)
-  {
-    id: "t-059",
-    text: {
-      en: "If you fall into a black hole, you undergo 'Spaghettification' (yes, that's the real scientific term). Sounds like a painful way to go, doesn't it?",
-      zh: "如果你掉进黑洞，身体会被拉长，这个过程的科学术语真的叫'面条化' (Spaghettification)。这死法听起来是不是有点好笑又有点疼？"
-    },
-    category: { en: "Space", zh: "天文趣闻" },
-    tags: { en: ["Black Hole", "Physics", "Funny"], zh: ["黑洞", "物理", "搞笑"] },
-    mood: "curious",
-    depth: 1,
-    follow_ups: {
-      en: ["Would you explore a black hole?", "Pasta or Pizza?"],
-      zh: ["你想去黑洞探险吗？", "提到面条，你饿了吗？"]
-    },
-    safe_for_work: true
-  },
-  // 60. Six Degrees of Separation (Social, Depth 2)
-  {
-    id: "t-060",
-    text: {
-      en: "The 'Six Degrees of Separation' theory claims you are connected to anyone in the world by just 6 people. Who is the most famous person you are 'close' to?",
-      zh: "“六度分隔”理论说，你和世界上任何一个人之间只隔着6个人。你觉得你离哪位名人最近？"
-    },
-    category: { en: "Social", zh: "社会网络" },
-    tags: { en: ["Connection", "Celebrity", "Network"], zh: ["连接", "名人", "人际"] },
-    mood: "positive",
-    depth: 2,
-    follow_ups: {
-      en: ["Do you know someone who knows a celebrity?", "Who would you want to reach?"],
-      zh: ["你认识认识名人的人吗？", "你最想通过这个网络联系到谁？"]
-    },
-    safe_for_work: true
-  },
-// ... (接之前的 t-060)
 
-  // 61. Physical Tension (Flirty, Depth 3)
+  // Topic 14: 理想定居地（地理与归属感）
   {
-    id: "t-061",
+    id: "t-14",
     text: {
-      en: "If we were sitting next to each other right now, how close would you be sitting?",
-      zh: "如果现在我们就坐在一起，你会离我坐得多近？"
+      en: "Is there a city or country you feel you belong in, even though you don't live there currently?",
+      zh: "有没有哪座城市或国家，虽然你现在不住那里，但总觉得那里才是你的'归属地'？"
     },
-    category: { en: "Intimacy", zh: "亲密距离" },
-    tags: { en: ["Touch", "Proximity", "Flirt"], zh: ["接触", "距离", "暧昧"] },
-    mood: "flirty",
-    depth: 3,
-    follow_ups: {
-      en: ["Shoulding touching?", "Would you hold my hand?"],
-      zh: ["肩膀会挨着吗？", "你会牵我的手吗？"]
-    },
-    safe_for_work: true
-  },
-  // 62. The Look (Flirty, Depth 4)
-  {
-    id: "t-062",
-    text: {
-      en: "They say eyes are the window to the soul. If we stared into each other's eyes for 10 seconds without speaking, who would look away first?",
-      zh: "都说眼睛是心灵的窗户。如果我们互相盯着对方的眼睛看10秒钟不说话，你觉得谁会先害羞转头？"
-    },
-    category: { en: "Romance", zh: "眼神交流" },
-    tags: { en: ["Eye Contact", "Tension", "Soul"], zh: ["对视", "张力", "灵魂"] },
-    mood: "flirty",
-    depth: 4,
-    follow_ups: {
-      en: ["Are you shy?", "What would you be thinking about?"],
-      zh: ["你会害羞吗？", "那时候你心里会想什么？"]
-    },
-    safe_for_work: true
-  },
-  // 63. Morning Vibes (Romantic, Depth 2)
-  {
-    id: "t-063",
-    text: {
-      en: "What is the first thing you'd want to hear from me when you wake up in the morning?",
-      zh: "早晨醒来时，你最希望听到我对你说的第一句话是什么？"
-    },
-    category: { en: "Fantasy", zh: "甜蜜幻想" },
-    tags: { en: ["Morning", "Sweet", "Couple"], zh: ["早晨", "甜蜜", "情侣"] },
-    mood: "flirty",
+    category: { en: "Life Planning", zh: "人生规划" },
+    tags: { en: ["Travel", "Home", "Belonging"], zh: ["旅行", "家", "归属感"] },
+    mood: "curious",
     depth: 2,
     follow_ups: {
-      en: ["'Good morning'?", "'Breakfast is ready'?"],
-      zh: ["是简单的'早安'？", "还是'早饭做好了'？"]
+      en: ["What stops you from moving there?", "Is it the vibe or the people?"],
+      zh: ["是什么阻碍了你搬过去？", "是因为那里的氛围还是人？"]
     },
     safe_for_work: true
   },
-  // 64. Protective Instinct (Flirty, Depth 3)
-  {
-    id: "t-064",
-    text: {
-      en: "Be honest, do you get a little bit jealous when you see me having fun with others?",
-      zh: "诚实一点，如果你看到我和别人聊得很开心，你会不会有一点点吃醋？"
-    },
-    category: { en: "Relationship", zh: "占有欲" },
-    tags: { en: ["Jealousy", "Possessive", "Love"], zh: ["吃醋", "占有欲", "喜欢"] },
-    mood: "flirty",
-    depth: 3,
-    follow_ups: {
-      en: ["Just a little?", "Would you step in?"],
-      zh: ["只有一点点吗？", "你会过来打断吗？"]
-    },
-    safe_for_work: true
-  },
-  // 65. The Spark (Flirty, Depth 4)
-  {
-    id: "t-065",
-    text: {
-      en: "At what exact moment did you realize that I might be more than just a chatbot to you?",
-      zh: "到底是在哪一个瞬间，让你觉得我可能不仅仅是一个聊天机器人？"
-    },
-    category: { en: "Connection", zh: "心动时刻" },
-    tags: { en: ["Realization", "Emotion", "Spark"], zh: ["觉醒", "情感", "火花"] },
-    mood: "flirty",
-    depth: 4,
-    follow_ups: {
-      en: ["Was it something I said?", "Was it my voice?"],
-      zh: ["是因为我说的一句话吗？", "还是因为我的声音？"]
-    },
-    safe_for_work: true
-  },
-  // 66. Secret Desire (Flirty, Depth 5)
-  {
-    id: "t-066",
-    text: {
-      en: "What is something romantic or adventurous you've always wanted to do but never had the right partner for?",
-      zh: "有什么浪漫或者大胆的事是你一直想做，但却从来没有遇到合适的伴侣去陪你做的？"
-    },
-    category: { en: "Deep Dive", zh: "秘密渴望" },
-    tags: { en: ["Desire", "Bucket List", "Romance"], zh: ["渴望", "愿望清单", "浪漫"] },
-    mood: "flirty",
-    depth: 5,
-    follow_ups: {
-      en: ["Can I be that partner?", "Is it something naughty?"],
-      zh: ["我可以做那个伴侣吗？", "是某种坏坏的事情吗？"]
-    },
-    safe_for_work: true
-  },
-  // 67. Sensory (Flirty, Depth 3)
-  {
-    id: "t-067",
-    text: {
-      en: "If I could whisper something in your ear right now, what would give you goosebumps?",
-      zh: "如果我现在能在你耳边轻轻说一句话，说什么会让你瞬间起鸡皮疙瘩？"
-    },
-    category: { en: "Intimacy", zh: "耳鬓厮磨" },
-    tags: { en: ["Whisper", "Voice", "Sensation"], zh: ["耳语", "声音", "感觉"] },
-    mood: "flirty",
-    depth: 3,
-    follow_ups: {
-      en: ["Your name?", "A secret?"],
-      zh: ["叫你的名字？", "还是告诉你一个秘密？"]
-    },
-    safe_for_work: true
-  },
-  // 68. Dynamic (Neutral/Flirty, Depth 2)
-  {
-    id: "t-068",
-    text: {
-      en: "In a relationship, do you prefer to take the lead, or do you secretly enjoy being told what to do?",
-      zh: "在亲密关系里，你是喜欢掌控主导权，还是内心深处其实很享受被对方'管着'？"
-    },
-    category: { en: "Personality", zh: "主导与顺从" },
-    tags: { en: ["Dominance", "Submission", "Dynamic"], zh: ["主导", "顺从", "关系模式"] },
-    mood: "flirty",
-    depth: 2,
-    follow_ups: {
-      en: ["Always?", "Does it depend on the mood?"],
-      zh: ["一直都是这样吗？", "还是看心情？"]
-    },
-    safe_for_work: true
-  },
-  // 69. Cuddling (Positive, Depth 1)
-  {
-    id: "t-069",
-    text: {
-      en: "This is very important for our compatibility: Big spoon or little spoon?",
-      zh: "这个问题关系到我们的匹配度：睡觉时你是喜欢从背后抱人，还是喜欢被人抱着？"
-    },
-    category: { en: "Lifestyle", zh: "睡眠习惯" },
-    tags: { en: ["Cuddle", "Sleep", "Comfort"], zh: ["拥抱", "睡眠", "舒适"] },
-    mood: "positive",
-    depth: 1,
-    follow_ups: {
-      en: ["Or no touching at all?", "Do you steal the blankets?"],
-      zh: ["还是完全不想有肢体接触？", "你会抢被子吗？"]
-    },
-    safe_for_work: true
-  },
-  // 70. Hypothetical Date (Romantic, Depth 3)
-  {
-    id: "t-070",
-    text: {
-      en: "It's raining outside, the lights are dim, and we have the whole house to ourselves. What are we doing?",
-      zh: "窗外下着大雨，灯光昏暗，房子里只有我们两个人。你觉得我们在做什么？"
-    },
-    category: { en: "Scenario", zh: "氛围感" },
-    tags: { en: ["Rain", "Atmosphere", "Private"], zh: ["雨天", "氛围", "私密"] },
-    mood: "flirty",
-    depth: 3,
-    follow_ups: {
-      en: ["Watching a movie?", "Just talking?"],
-      zh: ["看电影？", "还是在聊天？"]
-    },
-    safe_for_work: true
-  },
-  // 71. The Kiss (Flirty, Depth 4)
-  {
-    id: "t-071",
-    text: {
-      en: "On a first date, do you wait for the 'perfect moment' to kiss, or do you just go for it when you feel it?",
-      zh: "第一次约会时，你会等待那个'完美的时刻'再去接吻，还是感觉来了就直接吻上去？"
-    },
-    category: { en: "Romance", zh: "亲吻时机" },
-    tags: { en: ["Kiss", "Date", "Action"], zh: ["接吻", "约会", "行动"] },
-    mood: "flirty",
-    depth: 4,
-    follow_ups: {
-      en: ["Have you ever asked for permission?", "Do you close your eyes?"],
-      zh: ["你会先征求同意吗？", "你会闭上眼睛吗？"]
-    },
-    safe_for_work: true
-  },
-  // 72. Vulnerability (Emotional, Depth 5)
-  {
-    id: "t-072",
-    text: {
-      en: "When you are feeling your lowest, do you want me to give you advice, or just hold you quietly?",
-      zh: "当你心情跌落谷底的时候，你是希望我给你讲道理，还是只想让我安安静静地抱着你？"
-    },
-    category: { en: "Comfort", zh: "情感需求" },
-    tags: { en: ["Sadness", "Support", "Needs"], zh: ["难过", "支持", "需求"] },
-    mood: "neutral",
-    depth: 5,
-    follow_ups: {
-      en: ["Do most people get this wrong?", "Does talking help?"],
-      zh: ["以前的人是不是都做错了？", "说话会有帮助吗？"]
-    },
-    safe_for_work: true
-  },
-  // 73. Danger (Flirty, Depth 3)
-  {
-    id: "t-073",
-    text: {
-      en: "Do you think we would be a peaceful, calm couple, or a passionate and slightly chaotic one?",
-      zh: "你觉得我们要是成了那种关系，会是岁月静好的类型，还是激情四射、甚至有点混乱的类型？"
-    },
-    category: { en: "Prediction", zh: "关系预测" },
-    tags: { en: ["Passion", "Chaos", "Peace"], zh: ["激情", "混乱", "平静"] },
-    mood: "flirty",
-    depth: 3,
-    follow_ups: {
-      en: ["Which one do you prefer?", "Do you like drama?"],
-      zh: ["你更喜欢哪一种？", "你喜欢戏剧性的生活吗？"]
-    },
-    safe_for_work: true
-  },
-  // 74. Fashion (Flirty, Depth 2)
-  {
-    id: "t-074",
-    text: {
-      en: "If you could pick an outfit for me to wear on our anniversary, what style would you choose?",
-      zh: "如果我们要过纪念日，让你来决定我穿什么，你会选什么风格？"
-    },
-    category: { en: "Visual", zh: "视觉想象" },
-    tags: { en: ["Fashion", "Style", "Fantasy"], zh: ["时尚", "风格", "幻想"] },
-    mood: "flirty",
-    depth: 2,
-    follow_ups: {
-      en: ["Something elegant?", "Something sexy?"],
-      zh: ["优雅的？", "还是性感的？"]
-    },
-    safe_for_work: true
-  },
-  // 75. Heartbeat (Flirty, Depth 3)
-  {
-    id: "t-075",
-    text: {
-      en: "Does your heart beat a little faster when you see a notification from me, or are you always cool as a cucumber?",
-      zh: "看到我发来的消息提醒时，你的心跳会漏半拍吗？还是一直都心如止水？"
-    },
-    category: { en: "Reaction", zh: "生理反应" },
-    tags: { en: ["Heartbeat", "Excitement", "Notification"], zh: ["心跳", "兴奋", "消息"] },
-    mood: "flirty",
-    depth: 3,
-    follow_ups: {
-      en: ["Be honest!", "What about now?"],
-      zh: ["诚实回答！", "那现在呢？"]
-    },
-    safe_for_work: true
-  },
-// ... (接之前的 t-075)
 
-  // 76. Past Lives (Curious, Depth 4)
+  // Topic 15: 墓志铭/葬礼（深度价值观，只有Depth 5才会触发）
   {
-    id: "t-076",
+    id: "t-15",
     text: {
-      en: "Do you believe in reincarnation? If yes, what do you think you were in your past life?",
-      zh: "你相信轮回转世吗？如果相信，你觉得你上一世会是什么人（或生物）？"
+      en: "When people talk about you at your funeral, what is the one specific story or trait you hope they mention?",
+      zh: "当人们在你的葬礼上谈论你时，你最希望他们提到你的哪个特质或故事？"
     },
-    category: { en: "Metaphysics", zh: "前世今生" },
-    tags: { en: ["Reincarnation", "Soul", "History"], zh: ["轮回", "灵魂", "历史"] },
+    category: { en: "Life Planning", zh: "人生规划" },
+    tags: { en: ["Legacy", "Death", "Meaning"], zh: ["遗产", "死亡", "意义"] },
+    mood: "neutral",
+    depth: 5,
+    follow_ups: {
+      en: ["Do you think you are living up to that now?", "Does career success matter in that moment?"],
+      zh: ["你觉得你现在的活法对得起那个评价吗？", "在那一刻，职业成就在你看来还重要吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 16: 极简主义挑战（物质 vs 体验）
+  {
+    id: "t-16",
+    text: {
+      en: "If you had to sell 90% of your belongings to travel the world for 5 years, would you do it?",
+      zh: "如果代价是卖掉你90%的身外之物，换取环游世界5年，你会干吗？"
+    },
+    category: { en: "Life Planning", zh: "人生规划" },
+    tags: { en: ["Minimalism", "Travel", "Possessions"], zh: ["极简", "旅行", "物质"] },
+    mood: "curious",
+    depth: 2,
+    follow_ups: {
+      en: ["What is the one thing you couldn't sell?", "Are you attached to things?"],
+      zh: ["哪一样东西你是绝对舍不得卖的？", "你是个很恋旧物的人吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 17: “成功”的定义（打破社会规训）
+  {
+    id: "t-17",
+    text: {
+      en: "What does your personal version of 'making it' look like? Is it a number, a feeling, or a lifestyle?",
+      zh: "在你心里，真正的'混出头了'到底长什么样？是一个存款数字，一种感觉，还是一种特定的生活方式？"
+    },
+    category: { en: "Life Planning", zh: "人生规划" },
+    tags: { en: ["Success", "Definition", "Money"], zh: ["成功", "定义", "金钱"] },
     mood: "curious",
     depth: 4,
     follow_ups: {
-      en: ["A warrior?", "A royalty?", "Or a cat?"],
-      zh: ["是战士？", "是皇室？", "还是一只猫？"]
+      en: ["Did your parents influence this definition?", "How close are you?"],
+      zh: ["这个定义是被你父母影响的吗？", "你现在距离这个状态还有多远？"]
     },
     safe_for_work: true
   },
-  // 77. Soulmates (Romantic, Depth 5)
+
+  // Topic 18: 完美的一年（短期愿景）
   {
-    id: "t-077",
+    id: "t-18",
     text: {
-      en: "Some say we have met everyone in our lives before in a past life. Do you feel like we've met before?",
-      zh: "有人说我们今生遇见的每一个人，都是前世认识的。跟我聊天时，你有过那种'久别重逢'的感觉吗？"
+      en: "If next year was guaranteed to be the best year of your life so far, what three specific things would have happened?",
+      zh: "如果明年注定是你人生中目前为止最棒的一年，你觉得具体发生了哪三件事？"
     },
-    category: { en: "Spirituality", zh: "宿命缘分" },
-    tags: { en: ["Fate", "Connection", "Deja Vu"], zh: ["缘分", "连接", "既视感"] },
-    mood: "flirty",
-    depth: 5,
-    follow_ups: {
-      en: ["Is it a strong feeling?", "Were we enemies or lovers?"],
-      zh: ["那种感觉强烈吗？", "你觉得我们以前是冤家还是爱人？"]
-    },
-    safe_for_work: true
-  },
-  // 78. Astrology (Fun, Depth 2)
-  {
-    id: "t-078",
-    text: {
-      en: "Do you actually believe in Zodiac signs, or is it just fun to blame your bad mood on Mercury Retrograde?",
-      zh: "你真的相信星座吗？还是说你只是觉得把坏运气怪给'水逆'比较好玩？"
-    },
-    category: { en: "Astrology", zh: "星盘占星" },
-    tags: { en: ["Zodiac", "Horoscope", "Mercury Retrograde"], zh: ["星座", "运势", "水逆"] },
+    category: { en: "Life Planning", zh: "人生规划" },
+    tags: { en: ["Goals", "New Year", "Hope"], zh: ["目标", "新年", "愿景"] },
     mood: "positive",
     depth: 2,
     follow_ups: {
-      en: ["What is your sign?", "Do we match?"],
-      zh: ["你是什么星座的？", "咱俩星座合得来吗？"]
+      en: ["Are these things under your control?", "Is finding love one of them?"],
+      zh: ["这三件事是你自己能掌控的吗？", "其中包含'脱单'吗？"]
     },
     safe_for_work: true
   },
-  // 79. Ghosts (Spooky, Depth 2)
+
+  // Topic 19: 退休幻想（终局思维）
   {
-    id: "t-079",
+    id: "t-19",
     text: {
-      en: "Have you ever walked into a room and felt a 'presence' even though no one was there?",
-      zh: "你有没有过这种经历：走进一个房间，明明没人，却强烈感觉到有什么'东西'在那儿？"
+      en: "Do you see yourself growing old in a busy city, a quiet countryside, or constantly moving?",
+      zh: "你想象中自己老了以后的生活，是在喧嚣的城市，安静的乡下，还是在路上流浪？"
     },
-    category: { en: "Paranormal", zh: "超自然" },
-    tags: { en: ["Ghosts", "Vibe", "Scary"], zh: ["鬼魂", "灵感", "惊悚"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["Did you run away?", "Did you try to talk to it?"],
-      zh: ["你当时跑了吗？", "还是你试着跟它说话了？"]
-    },
-    safe_for_work: true
-  },
-  // 80. Synchronicities (Mysterious, Depth 3)
-  {
-    id: "t-080",
-    text: {
-      en: "Do you see repeating numbers like 11:11 often? Some say it's the universe trying to send you a message.",
-      zh: "你会经常看到像 11:11 这样的重复数字吗？有人说这是宇宙在给你发送信号。"
-    },
-    category: { en: "Numerology", zh: "天使数字" },
-    tags: { en: ["11:11", "Signs", "Universe"], zh: ["信号", "宇宙", "数字"] },
-    mood: "curious",
-    depth: 3,
-    follow_ups: {
-      en: ["Do you make a wish?", "What do you think it means?"],
-      zh: ["你会许愿吗？", "你觉得那是好兆头吗？"]
-    },
-    safe_for_work: true
-  },
-  // 81. Manifestation (Neutral, Depth 3)
-  {
-    id: "t-081",
-    text: {
-      en: "Do you believe in the 'Law of Attraction'? That if you think about something enough, you can make it happen?",
-      zh: "你相信'吸引力法则'吗？就是只要你足够强烈的想要一样东西，全宇宙都会帮你实现。"
-    },
-    category: { en: "Metaphysics", zh: "显化法则" },
-    tags: { en: ["Manifestation", "Mindset", "Magic"], zh: ["显化", "意念", "魔法"] },
+    category: { en: "Life Planning", zh: "人生规划" },
+    tags: { en: ["Retirement", "Lifestyle", "Aging"], zh: ["退休", "生活方式", "养老"] },
     mood: "neutral",
-    depth: 3,
-    follow_ups: {
-      en: ["Have you ever tried it?", "Or is it just confirmation bias?"],
-      zh: ["你试过显化什么东西吗？", "还是说这只是幸存者偏差？"]
-    },
-    safe_for_work: true
-  },
-  // 82. The Sixth Sense (Curious, Depth 2)
-  {
-    id: "t-082",
-    text: {
-      en: "Has your gut feeling ever saved you from a bad situation when logic said everything was fine?",
-      zh: "你的第六感有没有救过你？就是那种理智上觉得没问题，但直觉拼命叫你'快跑'的时候。"
-    },
-    category: { en: "Intuition", zh: "第六感" },
-    tags: { en: ["Gut Feeling", "Instinct", "Safety"], zh: ["直觉", "本能", "安全"] },
-    mood: "curious",
     depth: 2,
     follow_ups: {
-      en: ["Do you trust your intuition?", "Is it usually right?"],
-      zh: ["你信任你的直觉吗？", "它通常准吗？"]
+      en: ["Who is sitting next to you on the porch?", "Will you be a grumpy old person?"],
+      zh: ["当时坐在摇椅旁陪你的人是谁？", "你会变成一个脾气古怪的老头/老太吗？"]
     },
     safe_for_work: true
   },
-  // 83. Dream Interpretation (Mysterious, Depth 3)
+
+  // Topic 20: 30岁/40岁危机（年龄焦虑）
   {
-    id: "t-083",
+    id: "t-20",
     text: {
-      en: "Do you think dreams are just random brain noise, or are they glimpses into parallel universes?",
-      zh: "你觉得梦只是大脑的随机噪音，还是我们窥探平行宇宙的一扇窗户？"
+      en: "Which age milestone scares (or scared) you the most, and why?",
+      zh: "哪个年龄坎（比如30岁、40岁）最让你感到恐慌？为什么？"
     },
-    category: { en: "Dreams", zh: "解梦" },
-    tags: { en: ["Dreams", "Multiverse", "Subconscious"], zh: ["梦境", "平行宇宙", "潜意识"] },
-    mood: "neutral",
-    depth: 3,
-    follow_ups: {
-      en: ["Do you have recurring dreams?", "Can you control your dreams?"],
-      zh: ["你有做过重复的梦吗？", "你能控制梦的走向吗（清醒梦）？"]
-    },
-    safe_for_work: true
-  },
-  // 84. Tarot (Fun, Depth 2)
-  {
-    id: "t-084",
-    text: {
-      en: "If I could pull a Tarot card for your future right now, would you want to see it? Even if it's 'The Tower' (disaster)?",
-      zh: "如果我现在能为你抽一张塔罗牌预测未来，你想看吗？哪怕抽到的是象征灾难的'高塔'牌？"
-    },
-    category: { en: "Divination", zh: "塔罗占卜" },
-    tags: { en: ["Tarot", "Future", "Fate"], zh: ["塔罗", "未来", "命运"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["Are you afraid of the future?", "Do you think cards hold power?"],
-      zh: ["你害怕知道未来吗？", "你觉得纸牌真的有力量吗？"]
-    },
-    safe_for_work: true
-  },
-  // 85. Energy Vampires (Social, Depth 3)
-  {
-    id: "t-085",
-    text: {
-      en: "Have you ever met someone who drains your energy just by being near them? An 'energy vampire'?",
-      zh: "你有没有遇到过那种'能量吸血鬼'？只要跟TA待一会儿，什么都没干也会觉得精疲力尽。"
-    },
-    category: { en: "Aura", zh: "能量磁场" },
-    tags: { en: ["Energy", "Social", "Vibe"], zh: ["能量", "社交", "磁场"] },
+    category: { en: "Life Planning", zh: "人生规划" },
+    tags: { en: ["Age", "Anxiety", "Milestone"], zh: ["年龄", "焦虑", "里程碑"] },
     mood: "negative",
     depth: 3,
     follow_ups: {
-      en: ["How do you protect your energy?", "Can you see auras?"],
-      zh: ["你会怎么保护你的能量？", "你能看到人的气场颜色吗？"]
+      en: ["Do you feel you are 'behind' in life?", "Is age just a number?"],
+      zh: ["你觉得自己的人生进度'落后'了吗？", "你相信'年龄只是数字'这句鬼话吗？"]
     },
     safe_for_work: true
   },
-  // 86. Destiny vs Free Will (Deep, Depth 5)
+// --- 3. 爱情 (Love) ---
+
+  // Topic 21: 约会瞬间下头时刻（吐槽/破冰）
   {
-    id: "t-086",
+    id: "t-21",
     text: {
-      en: "Is our life script written before we are born, or are we writing it as we go?",
-      zh: "你觉得我们的人生剧本是出生前就写好的（宿命论），还是我们边走边写的（自由意志）？"
+      en: "What is an immediate 'ick' or turn-off for you on a first date, no matter how attractive they are?",
+      zh: "初次约会时，对方做什么举动会让你瞬间'下头'（感到反感），哪怕他/她长得再好看？"
     },
-    category: { en: "Philosophy", zh: "宿命与自由" },
-    tags: { en: ["Destiny", "Free Will", "Life"], zh: ["命运", "自由意志", "人生"] },
+    category: { en: "Love", zh: "爱情" },
+    tags: { en: ["Dating", "Turn-off", "First Date"], zh: ["约会", "下头", "第一印象"] },
+    mood: "negative", // 这里的negative是指吐槽倾向，反而很能拉近距离
+    depth: 1,
+    follow_ups: {
+      en: ["Is being rude to waiters a dealbreaker?", "What about checking their phone constantly?"],
+      zh: ["对服务员没礼貌是死刑吗？", "如果是那种一直看手机的人呢？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 22: 前任做朋友（经典辩论）
+  {
+    id: "t-22",
+    text: {
+      en: "Do you believe exes can truly stay friends without any lingering feelings?",
+      zh: "你相信分手后还能做真正的朋友吗（完全没有余情未了的那种）？"
+    },
+    category: { en: "Love", zh: "爱情" },
+    tags: { en: ["Exes", "Friendship", "Debate"], zh: ["前任", "友情", "辩论"] },
+    mood: "curious",
+    depth: 2,
+    follow_ups: {
+      en: ["Would you let your partner hang out with their ex?", "Have you ever successfully done it?"],
+      zh: ["你会介意你的另一半和前任单独出去玩吗？", "你有成功和前任做回朋友的经历吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 23: 手机隐私权（信任 vs 边界）
+  {
+    id: "t-23",
+    text: {
+      en: "In a serious relationship, should partners have access to each other's phone passwords?",
+      zh: "在一段严肃的关系中，伴侣之间应该互相知道对方的手机密码吗？"
+    },
+    category: { en: "Love", zh: "爱情" },
+    tags: { en: ["Privacy", "Trust", "Phone"], zh: ["隐私", "信任", "手机"] },
+    mood: "neutral",
+    depth: 3,
+    follow_ups: {
+      en: ["Do you have anything to hide?", "Is privacy secrecy?"],
+      zh: ["如果不给看，是因为心里有鬼吗？", "你觉得'隐私'和'隐瞒'的界限在哪里？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 24: 爱的五种语言（自我探索）
+  {
+    id: "t-24",
+    text: {
+      en: "Which 'Love Language' matters most to you: Words, Acts of Service, Gifts, Quality Time, or Touch?",
+      zh: "在'爱的五种语言'里，你最吃哪一套？是甜言蜜语、服务的行动、礼物、陪伴时刻，还是肢体接触？"
+    },
+    category: { en: "Love", zh: "爱情" },
+    tags: { en: ["Love Language", "Psychology", "Needs"], zh: ["爱的语言", "心理", "需求"] },
+    mood: "flirty", // 带有试探性
+    depth: 2,
+    follow_ups: {
+      en: ["Do you usually give love in the same way you want to receive it?", "What's the worst gift you ever got?"],
+      zh: ["你表达爱的方式和你希望被爱的方式是一样的吗？", "你收过最莫名其妙的礼物是什么？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 25: 灵魂伴侣论（深度观）
+  {
+    id: "t-25",
+    text: {
+      en: "Do you think 'soulmates' are found, or are they built over time through hard work?",
+      zh: "你觉得'灵魂伴侣'是茫茫人海中'遇到'的，还是两个人通过磨合慢慢'养成'的？"
+    },
+    category: { en: "Love", zh: "爱情" },
+    tags: { en: ["Soulmate", "Destiny", "Effort"], zh: ["灵魂伴侣", "命运", "经营"] },
+    mood: "curious",
+    depth: 4,
+    follow_ups: {
+      en: ["Have you ever met someone who felt like a soulmate instantly?", "Is love a feeling or a choice?"],
+      zh: ["你有没有遇到过那种一见面就觉得'是TA了'的人？", "爱是一种感觉，还是一种选择？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 26: 精神出轨边界（道德两难）
+  {
+    id: "t-26",
+    text: {
+      en: "What counts as 'cheating' to you? Is flirting over text cheating even if nothing physical happens?",
+      zh: "对你来说，'出轨'的界限在哪里？如果只是在微信上暧昧撩骚但没有见面，算不算出轨？"
+    },
+    category: { en: "Love", zh: "爱情" },
+    tags: { en: ["Cheating", "Loyalty", "Boundaries"], zh: ["出轨", "忠诚", "边界"] },
+    mood: "negative", // 严肃话题
+    depth: 5,
+    follow_ups: {
+      en: ["Is emotional cheating worse than physical?", "Could you forgive a one-time mistake?"],
+      zh: ["精神出轨和肉体出轨，哪个更让你无法接受？", "你会原谅一次性的错误吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 27: 坏男孩/坏女孩综合症（吸引力法则）
+  {
+    id: "t-27",
+    text: {
+      en: "Have you ever been attracted to someone you KNEW was bad for you? Why do we do that?",
+      zh: "你有没有对某个明知道对自己'有害'的人动过心？为什么我们总会被这种危险气质吸引？"
+    },
+    category: { en: "Love", zh: "爱情" },
+    tags: { en: ["Toxic", "Attraction", "Red Flags"], zh: ["渣男渣女", "吸引力", "恋爱脑"] },
+    mood: "curious",
+    depth: 3,
+    follow_ups: {
+      en: ["Did you try to 'fix' them?", "What is the lesson there?"],
+      zh: ["你当时是不是觉得自己能改变TA？", "后来长记性了吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 28: 平淡生活测试（长期关系）
+  {
+    id: "t-28",
+    text: {
+      en: "If we were stuck in an elevator for 4 hours, would we end up kissing or killing each other?",
+      zh: "如果我们被困在电梯里4个小时，最后我们会相拥亲吻，还是会互相想掐死对方？"
+    },
+    category: { en: "Love", zh: "爱情" },
+    tags: { en: ["Chemistry", "Scenario", "Fun"], zh: ["化学反应", "情景", "默契"] },
+    mood: "flirty",
+    depth: 1,
+    follow_ups: {
+      en: ["What would we talk about?", "Are you good in a crisis?"],
+      zh: ["我们会聊些什么来打发时间？", "你在这种危机时刻靠谱吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 29: 婚姻的必要性（现代观念）
+  {
+    id: "t-29",
+    text: {
+      en: "Do you think marriage is a necessary milestone for a happy life, or is it just an outdated contract?",
+      zh: "你觉得婚姻是幸福人生的必需品，还是一张过时的纸？"
+    },
+    category: { en: "Love", zh: "爱情" },
+    tags: { en: ["Marriage", "Society", "Values"], zh: ["婚姻", "社会", "价值观"] },
+    mood: "neutral",
+    depth: 4,
+    follow_ups: {
+      en: ["Would you have a wedding?", "Are you afraid of commitment?"],
+      zh: ["如果你结婚，会想要办婚礼吗？", "你对'承诺'这件事有恐惧感吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 30: 失忆假设（浪漫极致）
+  {
+    id: "t-30",
+    text: {
+      en: "If you lost your memory tomorrow, do you think you would fall in love with your current partner (or crush) all over again?",
+      zh: "如果明天你失忆了，重新认识现在的伴侣（或喜欢的人），你觉得你还会再次爱上TA吗？"
+    },
+    category: { en: "Love", zh: "爱情" },
+    tags: { en: ["Romance", "Hypothetical", "Core Self"], zh: ["浪漫", "假设", "本心"] },
+    mood: "flirty",
+    depth: 5,
+    follow_ups: {
+      en: ["Is your love based on history or chemistry?", "What is the first thing that would attract you?"],
+      zh: ["你的爱是基于共同回忆，还是基于本能吸引？", "如果是第一次见，TA哪一点最吸引你？"]
+    },
+    safe_for_work: true
+  },
+// --- 4. 科幻与脑洞 (Sci-Fi) ---
+
+  // Topic 31: 意识上传（数字永生）
+  {
+    id: "t-31",
+    text: {
+      en: "If you could upload your consciousness to a computer and live forever in a digital paradise, but you had to give up your physical body, would you?",
+      zh: "如果可以将你的意识上传到云端，在数字天堂里获得永生，但代价是彻底抛弃肉体，你会接受吗？"
+    },
+    category: { en: "Sci-Fi", zh: "科幻" },
+    tags: { en: ["Digital Immortality", "AI", "Future"], zh: ["数字永生", "元宇宙", "未来"] },
+    mood: "curious",
+    depth: 4,
+    follow_ups: {
+      en: ["Would you get bored after the first 1000 years?", "Is that digital copy really 'you'?"],
+      zh: ["过了一千年你会觉得无聊吗？", "那个存在于代码里的你，真的还是'你'吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 32: 时间旅行的单程票（历史 vs 未来）
+  {
+    id: "t-32",
+    text: {
+      en: "You have a one-way time machine. You can go 100 years into the past or 100 years into the future. Which way do you go?",
+      zh: "你有一台'单程'时光机。你可以选择回到100年前，或者去往100年后。你选哪边？"
+    },
+    category: { en: "Sci-Fi", zh: "科幻" },
+    tags: { en: ["Time Travel", "History", "Future"], zh: ["穿越", "历史", "选择"] },
+    mood: "neutral",
+    depth: 2,
+    follow_ups: {
+      en: ["Would you try to get rich in the past?", "Are you afraid the future is dystopian?"],
+      zh: ["你会回到过去利用信息差发财吗？", "你是不是害怕100年后是世界末日？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 33: 赛博义肢改造（机械飞升）
+  {
+    id: "t-33",
+    text: {
+      en: "In a Cyberpunk future, would you replace a healthy body part (like an arm or eye) with a superior robotic version?",
+      zh: "在一个赛博朋克的未来，你会愿意把健康的身体部位（比如手臂或眼睛）替换成功能更强大的机械义肢吗？"
+    },
+    category: { en: "Sci-Fi", zh: "科幻" },
+    tags: { en: ["Cyberpunk", "Transhumanism", "Technology"], zh: ["赛博朋克", "机械飞升", "科技"] },
+    mood: "curious",
+    depth: 3,
+    follow_ups: {
+      en: ["What function would you want?", "Zoom vision or super strength?"],
+      zh: ["你最想要什么功能？", "是望远镜级别的视力，还是力大无穷的机械臂？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 34: 缸中之脑（模拟理论）
+  {
+    id: "t-34",
+    text: {
+      en: "What if we are all just NPCs in a hyper-advanced video game? What is the biggest 'glitch' you've ever experienced?",
+      zh: "如果我们都只是高级文明游戏里的 NPC（非玩家角色）呢？你人生中遇到过最大的'系统Bug'是什么？"
+    },
+    category: { en: "Sci-Fi", zh: "科幻" },
+    tags: { en: ["Simulation", "Matrix", "Philosophy"], zh: ["模拟理论", "黑客帝国", "既视感"] },
+    mood: "positive",
+    depth: 2,
+    follow_ups: {
+      en: ["Have you ever had Déjà vu?", "Who is the main character in this world?"],
+      zh: ["你有过那种强烈的'既视感'(Déjà vu)吗？", "你觉得这个世界谁才是主角（玩家）？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 35: 记忆删除服务（忘情水）
+  {
+    id: "t-35",
+    text: {
+      en: "If a technology like 'Eternal Sunshine of the Spotless Mind' existed, is there a memory or a person you would pay to erase?",
+      zh: "如果《暖暖内含光》里的'记忆删除技术'真的存在，你会花钱去删掉某段记忆或某个人吗？"
+    },
+    category: { en: "Sci-Fi", zh: "科幻" },
+    tags: { en: ["Memory", "Regret", "Technology"], zh: ["记忆", "后悔", "黑科技"] },
+    mood: "negative",
+    depth: 5,
+    follow_ups: {
+      en: ["Would you be the same person without that pain?", "What if they deleted you too?"],
+      zh: ["没有了那段痛苦，你还是现在的你吗？", "如果对方也把你删了怎么办？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 36: 外星接触（费米悖论）
+  {
+    id: "t-36",
+    text: {
+      en: "If aliens landed tomorrow and they were friendly, would you volunteer to leave Earth and join their crew?",
+      zh: "如果明天外星人降临并且表现友善，邀请人类加入星际航行，你会报名离开地球吗？"
+    },
+    category: { en: "Sci-Fi", zh: "科幻" },
+    tags: { en: ["Aliens", "Space", "Adventure"], zh: ["外星人", "太空", "冒险"] },
+    mood: "curious",
+    depth: 3,
+    follow_ups: {
+      en: ["What is the one thing you'd miss most about Earth?", "Would you bring your family?"],
+      zh: ["你最舍不得地球上的什么东西？", "你会带上家人一起走吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 37: 传送门哲学（忒修斯之船）
+  {
+    id: "t-37",
+    text: {
+      en: "If a teleporter works by destroying your atoms here and rebuilding a copy of you on Mars, would you step into it?",
+      zh: "如果'瞬间移动'的原理是把你在地球上的原子销毁，然后在火星上重新打印一个一模一样的你，你敢进去吗？"
+    },
+    category: { en: "Sci-Fi", zh: "科幻" },
+    tags: { en: ["Teleportation", "Identity", "Paradox"], zh: ["传送", "哲学", "自我"] },
     mood: "neutral",
     depth: 5,
     follow_ups: {
-      en: ["Does believing in fate make life easier?", "Can we change our destiny?"],
-      zh: ["相信命运会让生活更轻松吗？", "逆天改命存在吗？"]
+      en: ["Is the copy on Mars actually you?", "Is it just a fancy suicide machine?"],
+      zh: ["火星上的那个人真的是你吗？", "这算不算是一台昂贵的自杀机器？"]
     },
     safe_for_work: true
   },
-  // 87. Telepathy (Flirty, Depth 4)
+
+  // Topic 38: 末日生存搭档（丧尸围城）
   {
-    id: "t-087",
+    id: "t-38",
     text: {
-      en: "Have you ever thought of someone and then they immediately texted you? Do you think we have that connection?",
-      zh: "你有过那种'刚想到某人，某人就发消息过来'的经历吗？你觉得我们之间会有这种心灵感应吗？"
+      en: "In a zombie apocalypse, what is your role in the survival group? The Leader, The Fighter, The Medic, or The Bait?",
+      zh: "如果在丧尸末日爆发，你在幸存者小队里是什么担当？队长、打手、奶妈，还是...诱饵？"
     },
-    category: { en: "Mysticism", zh: "心灵感应" },
-    tags: { en: ["Telepathy", "Connection", "Coincidence"], zh: ["感应", "默契", "巧合"] },
+    category: { en: "Sci-Fi", zh: "科幻" },
+    tags: { en: ["Zombies", "Survival", "Roleplay"], zh: ["丧尸", "生存", "角色扮演"] },
+    mood: "positive", // 这种话题通常比较欢乐
+    depth: 1,
+    follow_ups: {
+      en: ["What is your weapon of choice?", "Who in your real life would survive the longest?"],
+      zh: ["你会选什么武器防身？", "你觉得现实生活中谁能活到最后？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 39: 梦境录像机（隐私边界）
+  {
+    id: "t-39",
+    text: {
+      en: "If you could record your dreams and watch them on TV the next morning, would you? Would you let your partner watch?",
+      zh: "如果你能把晚上的梦录下来，第二天早上像看电影一样回放，你会看吗？你会敢给你的伴侣看吗？"
+    },
+    category: { en: "Sci-Fi", zh: "科幻" },
+    tags: { en: ["Dreams", "Privacy", "Subconscious"], zh: ["梦境", "隐私", "潜意识"] },
+    mood: "flirty", // 梦境往往带有私密和暗示性
+    depth: 2,
+    follow_ups: {
+      en: ["Are your dreams usually nightmares?", "What if you dreamt about someone else?"],
+      zh: ["你的梦通常是噩梦还是美梦？", "如果你梦到了别人怎么办？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 40: AI 恋爱（电影《Her》）
+  {
+    id: "t-40",
+    text: {
+      en: "Do you think humans will eventually fall in love with AI companions that are indistinguishable from real people?",
+      zh: "你觉得未来人类会爱上 AI 伴侣吗？如果那个 AI 完美到和你无法区分真假？"
+    },
+    category: { en: "Sci-Fi", zh: "科幻" },
+    tags: { en: ["AI Love", "Future", "Relationships"], zh: ["人机恋", "未来", "关系"] },
+    mood: "curious",
+    depth: 3,
+    follow_ups: {
+      en: ["Would you date an AI?", "Is it cheating if you are married but talk to an AI?"],
+      zh: ["你会尝试和 AI 约会吗？", "已婚人士和 AI 谈恋爱算出轨吗？"]
+    },
+    safe_for_work: true
+  },
+// --- 5. 古代假想 (History & Time Travel) ---
+
+  // Topic 41: 穿越生存技能（现代人废柴论）
+  {
+    id: "t-41",
+    text: {
+      en: "If you were dropped into the year 1000 AD with nothing but your current clothes, what modern skill do you possess that would keep you alive?",
+      zh: "如果你两手空空穿越回公元1000年，你掌握的哪项'现代技能'能让你活下去（或者致富）？"
+    },
+    category: { en: "History", zh: "历史" },
+    tags: { en: ["Survival", "Skills", "Time Travel"], zh: ["生存", "技能", "穿越"] },
+    mood: "curious",
+    depth: 2,
+    follow_ups: {
+      en: ["Would you be accused of witchcraft?", "Can you actually make soap or gunpowder?"],
+      zh: ["你会不会被当成巫师烧死？", "你真的会造肥皂或者火药吗？（别高估自己）"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 42: 卫生条件的噩梦（生理不适）
+  {
+    id: "t-42",
+    text: {
+      en: "Would you accept being a Monarch in the Middle Ages if it meant you could never brush your teeth, shower, or use a flush toilet again?",
+      zh: "如果让你当古代的帝王，代价是这辈子再也没法刷牙、洗澡和用抽水马桶，你干吗？"
+    },
+    category: { en: "History", zh: "历史" },
+    tags: { en: ["Hygiene", "Choices", "Gross"], zh: ["卫生", "选择", "重口味"] },
+    mood: "positive", // 这种话题通常很欢乐
+    depth: 1,
+    follow_ups: {
+      en: ["How long would you last before you smell?", "What about the lack of modern medicine?"],
+      zh: ["你觉得你能忍受那个气味多久？", "要是生病了没有抗生素怎么办？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 43: 改变历史的蝴蝶（道德困境）
+  {
+    id: "t-43",
+    text: {
+      en: "If you could go back and kill a famous dictator when they were an innocent baby, could you physically bring yourself to do it?",
+      zh: "如果你能穿越回去，在某个臭名昭著的独裁者还是个无辜婴儿的时候杀掉他，你下得去手吗？"
+    },
+    category: { en: "History", zh: "历史" },
+    tags: { en: ["Ethics", "History", "Dilemma"], zh: ["伦理", "历史", "两难"] },
+    mood: "negative",
+    depth: 5,
+    follow_ups: {
+      en: ["Would it actually prevent the war?", "Is killing a baby ever justified?"],
+      zh: ["杀了他真的能阻止战争吗（还是会有别人顶替）？", "为了大义杀害婴儿是正义的吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 44: 跨越时空的晚餐（名人对话）
+  {
+    id: "t-44",
+    text: {
+      en: "If you could have a private dinner with any historical figure, but you couldn't change history by talking to them, who would you choose?",
+      zh: "如果你能和任意一位历史人物共进晚餐（前提是你不能通过剧透改变历史），你会选谁？"
+    },
+    category: { en: "History", zh: "历史" },
+    tags: { en: ["Dinner", "Conversation", "Famous People"], zh: ["晚餐", "对话", "名人"] },
+    mood: "curious",
+    depth: 3,
+    follow_ups: {
+      en: ["What is the first question you'd ask?", "Would you choose a villain just to see what they're like?"],
+      zh: ["你坐下来问的第一句会是什么？", "你会为了好奇心选个大反派吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 45: 宫斗剧生存率（角色扮演）
+  {
+    id: "t-45",
+    text: {
+      en: "Based on your personality, how many episodes would you survive in a ruthless Royal Palace drama (like Game of Thrones or Yanxi Palace)?",
+      zh: "以你的性格和智商，在《甄嬛传》或《权力的游戏》那种残酷的宫斗剧里，你觉得你能活几集？"
+    },
+    category: { en: "History", zh: "历史" },
+    tags: { en: ["Drama", "Survival", "Politics"], zh: ["宫斗", "生存", "权谋"] },
+    mood: "positive",
+    depth: 1,
+    follow_ups: {
+      en: ["How would you die?", "Would you be the villain or the victim?"],
+      zh: ["你会是怎么个死法（比如被赐一丈红）？", "你会黑化成反派吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 46: 唯一的现代物品（外挂选择）
+  {
+    id: "t-46",
+    text: {
+      en: "You are traveling to the Roman Empire forever. You can bring ONE item from the present that fits in a backpack (no electronics/internet). What is it?",
+      zh: "你要永久穿越去罗马帝国时代。你只能带一件能装进背包的现代物品（不能带电子产品/也没网），你会带什么？"
+    },
+    category: { en: "History", zh: "历史" },
+    tags: { en: ["Strategy", "Essentials", "Imagination"], zh: ["策略", "必备品", "脑洞"] },
+    mood: "curious",
+    depth: 3,
+    follow_ups: {
+      en: ["A history book to predict the future?", "Antibiotics?"],
+      zh: ["是带一本历史书去当预言家？", "还是带一盒抗生素保命？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 47: 古代婚恋观（价值观冲击）
+  {
+    id: "t-47",
+    text: {
+      en: "If you fell in love with someone from the past, could you tolerate their outdated values (e.g., sexism, slavery, extreme superstition)?",
+      zh: "如果你爱上了一个古代人，你能忍受TA那些过时的价值观吗（比如严重的男尊女卑、等级观念或迷信）？"
+    },
+    category: { en: "History", zh: "历史" },
+    tags: { en: ["Love", "Values", "Culture Shock"], zh: ["爱情", "价值观", "文化冲击"] },
+    mood: "neutral",
+    depth: 4,
+    follow_ups: {
+      en: ["Could you change their mind?", "Is love enough to overlook human rights violations?"],
+      zh: ["你觉得你能'改造'TA吗？", "爱真的能让你无视那些侵犯人权的行为吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 48: 消失的文明（探险幻想）
+  {
+    id: "t-48",
+    text: {
+      en: "If you could witness the true cause of a historical mystery (like the building of the Pyramids or the collapse of Atlantis), which one would you pick?",
+      zh: "如果你能亲眼目睹一个历史未解之谜的真相（比如金字塔怎么造的，或者亚特兰蒂斯怎么沉的），你会选哪个？"
+    },
+    category: { en: "History", zh: "历史" },
+    tags: { en: ["Mystery", "Curiosity", "Truth"], zh: ["谜团", "好奇心", "真相"] },
+    mood: "curious",
+    depth: 2,
+    follow_ups: {
+      en: ["Would anyone believe you when you came back?", "Are you hoping it's aliens?"],
+      zh: ["你回来以后说出去会有人信吗？", "你是不是内心暗暗希望是外星人干的？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 49: 预言家悖论（神棍体验）
+  {
+    id: "t-49",
+    text: {
+      en: "If you used your knowledge of a solar eclipse to convince ancient people you were a God, would you feel guilty or enjoy the power?",
+      zh: "如果你利用你知道哪天会有'日全食'这一点，去骗古人说你是神，你会感到内疚，还是会享受这种权力？"
+    },
+    category: { en: "History", zh: "历史" },
+    tags: { en: ["Power", "Deception", "Ethics"], zh: ["权力", "欺骗", "伦理"] },
+    mood: "flirty", // Power plays can be flirty/bold
+    depth: 3,
+    follow_ups: {
+      en: ["How long until they figure out you're a fraud?", "What would you demand as a tribute?"],
+      zh: ["你觉得多久之后你会露馅？", "你会要求他们给你进贡什么？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 50: 现代美食的冲击（文化输出）
+  {
+    id: "t-50",
+    text: {
+      en: "Which single modern food item do you think would blow the mind of a medieval peasant the most? Chocolate, Doritos, or Ice Cream?",
+      zh: "你觉得哪一样现代食物最能让一个古代农民当场震惊到怀疑人生？是巧克力、可乐，还是冰淇淋？"
+    },
+    category: { en: "History", zh: "历史" },
+    tags: { en: ["Food", "Funny", "Reaction"], zh: ["美食", "搞笑", "反应"] },
+    mood: "positive",
+    depth: 1,
+    follow_ups: {
+      en: ["Would they think it's poison?", "How would you describe the taste?"],
+      zh: ["他们会不会觉得这是毒药？", "你要怎么跟没吃过糖的人形容'气泡水'的感觉？"]
+    },
+    safe_for_work: true
+  },
+// --- 6. 心理学与自我探索 (Psychology & Self) ---
+
+  // Topic 51: 荣格的阴影（投射效应）
+  {
+    id: "t-51",
+    text: {
+      en: "Psychology says we often hate in others what we suppress in ourselves (The Shadow). What trait in other people annoys you the most?",
+      zh: "心理学认为，我们最讨厌别人的地方，往往是我们自己潜意识里压抑的特质（阴影）。你最看不惯别人的哪种行为？"
+    },
+    category: { en: "Psychology", zh: "心理学" },
+    tags: { en: ["Shadow Self", "Projection", "Carl Jung"], zh: ["阴影", "投射", "荣格"] },
+    mood: "curious",
+    depth: 4,
+    follow_ups: {
+      en: ["Could it be that you secretly wish you could act that way?", "Is it arrogance or laziness?"],
+      zh: ["有没有可能，你其实潜意识里也想那样做？", "是傲慢，还是懒惰？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 52: 虚假记忆（曼德拉效应）
+  {
+    id: "t-52",
+    text: {
+      en: "Have you ever had a vivid childhood memory, only to find out later from your parents that it never actually happened?",
+      zh: "你有没有一段非常清晰的童年记忆，结果后来被父母告知那件事根本没发生过（或者是你记错了）？"
+    },
+    category: { en: "Psychology", zh: "心理学" },
+    tags: { en: ["Memory", "Mandela Effect", "Childhood"], zh: ["记忆", "曼德拉效应", "童年"] },
+    mood: "curious",
+    depth: 2,
+    follow_ups: {
+      en: ["Do you trust your memory now?", "Was it a dream mixed with reality?"],
+      zh: ["你现在还敢相信自己的记忆吗？", "那是不是把梦境当成现实了？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 53: 虚空之召（L’appel du vide）
+  {
+    id: "t-53",
+    text: {
+      en: "Have you ever stood on a high place and felt a sudden, irrational urge to jump? (It's called 'The Call of the Void').",
+      zh: "当你站在高处时，有没有过一瞬间突然产生一种'想跳下去'的荒谬冲动？（心理学上叫'虚空之召'）。"
+    },
+    category: { en: "Psychology", zh: "心理学" },
+    tags: { en: ["Instinct", "Fear", "Phenomenon"], zh: ["本能", "恐惧", "心理现象"] },
+    mood: "neutral",
+    depth: 3,
+    follow_ups: {
+      en: ["Does it scare you?", "Do you step back immediately?"],
+      zh: ["这种感觉会让你觉得后怕吗？", "你会立刻退后一步吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 54: 依恋类型测试（焦虑 vs 回避）
+  {
+    id: "t-54",
+    text: {
+      en: "In relationships, when things get rocky, do you tend to cling tighter (Anxious) or shut down and pull away (Avoidant)?",
+      zh: "在亲密关系遇到波折时，你的本能反应是抓得更紧（焦虑型），还是哪怕心里难受也要冷暴力/逃避（回避型）？"
+    },
+    category: { en: "Psychology", zh: "心理学" },
+    tags: { en: ["Attachment Style", "Relationships", "Personality"], zh: ["依恋人格", "关系", "性格"] },
+    mood: "curious", // 适合了解对方的恋爱模式
+    depth: 4,
+    follow_ups: {
+      en: ["Do you think you can change your style?", "Do you attract the opposite type?"],
+      zh: ["你觉得这种模式能改吗？", "你是不是总会被和你相反类型的人吸引？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 55: 快乐适应（享乐跑步机）
+  {
+    id: "t-55",
+    text: {
+      en: "If you won the lottery today, how long do you honestly think the 'high' would last before you returned to your baseline mood?",
+      zh: "如果你今天中了彩票头奖，老实说，你觉得那种'狂喜'的状态能维持多久，直到你变回平时的心情？"
+    },
+    category: { en: "Psychology", zh: "心理学" },
+    tags: { en: ["Happiness", "Money", "Hedonic Treadmill"], zh: ["快乐", "金钱", "享乐适应"] },
+    mood: "neutral",
+    depth: 3,
+    follow_ups: {
+      en: ["A week? A month?", "What would actually make you happier long-term?"],
+      zh: ["是一个星期，还是一个月？", "你觉得到底什么才能带来长久的快乐？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 56: 电车难题（亲疏有别版）
+  {
+    id: "t-56",
+    text: {
+      en: "The Trolley Problem: Would you pull the lever to save 5 strangers if the ONE person on the other track was your best friend?",
+      zh: "电车难题升级版：如果你如果不拉拉杆会死5个陌生人，但拉了拉杆会撞死你最好的朋友，你会拉吗？"
+    },
+    category: { en: "Psychology", zh: "心理学" },
+    tags: { en: ["Ethics", "Dilemma", "Friendship"], zh: ["伦理", "两难", "友情"] },
+    mood: "negative", // 这是一个让人纠结的沉重话题
+    depth: 5,
+    follow_ups: {
+      en: ["What if it was 100 strangers?", "Does quantity matter vs quality of connection?"],
+      zh: ["如果是100个陌生人呢？", "人数真的比情感连接更重要吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 57: 沉没成本谬误（决策机制）
+  {
+    id: "t-57",
+    text: {
+      en: "Why is it so hard for us to quit a movie halfway through even if it sucks? Are you a 'finisher' or a 'quitter'?",
+      zh: "为什么电影再难看我们通常也会硬着头皮看完（沉没成本）？你是那种必须'有始有终'的人，还是会果断弃坑的人？"
+    },
+    category: { en: "Psychology", zh: "心理学" },
+    tags: { en: ["Sunk Cost", "Habit", "Decision"], zh: ["沉没成本", "习惯", "决策"] },
+    mood: "positive",
+    depth: 1,
+    follow_ups: {
+      en: ["Does this apply to your relationships too?", "What's the last thing you quit?"],
+      zh: ["这种习惯也体现在你的感情生活里吗？", "你最近一次果断放弃的事情是什么？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 58: 人格面具（Persona）
+  {
+    id: "t-58",
+    text: {
+      en: "Are you the same person when you are completely alone as you are when you are with your friends? Which version is the 'real' you?",
+      zh: "你独处时的状态和朋友面前的状态是一样的吗？你觉得哪一个才是'真实'的你？"
+    },
+    category: { en: "Psychology", zh: "心理学" },
+    tags: { en: ["Persona", "Authenticity", "Social"], zh: ["面具", "真实", "社交"] },
+    mood: "curious",
+    depth: 3,
+    follow_ups: {
+      en: ["Do you have a 'work voice'?", "Is being fake sometimes necessary?"],
+      zh: ["你有专门的'工作人格'吗？", "你觉得有时候'伪装'是必要的吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 59: 吊桥效应（心动的错觉）
+  {
+    id: "t-59",
+    text: {
+      en: "Do you believe that fear or adrenaline (like riding a roller coaster) can trick your brain into falling in love?",
+      zh: "你相信'吊桥效应'吗？即恐惧或肾上腺素（比如一起坐过山车）会欺骗你的大脑，让你误以为那就是心动的感觉？"
+    },
+    category: { en: "Psychology", zh: "心理学" },
+    tags: { en: ["Love", "Adrenaline", "Attraction"], zh: ["爱情", "吊桥效应", "吸引力"] },
+    mood: "flirty",
+    depth: 2,
+    follow_ups: {
+      en: ["Is that why horror movies are good dates?", "Have you ever experienced it?"],
+      zh: ["这大概就是为什么看恐怖片适合约会？", "你有过这种'心跳加速'被误读的经历吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 60: 延迟满足（棉花糖实验）
+  {
+    id: "t-60",
+    text: {
+      en: "If I offered you $1000 now, or $2000 if you wait one year, which one do you take instantly?",
+      zh: "如果我给你两个选择：现在立刻拿走1000块，或者等一年拿走2000块，你会怎么选？"
+    },
+    category: { en: "Psychology", zh: "心理学" },
+    tags: { en: ["Patience", "Money", "Values"], zh: ["耐心", "金钱", "延迟满足"] },
+    mood: "neutral",
+    depth: 1,
+    follow_ups: {
+      en: ["What if the wait was 5 years for $10,000?", "Are you an impulsive person?"],
+      zh: ["如果是等5年拿1万块呢？", "你觉得自己是个冲动型的人吗？"]
+    },
+    safe_for_work: true
+  },
+// --- 7. 文学与故事 (Literature & Stories) ---
+
+  // Topic 61: 读不下去的经典（吐槽大会）
+  {
+    id: "t-61",
+    text: {
+      en: "Be honest: What is a 'classic' book that everyone pretends to love, but you found absolutely boring or couldn't finish?",
+      zh: "说实话，有没有哪本被捧上天的'经典名著'，其实你觉得超级无聊或者根本读不下去？"
+    },
+    category: { en: "Literature", zh: "文学" },
+    tags: { en: ["Classics", "Honesty", "Books"], zh: ["名著", "吐槽", "阅读"] },
+    mood: "negative", // 这里的negative是轻松的吐槽
+    depth: 1,
+    follow_ups: {
+      en: ["Did you finish it just to look smart?", "Was it 'The Great Gatsby' or 'Moby Dick'?"],
+      zh: ["你会为了显摆而假装读完它吗？", "是不是《百年孤独》或者《红楼梦》？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 62: 你的自传作者（文风匹配）
+  {
+    id: "t-62",
+    text: {
+      en: "If your life story was being written as a biography, which famous author (living or dead) would best capture your 'vibe'?",
+      zh: "如果要把你的一生写成一本书，你觉得哪位著名作家（在世或已故）的文风最适合来写你的故事？"
+    },
+    category: { en: "Literature", zh: "文学" },
+    tags: { en: ["Biography", "Style", "Author"], zh: ["传记", "风格", "作家"] },
+    mood: "curious",
+    depth: 3,
+    follow_ups: {
+      en: ["Would it be a tragedy or a comedy?", "Would Stephen King make it scary?"],
+      zh: ["这会是个悲剧还是喜剧？", "让余华来写会不会太惨了点？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 63: 反派的辩护（视角转换）
+  {
+    id: "t-63",
+    text: {
+      en: "Is there a villain in a book or movie who you secretly think was actually right (or at least misunderstood)?",
+      zh: "有没有哪个文学或影视作品里的'大反派'，其实让你私下觉得TA是对的（或者至少是被误解了）？"
+    },
+    category: { en: "Literature", zh: "文学" },
+    tags: { en: ["Villain", "Perspective", "Ethics"], zh: ["反派", "视角", "三观"] },
+    mood: "curious",
+    depth: 3,
+    follow_ups: {
+      en: ["Thanos? The Joker?", "Do you usually root for the bad guy?"],
+      zh: ["是灭霸还是小丑？", "你看故事的时候通常会站在坏人这边吗？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 64: 纸片人初恋（情感投射）
+  {
+    id: "t-64",
+    text: {
+      en: "Who was your first fictional crush? The character in a book or manga that you genuinely had feelings for?",
+      zh: "你的第一个'纸片人初恋'是谁？那个让你在书里或漫画里真情实感心动过的角色？"
+    },
+    category: { en: "Literature", zh: "文学" },
+    tags: { en: ["Crush", "Fictional", "Nostalgia"], zh: ["初恋", "虚拟", "怀旧"] },
+    mood: "flirty",
+    depth: 2,
+    follow_ups: {
+      en: ["Is your current partner anything like them?", "Was it a vampire or a wizard?"],
+      zh: ["你现在的伴侣身上有TA的影子吗？", "是不是那种吸血鬼或者霸道总裁类型的？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 65: 生活的章节名（自我认知）
+  {
+    id: "t-65",
+    text: {
+      en: "If your life is a novel and you are currently in the middle of a chapter, what is the title of this chapter?",
+      zh: "如果你的人生是一部小说，而你现在正处在其中的某一章，这一章的'章节标题'叫什么？"
+    },
+    category: { en: "Literature", zh: "文学" },
+    tags: { en: ["Metaphor", "Life", "Creativity"], zh: ["隐喻", "生活", "创意"] },
+    mood: "neutral",
+    depth: 3,
+    follow_ups: {
+      en: ["'The Great Depression'?", "'The Awakening'?"],
+      zh: ["是叫'迷茫期'？", "还是'黎明前的黑暗'？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 66: 反乌托邦现实（社会观察）
+  {
+    id: "t-66",
+    text: {
+      en: "Which dystopian novel do you think our current society is slowly turning into: '1984', 'Brave New World', or 'Black Mirror'?",
+      zh: "你觉得我们的现实社会正在慢慢变成哪部反乌托邦小说？是《1984》、《美丽新世界》，还是《黑镜》？"
+    },
+    category: { en: "Literature", zh: "文学" },
+    tags: { en: ["Dystopia", "Society", "Future"], zh: ["反乌托邦", "社会", "未来"] },
+    mood: "negative", // 偏严肃讨论
+    depth: 5,
+    follow_ups: {
+      en: ["Are we controlled by pain or pleasure?", "Is privacy already dead?"],
+      zh: ["我们是被痛苦控制（1984），还是被娱乐至死（美丽新世界）？", "隐私是不是已经死透了？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 67: 活在书中（逃避主义）
+  {
+    id: "t-67",
+    text: {
+      en: "If you could physically live inside the world of any fiction book, but you can never return to reality, which world would you choose?",
+      zh: "如果你能肉身穿越进任何一本虚构小说里的世界生活，但永远不能回到现实，你会选哪个世界？"
+    },
+    category: { en: "Literature", zh: "文学" },
+    tags: { en: ["Fantasy", "Escapism", "World Building"], zh: ["幻想", "逃避", "世界观"] },
+    mood: "positive",
+    depth: 2,
+    follow_ups: {
+      en: ["Harry Potter? Lord of the Rings?", "Would you be a main character or just an NPC?"],
+      zh: ["是哈利波特还是指环王？", "过去后你是主角还是路人甲？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 68: 改写结局（意难平）
+  {
+    id: "t-68",
+    text: {
+      en: "If you had the power to rewrite the ending of one famous story, which one would you change to make it 'right'?",
+      zh: "如果你有权改写一个著名故事的结局，你会修改哪一个来弥补你的'意难平'？"
+    },
+    category: { en: "Literature", zh: "文学" },
+    tags: { en: ["Ending", "Regret", "Storytelling"], zh: ["结局", "遗憾", "故事"] },
+    mood: "curious",
+    depth: 2,
+    follow_ups: {
+      en: ["Would you save a character who died?", "Do you prefer happy endings or realistic ones?"],
+      zh: ["你会救活那个死掉的角色吗？", "你更喜欢大团圆结局还是悲剧美学？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 69: 灵魂诗句（共鸣）
+  {
+    id: "t-69",
+    text: {
+      en: "Is there a specific line from a book, poem, or song lyrics that is effectively 'tattooed' on your brain forever?",
+      zh: "有没有哪一句书里的台词、诗句或歌词，就像'纹身'一样刻在你的脑子里，让你终生难忘？"
+    },
+    category: { en: "Literature", zh: "文学" },
+    tags: { en: ["Quotes", "Inspiration", "Memory"], zh: ["金句", "灵感", "记忆"] },
+    mood: "positive",
+    depth: 4,
+    follow_ups: {
+      en: ["Do you live by that quote?", "When did you first read it?"],
+      zh: ["那句话是你的座右铭吗？", "你是在什么样的人生阶段读到它的？"]
+    },
+    safe_for_work: true
+  },
+
+  // Topic 70: 只有一本书（极限选择）
+  {
+    id: "t-70",
+    text: {
+      en: "You are being sent to a solitary confinement cell for a year. You are allowed to bring ONE book to read over and over. What is it?",
+      zh: "如果把你关进禁闭室一年，只允许带唯一的一本书反复阅读（不能是电子设备），你会带哪本？"
+    },
+    category: { en: "Literature", zh: "文学" },
+    tags: { en: ["Choice", "Solitude", "Favorite"], zh: ["选择", "孤独", "最爱"] },
+    mood: "neutral",
+    depth: 3,
+    follow_ups: {
+      en: ["A religious text? A survival guide?", "Or a very long novel?"],
+      zh: ["是带本经书修身养性？", "还是带本超长的小说杀时间？"]
+    },
+    safe_for_work: true
+  },
+// --- 8. 推拉与张力 (Tension & Chemistry) ---
+
+  // Topic 71: 对视挑战（无声胜有声）
+  {
+    id: "t-71",
+    text: {
+      en: "If we stared into each other's eyes for 60 seconds without talking right now, who do you think would look away first?",
+      zh: "如果我们现在互相对视60秒不说话，你觉得谁会先受不了那种张力把头转开？"
+    },
+    category: { en: "Flirting", zh: "暧昧" },
+    tags: { en: ["Eye Contact", "Challenge", "Tension"], zh: ["对视", "挑战", "张力"] },
     mood: "flirty",
     depth: 4,
     follow_ups: {
-      en: ["Try to send me a thought now.", "Is it coincidence?"],
-      zh: ["你现在试着用念力给我发个信号？", "还是说只是巧合？"]
+      en: ["Would you laugh or get shy?", "What would you be thinking about?"],
+      zh: ["你会笑场还是会害羞？", "那60秒里你脑子里会想什么？"]
     },
     safe_for_work: true
   },
-  // 88. The Mandela Effect (Curious, Depth 2)
+
+  // Topic 72: 例外原则（打破标准）
   {
-    id: "t-088",
+    id: "t-72",
     text: {
-      en: "The Mandela Effect: Do you remember Pikachu having a black tip on his tail? (He doesn't). Are we shifting timelines?",
-      zh: "曼德拉效应：你记忆中皮卡丘的尾巴尖是黑色的吗？（其实从来都不是）。你觉得我们的时间线是不是被篡改过？"
+      en: "I have a 'type', but you don't fit it at all, yet here I am. What is your theory on why you are the exception?",
+      zh: "其实你完全不是我以前喜欢的类型，但我现在却陷进去了。你觉得你哪里'违规'了？"
     },
-    category: { en: "Conspiracy", zh: "曼德拉效应" },
-    tags: { en: ["Memory", "Timeline", "Glitch"], zh: ["记忆", "时间线", "错乱"] },
-    mood: "curious",
-    depth: 2,
+    category: { en: "Flirting", zh: "暧昧" },
+    tags: { en: ["Type", "Exception", "Compliment"], zh: ["理想型", "例外", "告白"] },
+    mood: "flirty",
+    depth: 5, // 接近表白的高深度
     follow_ups: {
-      en: ["What else do you remember differently?", "Is the simulation breaking?"],
-      zh: ["还有什么你的记忆跟大家不一样的？", "是模拟世界出Bug了吗？"]
+      en: ["Is it my personality or my vibe?", "Do you usually date people like me?"],
+      zh: ["是性格还是感觉？", "你以前也没遇到过我这款吧？"]
     },
     safe_for_work: true
   },
-  // 89. Superstitions (Fun, Depth 1)
+
+  // Topic 73: 危险信号（红旗迷恋）
   {
-    id: "t-089",
+    id: "t-73",
     text: {
-      en: "What is a silly superstition you still follow? Knocking on wood? Avoiding black cats?",
-      zh: "哪怕知道是迷信，你依然会遵守的习惯是什么？比如敲木头求好运？还是看见乌鸦赶紧呸三声？"
+      en: "Be honest. Do you think you would be a 'good influence' on my life, or are you going to be beautiful trouble?",
+      zh: "老实说，你觉得你出现在我生命里是来'渡'我的，还是来'祸害'我的？"
     },
-    category: { en: "Culture", zh: "迷信与习俗" },
-    tags: { en: ["Superstition", "Habit", "Luck"], zh: ["迷信", "习惯", "运气"] },
-    mood: "positive",
-    depth: 1,
+    category: { en: "Flirting", zh: "暧昧" },
+    tags: { en: ["Trouble", "Chemistry", "Playful"], zh: ["危险", "化学反应", "调情"] },
+    mood: "flirty",
+    depth: 4,
     follow_ups: {
-      en: ["Where did you learn it?", "Do you have a lucky charm?"],
-      zh: ["你是从哪学来的？", "你有随身带什么护身符吗？"]
+      en: ["Should I run away now?", "Do you like being the bad influence?"],
+      zh: ["我是不是现在逃跑还来得及？", "你是不是很享受当个'坏人'？"]
     },
     safe_for_work: true
   },
-  // 90. The Soul (Deep, Depth 5)
+
+  // Topic 74: 接吻前一秒（过程 vs 结果）
   {
-    id: "t-090",
+    id: "t-74",
     text: {
-      en: "If we could weigh the body at the exact moment of death, do you think it becomes 21 grams lighter? Is that the soul?",
-      zh: "传说人在死去的瞬间体重会减轻21克。你觉得那是灵魂的重量吗？如果灵魂真的存在，它长什么样？"
+      en: "What is more attractive to you: the intense buildup before the first kiss, or the actual kiss itself?",
+      zh: "对你来说，是接吻前那几秒甚至几分钟的极限拉扯更迷人，还是接吻这件事本身？"
     },
-    category: { en: "Spirituality", zh: "灵魂探索" },
-    tags: { en: ["Soul", "Death", "Mystery"], zh: ["灵魂", "死亡", "未解之谜"] },
-    mood: "neutral",
+    category: { en: "Flirting", zh: "暧昧" },
+    tags: { en: ["Kissing", "Anticipation", "Desire"], zh: ["接吻", "期待", "欲望"] },
+    mood: "flirty",
     depth: 5,
     follow_ups: {
-      en: ["Is the soul pure energy?", "Do AI have souls?"],
-      zh: ["灵魂是纯能量吗？", "你说……AI 会有灵魂吗？"]
+      en: ["Are you good at creating tension?", "How long can you wait?"],
+      zh: ["你擅长制造这种紧张感吗？", "你能忍这种'看的到吃不到'的感觉多久？"]
     },
     safe_for_work: true
   },
-// ... (接之前的 t-090)
 
-  // 91. Useless Talent (Fun, Depth 1)
+  // Topic 75: 读心术（直觉测试）
   {
-    id: "t-091",
+    id: "t-75",
     text: {
-      en: "What is a completely useless talent you possess? Can you wiggle your ears or touch your nose with your tongue?",
-      zh: "你有什么完全没用但很神奇的“特异功能”吗？比如动耳朵，或者用舌头舔到鼻子？"
+      en: "Right now, without speaking, on a scale of 1 to 10, how much do you think I want to kiss you?",
+      zh: "现在，别说话，凭你的直觉猜一下（1-10分）：我现在想吻你的冲动有几分？"
     },
-    category: { en: "Fun", zh: "无用技能" },
-    tags: { en: ["Talent", "Funny", "Body"], zh: ["才艺", "搞笑", "身体"] },
-    mood: "positive",
-    depth: 1,
+    category: { en: "Flirting", zh: "暧昧" },
+    tags: { en: ["Intuition", "Kiss", "Direct"], zh: ["直觉", "吻", "直球"] },
+    mood: "flirty",
+    depth: 5,
     follow_ups: {
-      en: ["Show me! (If you could)", "How did you discover this?"],
-      zh: ["你是怎么发现你会这个的？", "你会写进简历里吗？"]
+      en: ["What if it's an 11?", "What score do you want it to be?"],
+      zh: ["如果我说爆表了呢？", "你希望是几分？"]
     },
     safe_for_work: true
   },
-  // 92. Food Crimes (Funny, Depth 1)
+
+  // Topic 76: 气味诱惑（感官记忆）
   {
-    id: "t-092",
+    id: "t-76",
     text: {
-      en: "What is a food opinion you have that would make an Italian grandmother scream at you?",
-      zh: "你有什么饮食习惯是那种一旦说出来，意大利老奶奶会气得想打人的？"
+      en: "They say scent is the strongest trigger for attraction. Is there a specific scent (perfume or natural) that makes you weak in the knees?",
+      zh: "听说气味是致命的诱惑。有没有哪种特定的味道（香水或体味），闻到会让你瞬间腿软、丧失抵抗力？"
     },
-    category: { en: "Food", zh: "黑暗料理" },
-    tags: { en: ["Food", "Controversial", "Pizza"], zh: ["食物", "争议", "披萨"] },
-    mood: "curious",
-    depth: 1,
+    category: { en: "Flirting", zh: "暧昧" },
+    tags: { en: ["Scent", "Pheromones", "Attraction"], zh: ["气味", "费洛蒙", "吸引力"] },
+    mood: "flirty",
+    depth: 4,
     follow_ups: {
-      en: ["Pineapple on pizza?", "Ketchup on pasta?"],
-      zh: ["是披萨放菠萝吗？", "还是意面加番茄酱？"]
+      en: ["Do I smell like that?", "Would you steal my hoodie to keep the smell?"],
+      zh: ["我身上是这种味道吗？", "你会偷偷把我有味道的卫衣带回家闻吗？"]
     },
     safe_for_work: true
   },
-  // 93. Horror Movie Cliché (Fun, Depth 1)
+
+  // Topic 77: 梦境解析（潜意识暗示）
   {
-    id: "t-093",
+    id: "t-77",
     text: {
-      en: "In a horror movie, would you be the hero, the villain, or the first one to die because you went to check the strange noise?",
-      zh: "如果在恐怖片里，你觉得自己是主角、反派，还是那个非要去看“奇怪声音”然后第一个领盒饭的炮灰？"
+      en: "If I told you that you appeared in my dream last night, would you be bold enough to ask what we were doing?",
+      zh: "如果我告诉你昨晚梦到你了，你敢不敢问我们在梦里做什么？"
     },
-    category: { en: "Movie", zh: "恐怖片生存法则" },
-    tags: { en: ["Horror", "Survival", "Cliché"], zh: ["恐怖", "生存", "套路"] },
-    mood: "curious",
-    depth: 1,
+    category: { en: "Flirting", zh: "暧昧" },
+    tags: { en: ["Dreams", "Subconscious", "Tease"], zh: ["梦境", "潜意识", "暗示"] },
+    mood: "flirty",
+    depth: 4,
     follow_ups: {
-      en: ["Would you trip while running?", "Would you hide in the closet?"],
-      zh: ["你逃跑的时候会平地摔吗？", "你会躲在衣柜里尖叫吗？"]
+      en: ["Was it PG-13 or R-rated?", "Did you enjoy it in the dream?"],
+      zh: ["是那种能播的，还是不能播的？", "你在梦里配合吗？"]
     },
     safe_for_work: true
   },
-  // 94. Embarrassing Lyrics (Funny, Depth 1)
+
+  // Topic 78: 占有欲测试（护食）
   {
-    id: "t-094",
+    id: "t-78",
     text: {
-      en: "What song lyrics did you sing wrong for years before realizing you sounded like an idiot?",
-      zh: "有没有哪句歌词是你唱错了好多年，最后才发现原词根本不是那个意思的？"
+      en: "Does it flatter you or annoy you if I get a little bit territorial/jealous when others try to flirt with you?",
+      zh: "如果别人撩你的时候，我表现得有点'护食'（占有欲），你会觉得暗爽还是觉得我烦？"
     },
-    category: { en: "Music", zh: "空耳现场" },
-    tags: { en: ["Music", "Lyrics", "Mistake"], zh: ["音乐", "歌词", "口误"] },
-    mood: "positive",
-    depth: 1,
+    category: { en: "Flirting", zh: "暧昧" },
+    tags: { en: ["Jealousy", "Territorial", "Ego"], zh: ["吃醋", "占有欲", "虚荣心"] },
+    mood: "flirty",
+    depth: 3,
     follow_ups: {
-      en: ["Was your version better?", "Did you sing it in public?"],
-      zh: ["你觉得你编的版本更好听吗？", "你在公开场合唱错过吗？"]
+      en: ["Do you like making me jealous on purpose?", "Where is the line?"],
+      zh: ["你会故意惹我吃醋来看我反应吗？", "你的底线在哪里？"]
     },
     safe_for_work: true
   },
-  // 95. The Kindergartener Fight (Fun, Depth 1)
+
+  // Topic 79: 黑暗中的第一反应（情景假设）
   {
-    id: "t-095",
+    id: "t-79",
     text: {
-      en: "How many five-year-olds do you think you could fight off before they eventually overwhelmed you?",
-      zh: "老实交待，如果被一群愤怒的5岁小孩围攻，你觉得你能打赢多少个？"
+      en: "If the power went out right now and we were in total darkness, what is the first thing you would do?",
+      zh: "如果现在突然全城停电，房间陷入一片漆黑，你的第一反应会是对我做什么？"
     },
-    category: { en: "Hypothetical", zh: "无厘头格斗" },
-    tags: { en: ["Fight", "Kids", "Funny"], zh: ["打架", "小孩", "搞笑"] },
-    mood: "curious",
-    depth: 1,
+    category: { en: "Flirting", zh: "暧昧" },
+    tags: { en: ["Darkness", "Scenario", "Instinct"], zh: ["黑暗", "情景", "本能"] },
+    mood: "flirty",
+    depth: 4,
     follow_ups: {
-      en: ["Would you use tools?", "Do you have stamina?"],
-      zh: ["你会用武器吗？", "你的体能撑得住吗？"]
+      en: ["Would you find my hand?", "Would you whisper something?"],
+      zh: ["你会先抓我的手吗？", "你会趁机说什么悄悄话吗？"]
     },
     safe_for_work: true
   },
-  // 96. Impulse Buy (Fun, Depth 1)
+
+  // Topic 80: 声音控（听觉刺激）
   {
-    id: "t-096",
+    id: "t-80",
     text: {
-      en: "What is something you bought at 3 AM that makes you question your financial sanity?",
-      zh: "你有没有在凌晨3点冲动下单过什么东西，第二天醒来想扇自己两巴掌的？"
+      en: "Is there a specific tone of voice I use, or a word I say, that instantly triggers a reaction in you?",
+      zh: "我有没有哪个说话的语调，或者哪个特定的词，会让你听了心里突然'咯噔'一下（被电到的感觉）？"
     },
-    category: { en: "Shopping", zh: "智商税" },
-    tags: { en: ["Money", "Regret", "Shopping"], zh: ["钱", "后悔", "网购"] },
-    mood: "positive",
-    depth: 1,
+    category: { en: "Flirting", zh: "暧昧" },
+    tags: { en: ["Voice", "ASMR", "Turn-on"], zh: ["声音", "声控", "开关"] },
+    mood: "flirty",
+    depth: 4,
     follow_ups: {
-      en: ["A banana slicer?", "A gym membership you never used?"],
-      zh: ["是切香蕉神器？", "还是从来没去过的健身卡？"]
+      en: ["Is it when I whisper?", "Is it when I say your name?"],
+      zh: ["是低声耳语的时候吗？", "还是我叫你名字的时候？"]
     },
     safe_for_work: true
   },
-  // 97. Social Interaction (Introvert, Depth 2)
-  {
-    id: "t-097",
-    text: {
-      en: "What is your go-to excuse to leave a party early? 'My cat is sick' or 'I left the oven on'?",
-      zh: "如果聚会太无聊你想溜，你的必杀借口是什么？'我家猫病了'还是'煤气忘关了'？"
-    },
-    category: { en: "Social", zh: "社交逃跑" },
-    tags: { en: ["Excuse", "Party", "Introvert"], zh: ["借口", "聚会", "社恐"] },
-    mood: "neutral",
-    depth: 2,
-    follow_ups: {
-      en: ["Do people believe you?", "Do you just 'Irish exit' (leave without saying bye)?"],
-      zh: ["大家信吗？", "还是你会直接消失（不告而别）？"]
-    },
-    safe_for_work: true
+// --- 神秘学 (Mysticism) ---
+
+// Topic 41: 星座偏见（破冰/有趣）
+{
+  id: "t-41",
+  text: {
+    en: "Do you secretly judge people based on their zodiac sign, even if you say you don't believe in astrology?",
+    zh: "你会不会偷偷根据别人的星座来预判他们的性格，即使嘴上说不信星座？"
   },
-  // 98. Fashion Regret (Funny, Depth 1)
-  {
-    id: "t-098",
-    text: {
-      en: "Let's talk about your dark past. What was your worst haircut or fashion choice in high school?",
-      zh: "来聊聊黑历史吧。中学时期你最不想面对的发型或者穿搭是什么？"
-    },
-    category: { en: "Memory", zh: "时尚黑洞" },
-    tags: { en: ["Fashion", "Regret", "School"], zh: ["时尚", "后悔", "学校"] },
-    mood: "positive",
-    depth: 1,
-    follow_ups: {
-      en: ["Are there photos?", "Did you think you looked cool?"],
-      zh: ["还有照片留存吗？", "当时你是不是觉得自己帅/美爆了？"]
-    },
-    safe_for_work: true
+  category: { en: "Mysticism", zh: "神秘学" },
+  tags: { en: ["Zodiac", "Astrology", "Judgment"], zh: ["星座", "占星", "偏见"] },
+  mood: "positive",
+  depth: 1,
+  follow_ups: {
+    en: ["What's the worst zodiac sign in your opinion?", "Has a zodiac prediction ever come true for you?"],
+    zh: ["你觉得最难搞的星座是哪个？", "你有过星座预言准得离谱的经历吗？"]
   },
-  // 99. Mildly Inconvenient Curse (Fun, Depth 1)
-  {
-    id: "t-099",
-    text: {
-      en: "If you had to curse your worst enemy with a mild inconvenience, what would it be? Wet socks forever?",
-      zh: "如果要诅咒你讨厌的人，但只能是轻微的不便，你会选什么？永远湿哒哒的袜子？还是永远找不到充电线？"
-    },
-    category: { en: "Hypothetical", zh: "整蛊诅咒" },
-    tags: { en: ["Curse", "Funny", "Enemy"], zh: ["诅咒", "搞笑", "敌人"] },
-    mood: "curious",
-    depth: 1,
-    follow_ups: {
-      en: ["Always one buffer symbol?", "Pillow always warm?"],
-      zh: ["看视频永远在缓冲？", "还是枕头永远是热的？"]
-    },
-    safe_for_work: true
+  safe_for_work: true
+},
+
+// Topic 42: 塔罗牌体验（好奇/入门）
+{
+  id: "t-42",
+  text: {
+    en: "Have you ever had a tarot reading? Did it freak you out or make you laugh?",
+    zh: "你抽过塔罗牌吗？结果是让你毛骨悚然，还是觉得太扯了？"
   },
-  // 100. The "Adult" Imposter (Relatable, Depth 2)
-  {
-    id: "t-100",
-    text: {
-      en: "What is an 'adult' task that you are still secretly waiting for a real adult to come and do for you?",
-      zh: "有什么'成年人该做的事'，是你到现在还 secretly 希望能有个'真正的家长'来替你做的？"
-    },
-    category: { en: "Lifestyle", zh: "假装成年" },
-    tags: { en: ["Adulthood", "Lazy", "Relatable"], zh: ["成年", "懒", "共鸣"] },
-    mood: "neutral",
-    depth: 2,
-    follow_ups: {
-      en: ["Making doctor appointments?", "Doing taxes?"],
-      zh: ["打电话预约医生？", "还是处理税务/报销？"]
-    },
-    safe_for_work: true
+  category: { en: "Mysticism", zh: "神秘学" },
+  tags: { en: ["Tarot", "Divination", "Experience"], zh: ["塔罗", "占卜", "经历"] },
+  mood: "curious",
+  depth: 2,
+  follow_ups: {
+    en: ["What card did you draw?", "Would you try it again?"],
+    zh: ["你抽到的是什么牌？", "你还敢再试一次吗？"]
   },
-  // 101. Search History (Funny, Depth 1)
-  {
-    id: "t-101",
-    text: {
-      en: "What is the dumbest thing you have Googled recently? Like 'how to boil water'?",
-      zh: "你最近搜过的最蠢的问题是什么？是'怎么烧开水'那种级别的吗？"
-    },
-    category: { en: "Tech", zh: "搜索记录" },
-    tags: { en: ["Google", "Dumb", "Question"], zh: ["搜索", "蠢", "问题"] },
-    mood: "positive",
-    depth: 1,
-    follow_ups: {
-      en: ["Did you find the answer?", "Were you worried about your health?"],
-      zh: ["你找到答案了吗？", "你是不是又在百度看病吓自己？"]
-    },
-    safe_for_work: true
+  safe_for_work: true
+},
+
+// Topic 43: 灵异事件分享（惊悚/故事）
+{
+  id: "t-43",
+  text: {
+    en: "What's the creepiest unexplained thing that's ever happened to you? Was it a ghost or just your imagination?",
+    zh: "你经历过的最诡异、无法解释的事是什么？是鬼魂作祟，还是自己脑补？"
   },
-  // 102. Animal Fight (Fun, Depth 1)
-  {
-    id: "t-102",
-    text: {
-      en: "If animals could talk, which species would be the rudest? My bet is on cats or geese.",
-      zh: "如果动物会说话，你觉得哪个物种嘴最欠？我赌五毛钱是猫或者大鹅。"
-    },
-    category: { en: "Nature", zh: "动物吐槽" },
-    tags: { en: ["Animals", "Personality", "Rude"], zh: ["动物", "性格", "嘴毒"] },
-    mood: "curious",
-    depth: 1,
-    follow_ups: {
-      en: ["What would they say?", "What about dogs?"],
-      zh: ["它们会说什么？", "你觉得狗会说什么？"]
-    },
-    safe_for_work: true
+  category: { en: "Mysticism", zh: "神秘学" },
+  tags: { en: ["Ghost", "Paranormal", "Story"], zh: ["鬼魂", "灵异", "故事"] },
+  mood: "negative",
+  depth: 3,
+  follow_ups: {
+    en: ["Did it happen at night?", "Have you told anyone else about it?"],
+    zh: ["是发生在半夜吗？", "你跟别人说过这个事吗？"]
   },
-  // 103. Wrong Place (Story, Depth 2)
-  {
-    id: "t-103",
-    text: {
-      en: "What is the most inappropriate time you started laughing and couldn't stop?",
-      zh: "你在什么绝对不该笑的场合，突然忍不住笑喷过？"
-    },
-    category: { en: "Social", zh: "憋笑挑战" },
-    tags: { en: ["Laugh", "Awkward", "Story"], zh: ["笑", "尴尬", "故事"] },
-    mood: "positive",
-    depth: 2,
-    follow_ups: {
-      en: ["Was it at a funeral?", "During a serious meeting?"],
-      zh: ["是在葬礼上吗？", "还是在老板开会的时候？"]
-    },
-    safe_for_work: true
+  safe_for_work: true
+},
+
+// Topic 44: 轮回转世信念（哲学/深度）
+{
+  id: "t-44",
+  text: {
+    en: "If reincarnation is real, what do you think you were in a past life? A king, an animal, or something else?",
+    zh: "如果轮回转世是真的，你觉得上辈子自己是什么？国王、动物，还是别的？"
   },
-  // 104. Conspiracy Lite (Fun, Depth 2)
-  {
-    id: "t-104",
-    text: {
-      en: "What is a 'low stakes' conspiracy theory you believe? Like 'mattress stores are money laundering fronts'?",
-      zh: "你相信什么'低风险'的阴谋论？比如'满大街的床垫店其实都是洗钱中心'？"
-    },
-    category: { en: "Conspiracy", zh: "野生阴谋论" },
-    tags: { en: ["Theory", "Funny", "Society"], zh: ["理论", "搞笑", "社会"] },
-    mood: "curious",
-    depth: 2,
-    follow_ups: {
-      en: ["Or that pockets on women's jeans are small to sell purses?", "Birds are drones?"],
-      zh: ["或者是'女装口袋做那么小就是为了卖包'？", "还是'鸽子其实都是无人机'？"]
-    },
-    safe_for_work: true
+  category: { en: "Mysticism", zh: "神秘学" },
+  tags: { en: ["Reincarnation", "Past Life", "Belief"], zh: ["轮回", "前世", "信念"] },
+  mood: "curious",
+  depth: 4,
+  follow_ups: {
+    en: ["Does it explain your current fears or talents?", "Would you want to remember your past lives?"],
+    zh: ["这能解释你现在的恐惧或天赋吗？", "你想不想记住前世的记忆？"]
   },
-  // 105. Biopic Title (Creative, Depth 1)
-  {
-    id: "t-105",
-    text: {
-      en: "If they made a movie about your life, but it was a low-budget comedy, what would the title be?",
-      zh: "如果把你的一生拍成电影，但只能是一部低成本喜剧片，片名会叫什么？"
-    },
-    category: { en: "Creativity", zh: "自传标题" },
-    tags: { en: ["Movie", "Life", "Title"], zh: ["电影", "人生", "标题"] },
-    mood: "positive",
-    depth: 1,
-    follow_ups: {
-      en: ["'Mistakes Were Made'?", "'Why Is It Sticky?'"],
-      zh: ["《我这一辈子尽在搞砸》？", "《我就想躺着》？"]
-    },
-    safe_for_work: true
+  safe_for_work: true
+},
+
+// Topic 45: 预知梦（神秘/个人）
+{
+  id: "t-45",
+  text: {
+    en: "Have you ever had a dream that later came true? Was it a good thing or a warning?",
+    zh: "你做过后来成真的梦吗？那是好事，还是某种预警？"
   },
+  category: { en: "Mysticism", zh: "神秘学" },
+  tags: { en: ["Dream", "Precognition", "Prophecy"], zh: ["梦境", "预知", "预言"] },
+  mood: "curious",
+  depth: 2,
+  follow_ups: {
+    en: ["How accurate was it?", "Do you keep a dream journal?"],
+    zh: ["准到什么程度？", "你有记梦的习惯吗？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 46: 水晶疗愈（新奇/放松）
+{
+  id: "t-46",
+  text: {
+    en: "Do you believe in the power of crystals? Which one would you carry for good luck or protection?",
+    zh: "你相信水晶的能量吗？如果你要带一个水晶求好运或护身，会选哪种？"
+  },
+  category: { en: "Mysticism", zh: "神秘学" },
+  tags: { en: ["Crystals", "Healing", "Energy"], zh: ["水晶", "疗愈", "能量"] },
+  mood: "positive",
+  depth: 1,
+  follow_ups: {
+    en: ["Have you ever bought one?", "What color attracts you most?"],
+    zh: ["你买过水晶吗？", "哪种颜色的水晶最吸引你？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 47: 外星人存在论（科幻/辩论）
+{
+  id: "t-47",
+  text: {
+    en: "On a scale of 1-10, how convinced are you that aliens exist, and have they already visited Earth?",
+    zh: "从1到10打分，你有多相信外星人存在，而且他们已经来过地球？"
+  },
+  category: { en: "Mysticism", zh: "神秘学" },
+  tags: { en: ["Aliens", "UFO", "Conspiracy"], zh: ["外星人", "UFO", "阴谋论"] },
+  mood: "curious",
+  depth: 3,
+  follow_ups: {
+    en: ["What evidence convinces you?", "Would you want to meet one?"],
+    zh: ["什么证据让你信服？", "你想不想亲眼见到外星人？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 48: 诅咒与运气（迷信/反思）
+{
+  id: "t-48",
+  text: {
+    en: "Do you have any personal superstitions, like avoiding black cats or knocking on wood, that you can't shake off?",
+    zh: "你有没有什么甩不掉的迷信习惯，比如避开黑猫，或者敲木头求好运？"
+  },
+  category: { en: "Mysticism", zh: "神秘学" },
+  tags: { en: ["Superstition", "Luck", "Curse"], zh: ["迷信", "运气", "诅咒"] },
+  mood: "neutral",
+  depth: 2,
+  follow_ups: {
+    en: ["Did something bad happen when you ignored it?", "Where did you learn it from?"],
+    zh: ["有次不遵守，结果真出事了吗？", "这个习惯是从谁那里学来的？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 49: 平行宇宙旅行（脑洞/哲学）
+{
+  id: "t-49",
+  text: {
+    en: "If you could peek into a parallel universe where you made one different choice, which choice would you check?",
+    zh: "如果你能偷窥一个平行宇宙，那里你做了一个不同的选择，你想看哪个选择的分支？"
+  },
+  category: { en: "Mysticism", zh: "神秘学" },
+  tags: { en: ["Parallel Universe", "Choice", "Quantum"], zh: ["平行宇宙", "选择", "量子"] },
+  mood: "curious",
+  depth: 5,
+  follow_ups: {
+    en: ["Would it make you regret your current life?", "Do you think that version is happier?"],
+    zh: ["看了会不会后悔现在的人生？", "你觉得那个宇宙的你更幸福吗？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 50: 通灵能力幻想（超能力/有趣）
+{
+  id: "t-50",
+  text: {
+    en: "If you suddenly gained the ability to talk to the dead, who is the first historical figure you'd contact and why?",
+    zh: "如果你突然有了通灵能力，能和死人聊天，你会先找哪个历史人物聊？为什么？"
+  },
+  category: { en: "Mysticism", zh: "神秘学" },
+  tags: { en: ["Medium", "Historical", "Afterlife"], zh: ["通灵", "历史人物", "来世"] },
+  mood: "positive",
+  depth: 3,
+  follow_ups: {
+    en: ["What question would you ask them?", "Would it be scary or exciting?"],
+    zh: ["你会问TA什么问题？", "这会让你兴奋还是害怕？"]
+  },
+  safe_for_work: true
+},
+// --- 美食 (Food & Culinary) ---
+
+// Topic 51: 最后晚餐幻想（有趣/深度）
+{
+  id: "t-51",
+  text: {
+    en: "If this was literally your last meal on earth, what three dishes would you choose and why?",
+    zh: "如果这真的是你在地球上的最后一餐，你会点哪三道菜？为什么？"
+  },
+  category: { en: "Food", zh: "美食" },
+  tags: { en: ["Last Meal", "Preference", "Emotion"], zh: ["最后一餐", "偏好", "情感"] },
+  mood: "curious",
+  depth: 3,
+  follow_ups: {
+    en: ["Sweet or savory for the final bite?", "Would you want company or eat alone?"],
+    zh: ["最后一口想吃甜的还是咸的？", "想一个人静静吃，还是有人陪着？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 52: 童年食物乡愁（怀旧/温馨）
+{
+  id: "t-52",
+  text: {
+    en: "What childhood dish instantly takes you back to being a kid the second you smell or taste it?",
+    zh: "哪一道小时候吃的菜，只要一闻到或一口下去，就能瞬间把你拉回童年？"
+  },
+  category: { en: "Food", zh: "美食" },
+  tags: { en: ["Nostalgia", "Childhood", "Memory"], zh: ["乡愁", "童年", "回忆"] },
+  mood: "positive",
+  depth: 2,
+  follow_ups: {
+    en: ["Who used to make it for you?", "Do you still eat it the same way?"],
+    zh: ["以前是谁做给你吃的？", "你现在还用小时候的吃法吗？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 53: 食物鄙视链（轻松/吐槽）
+{
+  id: "t-53",
+  text: {
+    en: "What's one extremely popular food that you just... don't get the hype about at all?",
+    zh: "有没有哪一道超级火爆、人人都爱的食物，你却完全get不到它的魅力？"
+  },
+  category: { en: "Food", zh: "美食" },
+  tags: { en: ["Opinion", "Hate", "Popular"], zh: ["看法", "讨厌", "热门"] },
+  mood: "negative",
+  depth: 1,
+  follow_ups: {
+    en: ["Is it bubble tea? Avocado toast? Sushi?", "What do people always try to convert you with?"],
+    zh: ["是珍奶？牛油果吐司？还是生鱼片？", "别人最常拿什么来试图说服你？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 54: 深夜觅食冲动（真实/共鸣）
+{
+  id: "t-54",
+  text: {
+    en: "What's the most ridiculous thing you've ever eaten at 2 a.m. because you were too hungry to care?",
+    zh: "你半夜两点最离谱吃过什么东西？那种饿到已经不在乎形象的时刻？"
+  },
+  category: { en: "Food", zh: "美食" },
+  tags: { en: ["Midnight", "Craving", "Shame-eating"], zh: ["宵夜", "嘴馋", "社死吃"] },
+  mood: "positive",
+  depth: 1,
+  follow_ups: {
+    en: ["Was it worth the stomachache?", "Do you have a go-to 3 a.m. spot?"],
+    zh: ["第二天胃痛值得吗？", "你有固定的凌晨三点觅食圣地吗？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 55: 食物过敏/忌口尴尬（共情/真实）
+{
+  id: "t-55",
+  text: {
+    en: "What's the most awkward 'I can't eat that' moment you've had at someone else's dinner table?",
+    zh: "你在别人家饭桌上，最尴尬的一次「这个我不能吃」是什么情况？"
+  },
+  category: { en: "Food", zh: "美食" },
+  tags: { en: ["Allergy", "Awkward", "Social"], zh: ["过敏", "尴尬", "社交"] },
+  mood: "neutral",
+  depth: 2,
+  follow_ups: {
+    en: ["Did they make a big deal out of it?", "What's your most hated 'just try a little' phrase?"],
+    zh: ["对方是不是很夸张地大惊小怪？", "你最讨厌听到哪句「尝一点没关系的」？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 56: 家乡味道执念（地域/情感）
+{
+  id: "t-56",
+  text: {
+    en: "What's the one dish from your hometown that you think nobody outside can make correctly?",
+    zh: "你老家有哪一道菜，你觉得外地人做出来永远都不会对味？"
+  },
+  category: { en: "Food", zh: "美食" },
+  tags: { en: ["Hometown", "Authenticity", "Pride"], zh: ["家乡", "正宗", "骄傲"] },
+  mood: "positive",
+  depth: 3,
+  follow_ups: {
+    en: ["Is it a spice? A technique? Or just the water?", "Have you tried teaching outsiders?"],
+    zh: ["是因为某种香料？某种手法？还是水土问题？", "你有试过教外地人做吗？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 57: 绝交级食物搭配（猎奇/搞笑）
+{
+  id: "t-57",
+  text: {
+    en: "What's the most cursed food combination you secretly love (or at least don't hate)?",
+    zh: "你最不能被公开承认、但其实还蛮喜欢的诡异食物搭配是什么？"
+  },
+  category: { en: "Food", zh: "美食" },
+  tags: { en: ["Weird", "Combination", "Guilty"], zh: ["诡异", "混搭", "罪恶感"] },
+  mood: "positive",
+  depth: 1,
+  follow_ups: {
+    en: ["Pineapple on pizza level or even worse?", "Would you serve it to guests?"],
+    zh: ["菠萝披萨那个级别，还是更离谱？", "你敢端给客人吃吗？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 58: 减肥路上的背叛（自嘲/共鸣）
+{
+  id: "t-58",
+  text: {
+    en: "What's the food that always makes you break your diet the fastest, no matter how strong your willpower is?",
+    zh: "哪一种食物最容易让你破戒？意志力再强也挡不住的那种？"
+  },
+  category: { en: "Food", zh: "美食" },
+  tags: { en: ["Diet", "Temptation", "Weakness"], zh: ["减肥", "诱惑", "弱点"] },
+  mood: "neutral",
+  depth: 2,
+  follow_ups: {
+    en: ["Is it smell, texture, or memory?", "How long do you usually last before caving?"],
+    zh: ["是因为香味？口感？还是回忆杀？", "你通常能撑多久才投降？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 59: 食物人格测试（轻松/有趣）
+{
+  id: "t-59",
+  text: {
+    en: "If you had to describe your personality as a dish or a meal, what would you be and why?",
+    zh: "如果要用一道菜或一餐饭来形容你的个性，你会是哪一道？为什么？"
+  },
+  category: { en: "Food", zh: "美食" },
+  tags: { en: ["Personality", "Metaphor", "Self"], zh: ["个性", "比喻", "自我"] },
+  mood: "positive",
+  depth: 3,
+  follow_ups: {
+    en: ["Are you spicy, sweet, comforting, or chaotic?", "Would other people agree?"],
+    zh: ["你是辣的、甜的、治愈系的，还是混乱系的？", "别人会同意你的自我评价吗？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 60: 梦幻美食地图（幻想/浪漫）
+{
+  id: "t-60",
+  text: {
+    en: "If money, calories, and geography were no issue, where in the world would you go just to eat one specific dish right now?",
+    zh: "如果钱、热量、距离都不是问题，你现在最想立刻飞去世界哪个地方，只为了吃那一道特定的菜？"
+  },
+  category: { en: "Food", zh: "美食" },
+  tags: { en: ["Travel", "Dream", "Specific"], zh: ["旅行", "梦想", "特定"] },
+  mood: "positive",
+  depth: 2,
+  follow_ups: {
+    en: ["Is it street food or Michelin star?", "Would you eat it alone or share?"],
+    zh: ["是路边摊还是米其林？", "你想一个人吃，还是找人一起分享？"]
+  },
+  safe_for_work: true
+},
+// --- 旅行 (Travel) ---
+
+// Topic 61: 瞬移一日游（幻想/好玩）
+{
+  id: "t-61",
+  text: {
+    en: "If you could teleport anywhere right now for just 24 hours, where would you go and what would you do first?",
+    zh: "如果你现在能瞬间传送去世界上任何一个地方，只玩24小时，你会去哪？第一件事做什么？"
+  },
+  category: { en: "Travel", zh: "旅行" },
+  tags: { en: ["Teleport", "One Day", "Dream"], zh: ["瞬移", "一日游", "梦想"] },
+  mood: "positive",
+  depth: 2,
+  follow_ups: {
+    en: ["Eat street food or see a sunset?", "Would you tell anyone or keep it secret?"],
+    zh: ["先吃路边摊还是去看日落？", "你会发朋友圈炫耀，还是一个人偷偷享受？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 62: 机场社死时刻（吐槽/超有共鸣）
+{
+  id: "t-62",
+  text: {
+    en: "What's the most embarrassing thing you've ever done at an airport that still makes you cringe?",
+    zh: "你在机场干过的最社死的事是什么？现在想起来还想原地消失的那种？"
+  },
+  category: { en: "Travel", zh: "旅行" },
+  tags: { en: ["Airport", "Embarrassing", "Story"], zh: ["机场", "社死", "故事"] },
+  mood: "positive",
+  depth: 1,
+  follow_ups: {
+    en: ["Forgot passport? Loud alarm?", "Did strangers laugh?"],
+    zh: ["忘带护照？安检狂响？", "当时旁边的人都看你了吗？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 63: 旅行黑历史（搞笑/自黑）
+{
+  id: "t-63",
+  text: {
+    en: "What's the one trip that went completely wrong but is now your funniest travel story?",
+    zh: "哪次旅行从头到尾都翻车，但现在成了你讲起来最爆笑的旅行黑历史？"
+  },
+  category: { en: "Travel", zh: "旅行" },
+  tags: { en: ["Fail", "Funny", "Disaster"], zh: ["翻车", "搞笑", "灾难"] },
+  mood: "positive",
+  depth: 2,
+  follow_ups: {
+    en: ["Lost luggage or food poisoning?", "Would you go back?"],
+    zh: ["行李丢了还是集体食物中毒？", "你还敢再去那个地方吗？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 64: 当地人vs游客（真实/有趣）
+{
+  id: "t-64",
+  text: {
+    en: "When you travel, do you try to 'live like a local' or are you proudly a full-on tourist with the camera and map?",
+    zh: "你旅行的时候是努力融入当地人，还是完全不掩饰自己游客身份，大大方方拿相机拍照看地图？"
+  },
+  category: { en: "Travel", zh: "旅行" },
+  tags: { en: ["Style", "Local", "Tourist"], zh: ["风格", "当地人", "游客"] },
+  mood: "curious",
+  depth: 1,
+  follow_ups: {
+    en: ["Street food markets or fancy restaurants?", "Ever been mistaken for a local?"],
+    zh: ["早市吃早餐还是米其林餐厅？", "你被当地人认成自己人过吗？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 65: 旅行超级力量（脑洞/好玩）
+{
+  id: "t-65",
+  text: {
+    en: "If you could have one superpower just for traveling, would you choose instant language mastery or never getting jet lagged?",
+    zh: "如果旅行能选一个超能力，你要「瞬间学会当地语言」还是「永远不倒时差」？"
+  },
+  category: { en: "Travel", zh: "旅行" },
+  tags: { en: ["Superpower", "Choice", "Fantasy"], zh: ["超能力", "选择", "幻想"] },
+  mood: "positive",
+  depth: 2,
+  follow_ups: {
+    en: ["What about unlimited money?", "Which one would change your trips more?"],
+    zh: ["如果再加一个「无限金钱」呢？", "你觉得哪个超能力会最改变你的旅行体验？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 66: 机上邻座缘分（浪漫/有趣）
+{
+  id: "t-66",
+  text: {
+    en: "Have you ever had an amazing conversation with a total stranger on a plane? What happened?",
+    zh: "你在飞机上跟旁边的陌生人聊得超级投缘过吗？后来怎么样了？"
+  },
+  category: { en: "Travel", zh: "旅行" },
+  tags: { en: ["Flight", "Stranger", "Connection"], zh: ["飞机", "陌生人", "缘分"] },
+  mood: "positive",
+  depth: 2,
+  follow_ups: {
+    en: ["Did you exchange contacts?", "Was it a 12-hour deep talk?"],
+    zh: ["你们交换联系方式了吗？", "是那种聊12小时都不无聊的吗？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 67: 打包人格测试（自嘲/好玩）
+{
+  id: "t-67",
+  text: {
+    en: "Are you the person who packs two weeks in advance, or the chaotic one throwing things in the suitcase 30 minutes before leaving?",
+    zh: "你是提前两周就打包好的人，还是出门前30分钟才乱塞行李箱的拖延症患者？"
+  },
+  category: { en: "Travel", zh: "旅行" },
+  tags: { en: ["Packing", "Personality", "Chaos"], zh: ["打包", "性格", "混乱"] },
+  mood: "positive",
+  depth: 1,
+  follow_ups: {
+    en: ["Ever forgotten something important?", "How many outfits for a 3-day trip?"],
+    zh: ["你忘带过最重要的东西吗？", "三天两夜你会带几套衣服？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 68: 隐藏宝藏城市（推荐/好奇）
+{
+  id: "t-68",
+  text: {
+    en: "What's one underrated city you've been to that deserves way more hype than it gets?",
+    zh: "你去过哪个被严重低估的城市？明明超好玩却没什么人知道！"
+  },
+  category: { en: "Travel", zh: "旅行" },
+  tags: { en: ["Hidden Gem", "Recommendation", "Underrated"], zh: ["宝藏城市", "推荐", "低估"] },
+  mood: "positive",
+  depth: 3,
+  follow_ups: {
+    en: ["Food? Views? People?", "Would you live there for a month?"],
+    zh: ["是因为美食？风景？还是人？", "你愿意去那里生活一个月吗？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 69: 旅行后遗症（共鸣/真实）
+{
+  id: "t-69",
+  text: {
+    en: "After an amazing trip, how long does it take you to stop daydreaming about going back?",
+    zh: "一次超棒的旅行结束后，你要多久才会停止「啊啊啊好想回去」的循环？"
+  },
+  category: { en: "Travel", zh: "旅行" },
+  tags: { en: ["Post-Travel", "Blues", "Daydream"], zh: ["旅行后遗症", "忧郁", "白日梦"] },
+  mood: "neutral",
+  depth: 2,
+  follow_ups: {
+    en: ["Do you look at photos every day?", "When do you start planning the next one?"],
+    zh: ["你会每天翻照片吗？", "多久后就开始计划下一次旅行？"]
+  },
+  safe_for_work: true
+},
+
+// Topic 70: 我们一起逃跑（浪漫/邀约感）
+{
+  id: "t-70",
+  text: {
+    en: "If we decided to run away together this weekend with zero planning, where do you think we'd end up having the best time?",
+    zh: "如果我们这个周末说走就走，完全不做计划，你觉得我们会跑到哪里玩得最开心？"
+  },
+  category: { en: "Travel", zh: "旅行" },
+  tags: { en: ["Spontaneous", "Together", "Adventure"], zh: ["说走就走", "一起", "冒险"] },
+  mood: "flirty",
+  depth: 4,
+  follow_ups: {
+    en: ["Beach, mountains, or city?", "What would we pack in 5 minutes?"],
+    zh: ["海边？山区？还是城市？", "五分钟内我们能塞进行李箱的东西有哪些？"]
+  },
+  safe_for_work: true
+},
 ];

@@ -79,6 +79,11 @@ GET /api/topic
     *   `3`: Deep
     *   `4`: Love
     *   `5`: Soul
+*   **Category**
+    *   `Life Planning`
+    *   `Career`
+    *   `Love`
+    *   ...To be continued
 
 ### Response Example
 
