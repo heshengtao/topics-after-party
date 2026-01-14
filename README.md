@@ -54,38 +54,36 @@ We provide a visual Playground where you can tweak parameters and test API respo
 
 ## 🛠 API Reference
 
-### Base Endpoint
+### 1. Get Random Topic
+
+Retrieve one or more filtered random topics.
 
 ```http
 GET /api/topic
 ```
 
-### Query Parameters
+**Query Parameters**
 
 | Parameter | Type | Required | Default | Description | Example |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `locale` | string | No | `en-US` | Response language. Options: `zh-CN` or `en-US` | `zh-CN` |
 | `limit` | number | No | `1` | Number of topics to return | `3` |
-| `mood` | string | No | Random | Emotional tone filter | `flirty` |
+| `mood` | string | No | Random | Filter by emotional tone | `flirty` |
 | `depth` | number | No | Random | Topic depth (1-5) | `4` |
-| `category` | string | No | Any | Topic category filter | `Life Planning` |
-| `exclude` | string | No | - | IDs to exclude (comma-separated), for client-side deduplication | `t-001,t-003` |
+| `category` | string | No | Any | Filter by category (supports Chinese and English) | `Life Planning` |
+| `exclude` | string | No | - | IDs to exclude (comma-separated), used for client-side deduplication | `t-001,t-003` |
 
-#### Parameter Details:
+**Parameter Details:**
 *   **mood**: `positive`, `neutral`, `curious`, `flirty`
 *   **depth**:
-    *   `1`: Icebreaker
-    *   `2`: Light
-    *   `3`: Deep
-    *   `4`: Love
-    *   `5`: Soul
-*   **Category**
-    *   `Life Planning`
-    *   `Career`
-    *   `Love`
-    *   ...To be continued
+    *   `1`: Icebreaker (Survival)
+    *   `2`: Light (Chat/Life)
+    *   `3`: Deep (Heartfelt/Opinion)
+    *   `4`: Love (Flirty/Romance)
+    *   `5`: Soul (Philosophical)
+*   **category**: Use the `/api/categories` endpoint to get the latest list.
 
-### Response Example
+**Response Example**
 
 ```json
 {
@@ -95,12 +93,12 @@ GET /api/topic
   "data": [
     {
       "id": "t-003",
-      "text": "如果不考虑现实因素，你最想和我一起去哪里约会？",
-      "category": "恋爱幻想",
-      "tags": ["约会", "旅行", "浪漫"],
+      "text": "If you didn't have to consider reality, where would you most want to go on a date with me?",
+      "category": "Romantic Fantasy",
+      "tags": ["Date", "Travel", "Romantic"],
       "follow_ups": [
-        "那里有什么特别的风景吗？",
-        "我们要在那边待多久？"
+        "Is there any special scenery there?",
+        "How long would we stay there?"
       ],
       "mood": "flirty",
       "depth": 4,
@@ -110,7 +108,42 @@ GET /api/topic
 }
 ```
 
----
+### 2. Get Category List
+
+Retrieve all currently available topic categories for frontend filter menu display. The system automatically deduplicates based on topic data.
+
+```http
+GET /api/categories
+```
+
+**Query Parameters**
+
+| Parameter | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `locale` | string | No | `en-US` | Language for returned category names. Options: `zh-CN` or `en-US` |
+
+**Response Example**
+
+```json
+{
+  "code": 200,
+  "locale": "zh-CN",
+  "count": 11,
+  "data": [
+    "Workplace",
+    "Life Planning",
+    "Love",
+    "Sci-Fi",
+    "History",
+    "Psychology",
+    "Literature",
+    "Flirty",
+    "Mysticism",
+    "Food",
+    "Travel"
+  ]
+}
+```
 
 ## 💻 Integration Examples
 

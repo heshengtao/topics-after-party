@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 1. 保留你的图标 -->
     <link rel="icon" type="image/png" href="./icon.png">
     
     <title>Topic API Playground</title>
@@ -14,22 +13,16 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- 2. 引入 Prism.js (代码高亮库) 的 CSS - 使用 Tomorrow Night 主题 (暗黑风) -->
+    <!-- Prism.js CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
-        
-        /* 终端字体 */
         code, pre { font-family: 'JetBrains Mono', monospace !important; font-size: 13px !important; }
-
-        /* 自定义滚动条 */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #64748b; }
-
-        /* 滑块美化 */
         input[type=range] { -webkit-appearance: none;-moz-appearance: none;appearance: none; background: transparent; }
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%;
@@ -40,8 +33,6 @@
         input[type=range]::-webkit-slider-runnable-track {
             width: 100%; height: 4px; cursor: pointer; background: #e2e8f0; border-radius: 2px;
         }
-
-        /* 修复 Prism.js 的默认背景，让它融入我们的容器 */
         pre[class*="language-"] {
             background: transparent !important;
             margin: 0 !important;
@@ -49,13 +40,20 @@
             text-shadow: none !important;
             box-shadow: none !important;
         }
+        .endpoint-btn.active { background-color: white; color: #0f172a; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1); }
+        .endpoint-btn { color: #64748b; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center py-10 px-4 sm:px-6 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]">
 
-    <!-- Language Switcher -->
-    <div class="absolute top-6 right-6 z-50">
-        <button onclick="toggleInterfaceLanguage()" class="bg-white/80 backdrop-blur border border-slate-200 shadow-sm px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 hover:text-slate-900 transition flex items-center gap-1">
+    <!-- Top Right Controls -->
+    <div class="absolute top-6 right-6 z-50 flex items-center gap-3">
+        <a href="https://github.com/heshengtao/topics-after-party" target="_blank" rel="noopener noreferrer" class="bg-white/80 backdrop-blur border border-slate-200 shadow-sm p-2 rounded-full text-slate-600 hover:text-slate-900 hover:bg-white hover:scale-105 transition-all flex items-center justify-center group" title="View on GitHub">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+            </svg>
+        </a>
+        <button onclick="toggleInterfaceLanguage()" class="bg-white/80 backdrop-blur border border-slate-200 shadow-sm px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-white transition flex items-center gap-1">
             <span>🌐</span>
             <span id="lang-text">English</span>
         </button>
@@ -74,13 +72,20 @@
             
             <!-- Left: Config -->
             <div class="lg:col-span-4 bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 space-y-6 sticky top-6">
+                
+                <!-- Endpoint Switcher -->
+                <div class="bg-slate-100 p-1 rounded-xl flex font-medium text-xs">
+                    <button onclick="switchEndpoint('topic')" id="btn-topic" class="endpoint-btn active flex-1 py-2 rounded-lg transition-all">/api/topic</button>
+                    <button onclick="switchEndpoint('categories')" id="btn-categories" class="endpoint-btn flex-1 py-2 rounded-lg transition-all">/api/categories</button>
+                </div>
+
                 <div class="flex items-center space-x-2 border-b border-slate-100 pb-4">
                     <div class="w-3 h-3 rounded-full bg-slate-200"></div>
                     <h2 class="text-sm font-semibold text-slate-900 uppercase tracking-wider" data-i18n="config_title">Configuration</h2>
                 </div>
 
                 <div class="space-y-6">
-                    <!-- Locale -->
+                    <!-- Locale (Shared) -->
                     <div>
                         <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_locale">Locale</label>
                         <div class="relative">
@@ -92,44 +97,47 @@
                         </div>
                     </div>
 
-                    <!-- Mood -->
-                    <div>
-                        <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_mood">Mood</label>
-                        <div class="relative">
-                            <select id="mood" onchange="updateUI()" class="w-full appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 block p-3 transition">
-                                <option value="" data-i18n="opt_any">Any</option>
-                                <option value="positive">Positive (🙂)</option>
-                                <option value="curious">Curious (🤔)</option>
-                                <option value="flirty">Flirty (🥰)</option>
-                                <option value="neutral">Neutral (😐)</option>
-                            </select>
-                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
-                        </div>
-                    </div>
-
-                    <!-- Depth -->
-                    <div>
-                        <div class="flex justify-between mb-2 ml-1">
-                            <label class="block text-xs font-medium text-slate-500" data-i18n="label_depth">Depth</label>
-                            <span id="depth-val" class="text-[10px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">Any</span>
-                        </div>
-                        <div class="relative px-1">
-                            <input type="range" id="depth" min="0" max="5" value="0" step="1" oninput="updateUI()" class="w-full relative z-10">
-                            <div class="flex justify-between text-[9px] text-slate-400 mt-2 font-medium tracking-tight select-none">
-                                <span class="w-8 text-center" data-i18n="depth_0">Any</span>
-                                <span class="w-8 text-center" data-i18n="depth_1">Ice</span>
-                                <span class="w-8 text-center" data-i18n="depth_2">Light</span>
-                                <span class="w-8 text-center" data-i18n="depth_3">Deep</span>
-                                <span class="w-8 text-center" data-i18n="depth_4">Love</span>
-                                <span class="w-8 text-center" data-i18n="depth_5">Soul</span>
+                    <!-- Topic Only Parameters Container -->
+                    <div id="topic-params" class="space-y-6">
+                        <!-- Mood -->
+                        <div>
+                            <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_mood">Mood</label>
+                            <div class="relative">
+                                <select id="mood" onchange="updateUI()" class="w-full appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 block p-3 transition">
+                                    <option value="" data-i18n="opt_any">Any</option>
+                                    <option value="positive">Positive (🙂)</option>
+                                    <option value="curious">Curious (🤔)</option>
+                                    <option value="flirty">Flirty (🥰)</option>
+                                    <option value="neutral">Neutral (😐)</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Category -->
-                    <div>
-                         <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_category">Category</label>
-                         <input type="text" id="category" placeholder="e.g. Life" oninput="updateUI()" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 block p-3 transition placeholder:text-slate-300">
+                        <!-- Depth -->
+                        <div>
+                            <div class="flex justify-between mb-2 ml-1">
+                                <label class="block text-xs font-medium text-slate-500" data-i18n="label_depth">Depth</label>
+                                <span id="depth-val" class="text-[10px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">Any</span>
+                            </div>
+                            <div class="relative px-1">
+                                <input type="range" id="depth" min="0" max="5" value="0" step="1" oninput="updateUI()" class="w-full relative z-10">
+                                <div class="flex justify-between text-[9px] text-slate-400 mt-2 font-medium tracking-tight select-none">
+                                    <span class="w-8 text-center" data-i18n="depth_0">Any</span>
+                                    <span class="w-8 text-center" data-i18n="depth_1">Ice</span>
+                                    <span class="w-8 text-center" data-i18n="depth_2">Light</span>
+                                    <span class="w-8 text-center" data-i18n="depth_3">Deep</span>
+                                    <span class="w-8 text-center" data-i18n="depth_4">Love</span>
+                                    <span class="w-8 text-center" data-i18n="depth_5">Soul</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Category Filter -->
+                        <div>
+                             <label class="block text-xs font-medium text-slate-500 mb-1.5 ml-1" data-i18n="label_category">Category Filter</label>
+                             <input type="text" id="category" placeholder="e.g. Life" oninput="updateUI()" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 block p-3 transition placeholder:text-slate-300">
+                        </div>
                     </div>
 
                     <!-- Button -->
@@ -154,11 +162,8 @@
                     </div>
                 </div>
 
-                <!-- 3. Terminal Window - 修复了背景色和垂直对齐 -->
-                <!-- 背景换成了更纯粹的黑灰色，min-h 固定高度，flex-col 布局 -->
+                <!-- Terminal Window -->
                 <div class="bg-[#1d1f21] rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/5 min-h-[520px] flex flex-col relative group">
-                    
-                    <!-- Window Controls -->
                     <div class="bg-[#282a2e] px-4 py-3 flex items-center justify-between border-b border-white/5 select-none shrink-0">
                         <div class="flex items-center space-x-2">
                             <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
@@ -172,16 +177,11 @@
                         </button>
                     </div>
 
-                    <!-- Code Area -->
-                    <!-- 关键修改：items-start (顶部对齐), justify-start, 移除居中逻辑 -->
                     <div class="p-6 overflow-auto flex-1 flex flex-col items-start justify-start relative w-full">
-                        
-                        <!-- Loading State -->
                         <div id="loading" class="hidden absolute inset-0 bg-[#1d1f21]/80 flex items-center justify-center z-50 backdrop-blur-sm">
                             <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
                         </div>
 
-                        <!-- 4. 使用 Prism.js 的结构: <pre><code class="language-xxx"> -->
                         <div id="view-response" class="w-full">
                             <pre><code class="language-json" id="code-response"></code></pre>
                             <div id="latency-display" class="text-gray-500 text-[10px] mt-4 font-mono hidden">// Time: 0ms</div>
@@ -198,7 +198,6 @@
                         <div id="view-curl" class="hidden w-full">
                             <pre><code class="language-bash" id="code-curl"></code></pre>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -206,7 +205,10 @@
 
         <!-- Docs Section -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-            <h3 class="text-xl font-semibold text-slate-900 mb-6" data-i18n="doc_title">API Reference</h3>
+            <h3 class="text-xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
+                <span data-i18n="doc_title">API Reference</span>
+                <span id="doc-endpoint-badge" class="bg-slate-100 text-slate-600 text-sm px-2 py-0.5 rounded-md font-mono font-normal">/api/topic</span>
+            </h3>
             <div class="grid md:grid-cols-2 gap-10">
                 <!-- Request Table -->
                 <div>
@@ -248,7 +250,6 @@
         </div>
     </div>
 
-    <!-- 5. 引入 Prism.js 核心库和语言包 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
@@ -275,17 +276,25 @@
                 "doc_req_title": "Query Parameters (GET)",
                 "doc_res_title": "Response Object",
                 "th_param": "Param", "th_field": "Field", "th_type": "Type", "th_desc": "Description",
+                
+                // Topic Params
                 "req_limit": "Number of topics (default: 1)",
                 "req_locale": "Language: 'zh-CN' or 'en-US'",
                 "req_mood": "Filter by mood (positive, flirty...)",
                 "req_depth": "1 (Icebreaker) to 5 (Soulmate)",
                 "req_category": "Filter by category name",
+                
+                // Topic Response
                 "res_id": "Unique ID",
                 "res_text": "The conversation starter",
                 "res_tags": "Keywords for vector search",
                 "res_mood": "Emotion tag for TTS/BGM",
                 "res_depth": "Intimacy level (1-5)",
-                "res_follow": "Suggested follow-up questions"
+                "res_follow": "Suggested follow-up questions",
+
+                // Category Params & Response
+                "res_code": "Status code (200)",
+                "res_cat_data": "Array of unique category names"
             },
             "zh": {
                 "title": "话题 API",
@@ -304,40 +313,62 @@
                 "doc_req_title": "请求参数 (GET)",
                 "doc_res_title": "返回字段",
                 "th_param": "参数", "th_field": "字段", "th_type": "类型", "th_desc": "说明",
+
+                // Topic Params
                 "req_limit": "返回条数 (默认 1)",
                 "req_locale": "语言: 'zh-CN' 或 'en-US'",
                 "req_mood": "情感过滤 (positive, flirty...)",
                 "req_depth": "1 (破冰) - 5 (灵魂)",
                 "req_category": "分类过滤",
+
+                // Topic Response
                 "res_id": "唯一 ID",
                 "res_text": "话题内容文本",
                 "res_tags": "标签 (用于向量检索)",
                 "res_mood": "情感 (用于TTS/背景音)",
                 "res_depth": "亲密度等级 (1-5)",
-                "res_follow": "推荐追问列表"
+                "res_follow": "推荐追问列表",
+
+                 // Category Params & Response
+                 "res_code": "状态码 (200)",
+                 "res_cat_data": "去重后的分类名称数组"
             }
         };
 
         const docData = {
-            req: [
-                { key: "limit", type: "int", descKey: "req_limit" },
-                { key: "locale", type: "string", descKey: "req_locale" },
-                { key: "mood", type: "string", descKey: "req_mood" },
-                { key: "depth", type: "int", descKey: "req_depth" },
-                { key: "category", type: "string", descKey: "req_category" }
-            ],
-            res: [
-                { key: "id", type: "string", descKey: "res_id" },
-                { key: "text", type: "string", descKey: "res_text" },
-                { key: "tags", type: "array", descKey: "res_tags" },
-                { key: "mood", type: "string", descKey: "res_mood" },
-                { key: "depth", type: "int", descKey: "res_depth" },
-                { key: "follow_ups", type: "array", descKey: "res_follow" }
-            ]
+            topic: {
+                req: [
+                    { key: "limit", type: "int", descKey: "req_limit" },
+                    { key: "locale", type: "string", descKey: "req_locale" },
+                    { key: "mood", type: "string", descKey: "req_mood" },
+                    { key: "depth", type: "int", descKey: "req_depth" },
+                    { key: "category", type: "string", descKey: "req_category" }
+                ],
+                res: [
+                    { key: "id", type: "string", descKey: "res_id" },
+                    { key: "text", type: "string", descKey: "res_text" },
+                    { key: "tags", type: "array", descKey: "res_tags" },
+                    { key: "mood", type: "string", descKey: "res_mood" },
+                    { key: "depth", type: "int", descKey: "res_depth" },
+                    { key: "follow_ups", type: "array", descKey: "res_follow" }
+                ]
+            },
+            categories: {
+                req: [
+                    { key: "locale", type: "string", descKey: "req_locale" }
+                ],
+                res: [
+                    { key: "code", type: "int", descKey: "res_code" },
+                    { key: "locale", type: "string", descKey: "req_locale" },
+                    { key: "count", type: "int", descKey: "req_limit" }, // Reuse limit description as count
+                    { key: "data", type: "string[]", descKey: "res_cat_data" }
+                ]
+            }
         };
 
         let currentInterfaceLang = 'en';
         let currentTab = 'response';
+        let currentEndpoint = 'topic'; // 'topic' or 'categories'
 
         document.addEventListener('DOMContentLoaded', () => {
             detectSystemLanguage();
@@ -360,6 +391,31 @@
             updateInterface();
         }
 
+        // Switch Endpoint Logic
+        function switchEndpoint(ep) {
+            currentEndpoint = ep;
+            
+            // Toggle Buttons
+            document.querySelectorAll('.endpoint-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${ep}`).classList.add('active');
+
+            // Toggle Inputs Visibility
+            const topicParams = document.getElementById('topic-params');
+            if (ep === 'categories') {
+                topicParams.classList.add('hidden');
+            } else {
+                topicParams.classList.remove('hidden');
+            }
+
+            // Update Doc Badge
+            document.getElementById('doc-endpoint-badge').innerText = `/api/${ep}`;
+
+            // Reset Tab and Render
+            renderDocTables();
+            updateUI();
+            fetchData();
+        }
+
         function updateInterface() {
             const t = translations[currentInterfaceLang];
             document.getElementById('lang-text').innerText = t.lang_btn;
@@ -373,54 +429,61 @@
 
         function renderDocTables() {
             const t = translations[currentInterfaceLang];
+            const currentDocs = docData[currentEndpoint];
+
             const renderRows = (data, bodyId) => {
                 const html = data.map(row => `
                     <tr class="group border-b border-slate-50 hover:bg-slate-50/50 transition">
                         <td class="py-2 pr-2 font-mono text-xs text-violet-600 font-medium">${row.key}</td>
                         <td class="py-2 pr-2 font-mono text-xs text-slate-400">${row.type}</td>
-                        <td class="py-2 text-xs text-slate-600">${t[row.descKey]}</td>
+                        <td class="py-2 text-xs text-slate-600">${t[row.descKey] || row.descKey}</td>
                     </tr>
                 `).join('');
                 document.getElementById(bodyId).innerHTML = html;
             };
-            renderRows(docData.req, 'req-table-body');
-            renderRows(docData.res, 'res-table-body');
+            renderRows(currentDocs.req, 'req-table-body');
+            renderRows(currentDocs.res, 'res-table-body');
         }
 
-        function getParams() {
+        function getFullUrl() {
             const locale = document.getElementById('locale').value;
-            const mood = document.getElementById('mood').value;
-            const category = document.getElementById('category').value;
-            const depth = document.getElementById('depth').value;
-            
+            let endpoint = `/api/${currentEndpoint}`;
             const params = new URLSearchParams();
-            params.append('limit', '1');
+            
             params.append('locale', locale);
-            if (mood) params.append('mood', mood);
-            if (category) params.append('category', category);
-            if (depth !== "0") params.append('depth', depth);
 
-            return params;
+            if (currentEndpoint === 'topic') {
+                const mood = document.getElementById('mood').value;
+                const category = document.getElementById('category').value;
+                const depth = document.getElementById('depth').value;
+                
+                params.append('limit', '1');
+                if (mood) params.append('mood', mood);
+                if (category) params.append('category', category);
+                if (depth !== "0") params.append('depth', depth);
+            }
+
+            return `${endpoint}?${params.toString()}`;
         }
 
         function updateUI() {
+            // Update Depth Text
             const depthVal = document.getElementById('depth').value;
             const t = translations[currentInterfaceLang];
             const depthKey = `depth_${depthVal}`;
             document.getElementById('depth-val').innerText = t[depthKey] || depthVal;
 
-            const params = getParams();
-            const endpoint = `/api/topic?${params.toString()}`;
-            document.getElementById('url-preview').innerText = "GET " + endpoint;
+            // Update URL Preview
+            const path = getFullUrl();
+            document.getElementById('url-preview').innerText = "GET " + path;
             
-            // 每次 UI 变动，重新生成代码文本但不请求 API
+            // Re-render Code Snippets
             renderCode(); 
         }
 
-        // 6. 核心：生成并高亮代码的逻辑
         function renderCode(jsonData = null) {
-            const params = getParams();
-            const fullUrl = window.location.origin + `/api/topic?${params.toString()}`;
+            const fullPath = getFullUrl();
+            const fullUrl = window.location.origin + fullPath;
 
             // JS
             const jsCode = `// JavaScript Fetch
@@ -443,12 +506,11 @@ print(res.json())`;
 curl -X GET "${fullUrl}"`;
             document.getElementById('code-curl').textContent = curlCode;
 
-            // JSON Response (if available)
+            // JSON Response
             if (jsonData) {
                 document.getElementById('code-response').textContent = JSON.stringify(jsonData, null, 2);
             }
 
-            // 触发 Prism 高亮
             Prism.highlightAll();
         }
 
@@ -460,20 +522,14 @@ curl -X GET "${fullUrl}"`;
             
             loading.classList.remove('hidden');
             latencyDisplay.classList.add('hidden');
-            
-            // Clear current JSON
             document.getElementById('code-response').textContent = '';
-
-            const params = getParams();
-            const url = `/api/topic?${params.toString()}`;
 
             try {
                 const start = Date.now();
-                const res = await fetch(url);
+                const res = await fetch(getFullUrl());
                 const data = await res.json();
                 const ms = Date.now() - start;
 
-                // 渲染高亮 JSON
                 renderCode(data);
                 
                 latencyDisplay.innerText = `// Time: ${ms}ms`;
@@ -499,7 +555,6 @@ curl -X GET "${fullUrl}"`;
 
         function copyCode() {
             let textToCopy = '';
-            // 获取当前显示的 code 标签内容
             if (currentTab === 'response') textToCopy = document.getElementById('code-response').textContent;
             else textToCopy = document.getElementById(`code-${currentTab}`).textContent;
             
