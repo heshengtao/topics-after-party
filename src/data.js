@@ -1,38 +1,4 @@
-// src/data.ts
-
-export interface LocalizedString {
-  en: string;
-  zh: string;
-}
-
-export interface LocalizedArray {
-  en: string[];
-  zh: string[];
-}
-
-export interface RawTopic {
-  id: string;
-  text: LocalizedString;
-  category: LocalizedString;
-  tags: LocalizedArray;
-  follow_ups: LocalizedArray;
-  mood: 'positive' | 'neutral' | 'negative' | 'flirty' | 'curious';
-  depth: number; // 1 (Icebreaker) - 5 (Soul)
-  safe_for_work: boolean;
-}
-
-export interface ResponseTopic {
-  id: string;
-  text: string;
-  category: string;
-  tags: string[];
-  follow_ups: string[];
-  mood: string;
-  depth: number;
-  safe_for_work: boolean;
-}
-
-export const topics: RawTopic[] = [
+export const topics = [
   // --- 1. 职场 (Career) ---
   
   // Topic 1: 经典的财务自由假设（用来测试价值观和真正兴趣）

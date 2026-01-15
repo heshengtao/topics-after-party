@@ -1,20 +1,21 @@
-// src/index.ts
+// src/index.js
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { Hono } from 'hono'
-import topicApp from './app' // 引入上面的逻辑
+import topicApp from './app.js'
 
 const app = new Hono()
 
 // 1. 挂载 API
-// 访问 /api/topic 时，会进入 topicApp 处理
 app.route('/api', topicApp)
 
-// 2. 挂载静态网页
+// 2. 挂载静态网页 (确保 public 文件夹里有 index.html)
 app.use('/*', serveStatic({ root: './public' }))
 
-// 3. 启动服务
-const port = 3000
+// 3. 启动服务 - 关键修改点
+// Zeabur 会把端口通过环境变量 PORT 传进来，必须优先使用它
+const port = parseInt(process.env.PORT) || 3000
+
 console.log(`Starting server on port ${port}...`)
 
 serve({

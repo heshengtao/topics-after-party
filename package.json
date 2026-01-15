@@ -1,32 +1,15 @@
 {
-  "name": "topics-after-party",
+  "name": "topics-after-party-lite",
   "version": "1.0.0",
-  "description": "一个随机话题API，用于给AI伴侣项目提供实时话题！让你的AI聊天不在枯燥！",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "start": "tsx src/index.ts"
+    "start": "node src/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/heshengtao/topics-after-party.git"
-  },
-  "keywords": [],
-  "author": "heshengtao",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/heshengtao/topics-after-party/issues"
-  },
-  "homepage": "https://github.com/heshengtao/topics-after-party#readme",
   "dependencies": {
-    "@hono/node-server": "^1.19.8",
-    "dotenv": "^17.2.3",
-    "hono": "^4.11.3",
-    "openai": "^6.16.0"
+    "@hono/node-server": "^1.2.0",
+    "hono": "^4.0.0"
   },
-  "devDependencies": {
-    "@types/node": "^25.0.6",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
