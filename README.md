@@ -47,8 +47,7 @@ When your AI runs out of things to say or the user falls silent, a single call t
 
 We provide a visual Playground where you can tweak parameters and test API responses right in the browser:
 
-*   **Primary node (recommended, fast in China)**: [https://topics-after-party.zeabur.app/](https://topics-after-party.zeabur.app/)
-*   **Backup node**: [https://topics-after-party.netlify.app/](https://topics-after-party.netlify.app/)
+* [https://topics-after-party.zeabur.app/](https://topics-after-party.zeabur.app/)
 
 ---
 
